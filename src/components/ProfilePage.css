@@ -1,0 +1,14 @@
+:where(.css-dev-only-do-not-override-p8b6i).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select, :where(.css-dev-only-do-not-override-p8b6i).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload.ant-upload-select {
+    width: 220px;
+    height: 150px;
+    text-align: center;
+    vertical-align: top;
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px dashed #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-picker-outlined,:where(.css-dev-only-do-not-override-p8b6i).ant-input-outlined,:where(.css-dev-only-do-not-override-p8b6i).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+    background: #E0E4EC;
+}

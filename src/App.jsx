@@ -7,6 +7,7 @@ const App = () => (
   <Router>
     <Routes>
       <Route path="*" element={<ProfilePage />} />
+      <Route path="/profile/:playerID" element={<ProfilePage />}/>
     </Routes>
   </Router>
 );

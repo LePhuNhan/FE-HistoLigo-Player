@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, DatePicker, Select, Upload, Avatar, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import "../components/ProfilePage.css"
+import "../css/ProfilePage.css"
 const { Option } = Select;
 
 const ProfilePage = () => {

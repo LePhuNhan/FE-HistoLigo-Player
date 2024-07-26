@@ -13,7 +13,9 @@ import Learn from "./pages/Learn/Learn";
 const App = () => (
   <Router>
     <Routes>
+      <Route path="*" element={<Learn />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/profile/:id" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/404" element={<NotFound404 />} />
       <Route path="/signUp" element={<SignUpPage />} />

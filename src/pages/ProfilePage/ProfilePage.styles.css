@@ -1,3 +1,13 @@
+.container {
+  margin: 0 auto;
+  padding-inline: 100px;
+  background-color: #fff;
+  margin: 0 5% 0 5%;
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-layout.ant-layout-has-sider
+  > .ant-layout {
+  width: 200%;
+}
 :where(
     .css-dev-only-do-not-override-p8b6i
   ).ant-upload-wrapper.ant-upload-picture-card-wrapper
@@ -23,4 +33,18 @@
   )
   .ant-select-selector {
   background: #e0e4ec;
+}
+.container :where(.css-dev-only-do-not-override-p8b6i).ant-row {
+  margin-left: 0% !important;
+}
+@media (max-width: 578px) {
+  .container {
+    padding-inline: 0px;
+    margin: 0 10px 0 10px;
+  }
+}
+@media (max-width: 1024px) and (min-width: 579px) {
+  .container {
+    padding-inline: 50px;
+  }
 }

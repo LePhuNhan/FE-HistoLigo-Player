@@ -29,6 +29,7 @@ const ChooseCountry = () => {
 
   const handleCountryClick = () => {
     navigate("/learn"); // Navigate to the Learn page
+    
   };
 
   const {

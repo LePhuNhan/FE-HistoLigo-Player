@@ -19,11 +19,12 @@ const LoginPage = () => {
       }
       localStorage.setItem('accessToken', accessToken);
 
-      navigate(`/learn/${accessToken}`);
+      navigate(`/learn`);
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
+  //
   return (
     <div className="login">
       <Form

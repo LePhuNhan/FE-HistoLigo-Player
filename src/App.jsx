@@ -9,13 +9,12 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import UpdatePassword from "./pages/ForgotPassword/UpdatePassword";
 import ChooseCountry from "./pages/ChooseCountry/ChooseCountry";
 import Learn from "./pages/Learn/Learn";
-
 const App = () => (
   <Router>
     <Routes>
       <Route path="*" element={<Learn />} />
       <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/profile/:id" element={<ProfilePage />} />
+      <Route path="/profile/:accessToken" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/404" element={<NotFound404 />} />
       <Route path="/signUp" element={<SignUpPage />} />

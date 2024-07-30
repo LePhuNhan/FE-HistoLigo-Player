@@ -2,12 +2,28 @@ import React from "react";
 import "./LoginPage.styles.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Link } from "react-router-dom";
-const LoginPage = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
+const LoginPage = () => {
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post("http://localhost:8000/api/v1/login", {
+        userName: values.username,
+        password: values.password,
+      });
+      const { accessToken } = response.data.data;
+      if (localStorage.getItem('accessToken')) {
+        localStorage.removeItem('accessToken');
+      }
+      localStorage.setItem('accessToken', accessToken);
+
+      navigate(`/learn/${accessToken}`);
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
   return (
     <div className="login">
       <Form
@@ -17,7 +33,7 @@ const LoginPage = () => {
         onFinish={onFinish}
       >
         <h1 className="login_heading">Login</h1>
-        <Form.Item
+        <Form.Item className="antFormItem"
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
         >
@@ -26,7 +42,7 @@ const LoginPage = () => {
             placeholder="Username"
           />
         </Form.Item>
-        <Form.Item
+        <Form.Item className="antFormItem"
           name="password"
           rules={[{ required: true, message: "Please input your Password!" }]}
         >
@@ -36,8 +52,8 @@ const LoginPage = () => {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
+        <Form.Item className="antFormItem">
+          <Form.Item className="antFormItem" name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
@@ -46,16 +62,14 @@ const LoginPage = () => {
           </Link>
         </Form.Item>
 
-        <Form.Item>
-          <Link to="/profile">
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Login
-            </Button>
-          </Link>
+        <Form.Item className="antFormItem">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            Login
+          </Button>
           <Link to="/signUp">
             <Button
               type="primary"

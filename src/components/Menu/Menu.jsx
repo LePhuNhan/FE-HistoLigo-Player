@@ -10,6 +10,9 @@ import {
   FaSignOutAlt,
   FaMobile,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+const { Sider } = Layout;
 
 // Define getItem function for menu items
 function getItem(label, key, icon, children) {
@@ -21,22 +24,26 @@ function getItem(label, key, icon, children) {
   };
 }
 
-// Define menu items with new icons
-const items = [
-  getItem("Learn", "1", <FaChalkboardTeacher />),
-  getItem("Leader Board", "2", <FaTrophy />),
-  getItem("Profile", "3", <FaUser />),
-  getItem("More", "4", <FaMobile />, [
-    getItem("Setting", "5", <FaCog />),
-    getItem("Help", "6", <FaQuestionCircle />),
-    getItem("Logout", "7", <FaSignOutAlt />),
-  ]),
-];
-
-const { Sider } = Layout;
-
 const Menu = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const accessToken = localStorage.getItem("accessToken"); // Get the accessToken from localStorage
+
+  // Define menu items with new icons
+  const items = [
+    getItem(<Link to={`/learn/${accessToken}`}>Learn</Link>, "1", <FaChalkboardTeacher />),
+    getItem(<Link to={`/leaderboard/${accessToken}`}>Leader Board</Link>, "2", <FaTrophy />),
+    getItem(<Link to={`/profile/${accessToken}`}>Profile</Link>, "3", <FaUser />),
+    getItem(
+      "More",
+      "4",
+      <FaMobile />,
+      [
+        getItem(<Link to={`/settings/${accessToken}`}>Setting</Link>, "5", <FaCog />),
+        getItem(<Link to={`/help/${accessToken}`}>Help</Link>, "6", <FaQuestionCircle />),
+        getItem(<Link to={`/logout/${accessToken}`}>Logout</Link>, "7", <FaSignOutAlt />),
+      ]
+    ),
+  ];
 
   return (
     <Sider

@@ -1,6 +1,8 @@
 .flag {
-  width: 35px;
-  height: 20px;
+  width: 50px;
+  height: auto;
+  border: 2px rgb(193, 190, 190) solid;
+  border-radius: 5%;
 }
 .flag:hover {
     transform: scale(1.05);

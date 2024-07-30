@@ -1,36 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ChooseCountry.style.css";
-import Menu from "../Menu/Menu";
-
-import { Layout, theme } from "antd";
+import Menu from "../../components/Menu/Menu";
+import { Layout, theme, Card } from "antd";
 import { FlagIcon } from "react-flag-kit";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const { Header, Content, Footer } = Layout;
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-
-const countries = [
-  { name: "USA", code: "US" },
-  { name: "China", code: "CN" },
-  { name: "Vietnam", code: "VN" },
-];
+const countryCodeMap = {
+  Vietnam: "VN",
+  "United States": "US",
+  Russia: "RU",
+};
 
 const ChooseCountry = () => {
+  const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
-  const handleCountryClick = () => {
-    navigate("/learn"); // Navigate to the Learn page
-    
-  };
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/country");
+        setCountries(response.data);
+      } catch (error) {
+        console.error("Error fetching country data:", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  const handleCountryClick = (country) => {
+    setSelectedCountry(country);
+    navigate("/learn", { state: { selectedCountry: country } });
+  };  
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -40,16 +45,6 @@ const ChooseCountry = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header className="header" style={{ background: colorBgContainer }}>
-          <div className="CC_icon">
-            {selectedCountry && (
-              <div className="selected-country">
-                <FlagIcon code={selectedCountry.code} size={24} />
-                <span>{selectedCountry.name}</span>
-              </div>
-            )}
-          </div>
-        </Header>
         <Content style={{ margin: "0 16px" }}>
           <div
             className="site-layout-background"
@@ -63,14 +58,16 @@ const ChooseCountry = () => {
             <h3 className="Select_country">Select a country:</h3>
             <div className="country-icons">
               {countries.map((country) => (
-                <div
-                  key={country.code}
+                <Card
+                  key={country._id}
                   className="country-icon"
-                  onClick={handleCountryClick}
+                  onClick={() => handleCountryClick(country)}
                 >
-                  <FlagIcon code={country.code} size={48} />
-                  <span>{country.name}</span>
-                </div>
+                  <FlagIcon code={countryCodeMap[country.name]} size={48} />
+                  <div>
+                    <span>{country.name}</span>
+                  </div>
+                </Card>
               ))}
             </div>
           </div>

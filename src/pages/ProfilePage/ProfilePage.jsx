@@ -12,21 +12,23 @@ import {
   Layout,
   message,
 } from "antd";
-import Menu from "../Menu/Menu";
+import Menu from "../../components/Menu/Menu";
 import { UserOutlined, UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dayjs from "dayjs";
 import styles from "./ProfilePage.styles.css";
-import { useParams, useNavigate } from "react-router-dom";
+import imageCompression from 'browser-image-compression';
 
 const { Option } = Select;
 
 const ProfilePage = () => {
+  const [id, setId] = useState(null);
   const [avatar, setAvatar] = useState(null);
-  const [avatarURL, setAvatarURL] = useState(""); // State for URL input
-  const navigate = useNavigate();
+  const [avatarURL, setAvatarURL] = useState("");
   const [form] = Form.useForm();
-  const { id } = useParams();
+  
+  const accessToken = localStorage.getItem("accessToken");
+
   const localeToLabel = {
     "vi_VN": "vietNam",
     "en_US": "english",
@@ -48,11 +50,15 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      
-      if (id) {
+      if (accessToken) {
         try {
-          const response = await axios.get(`http://localhost:8000/player/${id}`);
+          const response = await axios.get(`http://localhost:8000/player`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
           const data = response.data;
+          setId(data._id);
           form.setFieldsValue({
             fullName: data.fullname,
             username: data.userName,
@@ -76,7 +82,7 @@ const ProfilePage = () => {
     };
 
     fetchData();
-  }, [id, form]);
+  }, [form, accessToken]);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -87,14 +93,25 @@ const ProfilePage = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const handleAvatarChange = ({ file }) => {
-    if (file && file.originFileObj) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setAvatar(reader.result);
-        setAvatarURL(""); // Clear URL if an image file is selected
-      };
-      reader.readAsDataURL(file.originFileObj);
+  const handleAvatarChange = async (info) => {
+    if (info.fileList.length > 0) {
+      const file = info.fileList[0].originFileObj;
+      try {
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1024,
+        };
+        const compressedFile = await imageCompression(file, options);
+        
+        const reader = new FileReader();
+        reader.onload = () => {
+          setAvatar(reader.result);
+          setAvatarURL("");
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Failed to compress image:", error);
+      }
     }
   };
 
@@ -128,7 +145,6 @@ const ProfilePage = () => {
       const response = await axios.put(`http://localhost:8000/player/${id}`, updateData);
       console.log("Success:", response.data);
       onFinish(response.data);
-      navigate(`/profile/${id}`);
 
     } catch (error) {
       console.error("Failed to update player data:", error);
@@ -162,7 +178,7 @@ const ProfilePage = () => {
               name="avatar"
               listType="picture-card"
               showUploadList={false}
-              beforeUpload={() => false} // Prevent automatic upload
+              beforeUpload={() => false}
               className={styles.customUpload}
               onChange={handleAvatarChange}
             >

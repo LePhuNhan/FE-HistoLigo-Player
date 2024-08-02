@@ -1,24 +1,57 @@
 import React from "react";
 import "./SignUpPage.styles.css";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
-import { Link } from "react-router-dom";
-const SignUpPage = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-  };
+import { Button, Checkbox, Form, Input,message  } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
+const SignUpPage = () => {
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
+    const { username, email, password, confirmPassword } = values;
+
+    try {
+      const response = await axios.post("http://localhost:8000/api/v1/users", {
+        userName: username,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      });
+      
+      if (response.data.message === "Tạo tài khoản thành công") {
+        message.success("Sign up successful!");
+        const responseLogin = await axios.post("http://localhost:8000/api/v1/login", {
+          userName: username,
+          password: password,
+        });
+        const { accessToken } = responseLogin.data.data;
+        if (localStorage.getItem('accessToken')) {
+          localStorage.removeItem('accessToken');
+        }
+        localStorage.setItem('accessToken', accessToken);
+  
+        navigate(`/learn`);
+      } else {
+        message.error("Sign up failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Sign up error:", error);
+      message.error("Sign up failed. Please try again.");
+    }
+  };
+  
   return (
     <div className="signUp">
       <Form
         name="normal_login"
         initialValues={{ remember: true }}
-        onFinish={onFinish}
         className="signUp-from"
+        onFinish={onFinish}
       >
         <h1 className="signUp_heading">Sign up</h1>
         <Form.Item
           name="username"
+          className="antFormItem"
           rules={[{ required: true, message: "Please input your Username!" }]}
         >
           <Input
@@ -28,6 +61,7 @@ const SignUpPage = () => {
         </Form.Item>
         <Form.Item
           name="email"
+          className="antFormItem"
           rules={[{ required: true, message: "Please input your Email!" }]}
         >
           <Input
@@ -37,6 +71,7 @@ const SignUpPage = () => {
         </Form.Item>
         <Form.Item
           name="password"
+          className="antFormItem"
           rules={[{ required: true, message: "Please input your Password!" }]}
           hasFeedback
         >
@@ -48,6 +83,7 @@ const SignUpPage = () => {
         </Form.Item>
         <Form.Item
           name="confirmPassword"
+          className="antFormItem"
           dependencies={["password"]}
           hasFeedback
           rules={[
@@ -72,15 +108,15 @@ const SignUpPage = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link to="/login">
+          {/* <Link to="/learn"> */}
             <Button
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="register-form-button"
             >
               Sign Up
             </Button>
-          </Link>
+          {/* </Link> */}
         </Form.Item>
       </Form>
     </div>

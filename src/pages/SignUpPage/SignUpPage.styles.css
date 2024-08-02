@@ -33,13 +33,14 @@
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
 }
 
-.login-form-button {
+.register-form-button {
   width: 100%;
   background-color: #1890ff;
   border-color: #1890ff;
+  margin-left: -5%; 
 }
 
-.login-form-button:hover {
+.register-form-button:hover {
   background-color: #40a9ff;
   border-color: #40a9ff;
 }

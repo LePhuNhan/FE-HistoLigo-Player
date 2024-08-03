@@ -16,18 +16,37 @@ const countryCodeMap = {
 
 const Learn = () => {
   const [topics, setTopics] = useState([]);
+  const [playerProcess, setPlayerProcess] = useState(null);
   const [references, setReferences] = useState([]);
   const location = useLocation();
-  const selectedCountry = location.state?.selectedCountry || { name: "United States" }; // Default to US if no country is selected
-
+  const selectedCountry = location.state?.selectedCountry || { name: "United States" };
+  const accessToken = localStorage.getItem("accessToken");
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
-
+  const calculateProgress = (doneTest, totalTest) => {
+    if (totalTest === 0) return 0;
+    return Math.round((doneTest / totalTest) * 100);
+  };
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/topic");
-        setTopics(response.data);
+        const [topicsResponse, playerProcessResponse] = await Promise.all([
+          axios.get("http://localhost:8000/topic"),
+          axios.get(`http://localhost:8000/playerProcess`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+        ]);
+        const fetchedTopics = topicsResponse.data;
+        const fetchedPlayerProcess = playerProcessResponse.data;
+
+        const playerProcessTopicIds = new Set(fetchedPlayerProcess.topics.map(topic => topic._id));
+
+        const filteredTopics = fetchedTopics.filter(topic => playerProcessTopicIds.has(topic._id));
+
+        setTopics(filteredTopics);
+        setPlayerProcess(fetchedPlayerProcess);
       } catch (error) {
         console.error("Error fetching topics:", error);
       }
@@ -36,12 +55,19 @@ const Learn = () => {
     console.log('Country Code:', countryCode);
     fetchTopics();
   }, [selectedCountry.name]);
-
+  const topicsWithProgress = topics.map(topic => {
+    const progressData = playerProcess?.topics.find(t => t._id === topic._id);
+    return {
+      ...topic,
+      doneTest: progressData?.doneTest || 0,
+      totalTest: progressData?.totalTest || 0
+    };
+  });
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }}>
+        <Header style={{ background: "#fff", padding: 0, position:"" }}>
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
@@ -58,7 +84,7 @@ const Learn = () => {
         <Content style={{ margin: "24px 16px 0" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
-              {topics.map((topic, index) => (
+              {topicsWithProgress.map((topic, index) => (
                 <Card
                   key={index}
                   title={<Title level={4}>{topic.name}</Title>}
@@ -67,7 +93,10 @@ const Learn = () => {
                 >
                   <div className="card-content">
                     <div className="card-text">
-                      <Progress percent={topic.progress} status="active" />
+                    <Progress 
+                        percent={calculateProgress(topic.doneTest, topic.totalTest)} 
+                        status="active" 
+                      />
                       <Text className="text">{topic.description}</Text>
                     </div>
                     <img

@@ -18,11 +18,12 @@ const ChooseCountry = () => {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
 
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/country");
+        const response = await axios.get(`${DomainApi}/country`);
         setCountries(response.data);
       } catch (error) {
         console.error("Error fetching country data:", error);

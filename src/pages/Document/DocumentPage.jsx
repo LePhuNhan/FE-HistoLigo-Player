@@ -24,6 +24,7 @@ const Document = () => {
     name: "United States",
   };
   const accessToken = localStorage.getItem("accessToken");
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
   const calculateProgress = (doneTest, totalTest) => {
@@ -35,8 +36,8 @@ const Document = () => {
     const fetchTopics = async () => {
       try {
         const [topicsResponse, playerProcessResponse] = await Promise.all([
-          axios.get("http://localhost:8000/topic"),
-          axios.get(`http://localhost:8000/playerProcess`, {
+          axios.get(`${DomainApi}/topic`),
+          axios.get(`${DomainApi}/playerProcess`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

@@ -28,7 +28,7 @@ const ProfilePage = () => {
   const [form] = Form.useForm();
   
   const accessToken = localStorage.getItem("accessToken");
-
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const localeToLabel = {
     "vi_VN": "vietNam",
     "en_US": "english",
@@ -52,7 +52,7 @@ const ProfilePage = () => {
     const fetchData = async () => {
       if (accessToken) {
         try {
-          const response = await axios.get(`http://localhost:8000/player`, {
+          const response = await axios.get(`${DomainApi}/player`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -142,7 +142,7 @@ const ProfilePage = () => {
         avatar: avatar,
         locale: getLocaleFromLabel(values.language),
       };
-      const response = await axios.put(`http://localhost:8000/player/${id}`, updateData);
+      const response = await axios.put(`${DomainApi}/player/${id}`, updateData);
       console.log("Success:", response.data);
       onFinish(response.data);
 

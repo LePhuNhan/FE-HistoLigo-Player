@@ -27,7 +27,7 @@ const QuizPage = () => {
 
   const navigate = useNavigate();
   const { Option } = Select;
-
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
   useEffect(() => {
     const fetchTestData = async () => {
       if (!testId) {
@@ -37,7 +37,7 @@ const QuizPage = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:8000/question/${testId}`
+          `${DomainApi}/question/${testId}`
         );
         const { test, questions } = response.data;
         setTestName(test.localeData[locale]?.name || test.name);
@@ -111,7 +111,7 @@ const QuizPage = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8000/submit", { answers });
+      await axios.post(`${DomainApi}/submit`, { answers });
       setIsQuizCompleted(true);
       message.success("Quiz completed! Redirecting to results page...");
       setTimeout(() => {

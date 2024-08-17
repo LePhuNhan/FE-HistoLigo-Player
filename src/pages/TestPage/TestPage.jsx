@@ -7,6 +7,8 @@ import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
+
+const DomainApi=process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -35,7 +37,7 @@ const Test = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:8000/test/topic/${selectedTopicId}`
+          `${DomainApi}/test/topic/${selectedTopicId}`
         );
         setTests(response.data);
       } catch (error) {

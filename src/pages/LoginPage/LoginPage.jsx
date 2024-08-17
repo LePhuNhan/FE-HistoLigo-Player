@@ -7,9 +7,10 @@ import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const onFinish = async (values) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/login", {
+      const response = await axios.post(`${DomainApi}/api/v1/login`, {
         userName: values.username,
         password: values.password,
       });

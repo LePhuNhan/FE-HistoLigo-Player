@@ -49,3 +49,14 @@
 .ant-layout-sider {
   overflow: hidden;
 }
+
+@media (max-width: 768px) and (min-width: 480px) {
+  .menu {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .menu {
+    display: none;
+  }
+}

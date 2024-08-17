@@ -36,7 +36,7 @@ const LoginPage = () => {
         <h1 className="login_heading">Login</h1>
         <Form.Item className="antFormItem"
           name="username"
-          rules={[{ required: true, message: "Please input your Username!" }]}
+          rules={[{ required: true, whitespace: true, message: "Please input your Username!" }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -45,7 +45,7 @@ const LoginPage = () => {
         </Form.Item>
         <Form.Item className="antFormItem"
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[{ required: true, whitespace: true, message: "Please input your Password!" }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}

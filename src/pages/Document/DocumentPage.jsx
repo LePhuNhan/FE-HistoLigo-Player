@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, List, Typography, Progress, Row, Col } from "antd";
+import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import "./Learn.styles.css";
-
+import "./DocumentPage.style.css";
+import imgTest from "../../assets/imageBtn-test.png";
+import imgDocument from "../../assets/imageBtn-document.png";
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -14,12 +15,14 @@ const countryCodeMap = {
   Russia: "RU",
 };
 
-const Learn = () => {
+const Document = () => {
   const [topics, setTopics] = useState([]);
   const [playerProcess, setPlayerProcess] = useState(null);
   const [references, setReferences] = useState([]);
   const location = useLocation();
-  const selectedCountry = location.state?.selectedCountry || { name: "United States" };
+  const selectedCountry = location.state?.selectedCountry || {
+    name: "United States",
+  };
   const accessToken = localStorage.getItem("accessToken");
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
@@ -27,6 +30,7 @@ const Learn = () => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);
   };
+
   useEffect(() => {
     const fetchTopics = async () => {
       try {
@@ -36,14 +40,18 @@ const Learn = () => {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          })
+          }),
         ]);
         const fetchedTopics = topicsResponse.data;
         const fetchedPlayerProcess = playerProcessResponse.data;
 
-        const playerProcessTopicIds = new Set(fetchedPlayerProcess.topics.map(topic => topic._id));
+        const playerProcessTopicIds = new Set(
+          fetchedPlayerProcess.topics.map((topic) => topic._id)
+        );
 
-        const filteredTopics = fetchedTopics.filter(topic => playerProcessTopicIds.has(topic._id));
+        const filteredTopics = fetchedTopics.filter((topic) =>
+          playerProcessTopicIds.has(topic._id)
+        );
 
         setTopics(filteredTopics);
         setPlayerProcess(fetchedPlayerProcess);
@@ -51,37 +59,52 @@ const Learn = () => {
         console.error("Error fetching topics:", error);
       }
     };
-    console.log('Selected Country Name:', selectedCountry.name);
-    console.log('Country Code:', countryCode);
     fetchTopics();
   }, [selectedCountry.name]);
-  const topicsWithProgress = topics.map(topic => {
-    const progressData = playerProcess?.topics.find(t => t._id === topic._id);
+
+  const topicsWithProgress = topics.map((topic) => {
+    const progressData = playerProcess?.topics.find((t) => t._id === topic._id);
     return {
       ...topic,
       doneTest: progressData?.doneTest || 0,
-      totalTest: progressData?.totalTest || 0
+      totalTest: progressData?.totalTest || 0,
+      score: progressData?.score || 0, // Add score from player process
+      time: progressData?.time || 0, // Add time from player process
     };
   });
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{ background: "#fff", padding: 0, position:"" }}>
-          <div className="header-content">
+        <Header style={{ background: "#fff", padding: 0 }}>
+          <div className="header-content-test">
+            <div className="btn-test">
+              <Link to="/test">
+                <Button className="button-Test">
+                  <img className="test" src={imgTest} />
+                  TESTS
+                </Button>
+              </Link>
+            </div>
+            <div className="btn-document">
+              <Link to="/document">
+                <Button className="button-Document">
+                  <img className="document" src={imgDocument} />
+                  DOCUMENTS
+                </Button>
+              </Link>
+            </div>
+
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <img
-                  className="flag"
-                  src={flagUrl}
-                  alt="flag"
-                />
+                <img className="flag" src={flagUrl} alt="flag" />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "24px 16px 0" }}>
+        <Content style={{ margin: "4% 5% 5% 0%" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
               {topicsWithProgress.map((topic, index) => (
@@ -93,11 +116,16 @@ const Learn = () => {
                 >
                   <div className="card-content">
                     <div className="card-text">
-                    <Progress 
-                        percent={calculateProgress(topic.doneTest, topic.totalTest)} 
-                        status="active" 
-                      />
                       <Text className="text">{topic.description}</Text>
+                      <div>
+                        <Text>Score: {topic.score}</Text>
+                      </div>
+                      <div>
+                        <Text>Time: {topic.time}s</Text>
+                      </div>
+                      <Button type="primary">
+                        {topic.score > 0 ? "TRY AGAIN" : "START"}
+                      </Button>
                     </div>
                     <img
                       className="card-image"
@@ -109,10 +137,7 @@ const Learn = () => {
               ))}
             </div>
             <div style={{ width: "40%" }} className="responsive-hide">
-              <Card
-                title="Leaderboards!"
-                style={{ marginBottom: "16px" }}
-              ></Card>
+              <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />
               <Card title="The references you have read">
                 <List
                   size="small"
@@ -166,4 +191,4 @@ const Learn = () => {
   );
 };
 
-export default Learn;
+export default Document;

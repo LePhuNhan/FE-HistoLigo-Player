@@ -47,6 +47,7 @@ const Menu = () => {
 
   return (
     <Sider
+    className="menu"
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}

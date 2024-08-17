@@ -13,6 +13,7 @@
   justify-content: flex-end;
   align-items: center;
   width: 100%;
+  background-color: white;
 }
 
 .flag-container {
@@ -20,12 +21,25 @@
 }
 
 .fire-icon {
-  margin-right: 150px;
+  margin-right: 15%;
   font-size: 18px;
   color: rgb(255, 150, 0);
 }
+@media (max-width: 1024px) and (min-width: 768px) {
+  .flag-container {
+    margin-right: 3%;
+  }
 
-@media (max-width: 768px) {
+  .fire-icon {
+    margin-right: 18%;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px){
+  .header-content {
+    width: 115%;
+  }
   .flag-container {
     margin-right: 5%;
   }
@@ -36,27 +50,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .flag-container {
-    margin-right: 2%;
-  }
-
-  .fire-icon {
-    margin-right: 5%;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .flag-container {
-    margin-right: 2%;
-  }
-
-  .fire-icon {
-    margin-right: 5%;
-    font-size: 14px;
-  }
-}
 .flex-container {
   margin-top: 5%;
 }
@@ -81,12 +74,6 @@
   color: #ffffff;
 }
 
-.learn-card .card-image {
-  width: 200px;
-  height: 120px;
-  margin: -10px -10px -10px 30px;
-  border-radius: 8px;
-}
 .learn-card {
   background-color: rgba(28, 176, 246, 1) !important;
 }
@@ -123,10 +110,10 @@ div:where(.css-dev-only-do-not-override-p8b6i).ant-typography-h4 > textarea,
 .references:hover{
     color: blue;
 }
-@media (min-width: 950px) {
+@media (min-width: 1201px) {
   .learn-card .card-image {
-    width: 150px;
-    height: 100px;
+    width: 200px;
+    height: 140px;
     margin: -5px -10px -5px 0px;
     border-radius: 8px;
   }
@@ -136,15 +123,16 @@ div:where(.css-dev-only-do-not-override-p8b6i).ant-typography-h4 > textarea,
     margin-right: 5% !important;
   }
 }
-@media (max-width: 950px) and (min-width: 579px) {
+@media (max-width: 1200px) and (min-width: 579px) {
   .card {
     width: 100% !important;
     margin-left: 5% !important;
     margin-right: 5%;
+    margin-top: 5%;
   }
   .learn-card .card-image {
-    width: 150px;
-    height: 100px;
+    width: 180px;
+    height: 140px;
     margin: -10px -10px -10px 10px;
     border-radius: 8px;
   }
@@ -161,6 +149,7 @@ div:where(.css-dev-only-do-not-override-p8b6i).ant-typography-h4 > textarea,
   .card {
     width: 100% !important;
     margin-right: 5%;
+    margin-top: 15%;
   }
   .learn-card .card-content {
     flex-direction: column;

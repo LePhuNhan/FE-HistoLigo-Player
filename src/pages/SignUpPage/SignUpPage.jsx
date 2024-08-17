@@ -52,7 +52,7 @@ const SignUpPage = () => {
         <Form.Item
           name="username"
           className="antFormItem"
-          rules={[{ required: true, message: "Please input your Username!" }]}
+          rules={[{ required: true,whitespace: true, message: "Please input your Username!" }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -62,7 +62,7 @@ const SignUpPage = () => {
         <Form.Item
           name="email"
           className="antFormItem"
-          rules={[{ required: true, message: "Please input your Email!" }]}
+          rules={[{ required: true, whitespace: true, message: "Please input your Email!" }]}
         >
           <Input
             prefix={<MailOutlined className="site-form-item-icon" />}
@@ -72,7 +72,7 @@ const SignUpPage = () => {
         <Form.Item
           name="password"
           className="antFormItem"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[{ required: true, whitespace: true, message: "Please input your Password!" }]}
           hasFeedback
         >
           <Input
@@ -87,7 +87,7 @@ const SignUpPage = () => {
           dependencies={["password"]}
           hasFeedback
           rules={[
-            { required: true, message: "Please confirm your Password!" },
+            { required: true, whitespace: true, message: "Please confirm your Password!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {

@@ -11,7 +11,7 @@ import {
   message,
 } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 
 const QuizPage = () => {
@@ -23,7 +23,7 @@ const QuizPage = () => {
   const [correct, setCorrect] = useState(false);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const locale = "en-US";
-  const testId = localStorage.getItem("selectedTestId");
+  const { testId } = useParams();
 
   const navigate = useNavigate();
   const { Option } = Select;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, List, Typography, Progress, Row, Col } from "antd";
+import { Layout, Card, Typography, Progress, Row, Col, List } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -16,17 +16,15 @@ const countryCodeMap = {
 
 const Learn = () => {
   const [topics, setTopics] = useState([]);
-  const [playerProcess, setPlayerProcess] = useState(null);
   const [references, setReferences] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedCountry = location.state?.selectedCountry || {
-    name: "United States",
-  };
+  const selectedCountry = location.state?.selectedCountry || { name: "United States" };
   const accessToken = localStorage.getItem("accessToken");
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
+
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);
@@ -35,53 +33,22 @@ const Learn = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const [topicsResponse, playerProcessResponse] = await Promise.all([
-          axios.get(`${DomainApi}/topic`),
-          axios.get(`${DomainApi}/playerProcess`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }),
-        ]);
-        const fetchedTopics = topicsResponse.data;
-        const fetchedPlayerProcess = playerProcessResponse.data;
-
-        const playerProcessTopicIds = new Set(
-          fetchedPlayerProcess.topics.map((topic) => topic.topicId)
-        );
-
-        const filteredTopics = fetchedTopics.filter((topic) =>
-          playerProcessTopicIds.has(topic._id)
-        );
-
-        setTopics(filteredTopics);
-        setPlayerProcess(fetchedPlayerProcess);
-        console.log(fetchedPlayerProcess);
-        console.log(filteredTopics);
+        const response = await axios.get(`${DomainApi}/playerProcess/combindedTopic`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setTopics(response.data);
       } catch (error) {
         console.error("Error fetching topics:", error);
       }
     };
-    console.log("Selected Country Name:", selectedCountry.name);
-    console.log("Country Code:", countryCode);
+    
     fetchTopics();
   }, [selectedCountry.name]);
 
-  const topicsWithProgress = topics.map((topic) => {
-    const progressData = playerProcess?.topics.find(
-      (processTopic) => processTopic.topicId === topic._id
-    );
-
-    return {
-      ...topic,
-      doneTest: progressData?.doneTest || 0,
-      totalTest: progressData?.totalTest || 0,
-    };
-  });
-
   const handleTopicClick = (topicId) => {
-    localStorage.setItem("selectedTopicId", topicId);
-    navigate("/test");
+    navigate(`/learn/test/${topicId}`);
   };
 
   return (
@@ -108,7 +75,7 @@ const Learn = () => {
         <Content style={{ margin: "9% 5% 0% 0%" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
-              {topicsWithProgress.map((topic, index) => (
+              {topics.map((topic, index) => (
                 <Card
                   key={index}
                   style={{ marginBottom: "16px" }}
@@ -119,10 +86,7 @@ const Learn = () => {
                     <div className="card-text">
                       <Title level={4}>{topic.name}</Title>
                       <Progress
-                        percent={calculateProgress(
-                          topic.doneTest,
-                          topic.totalTest
-                        )}
+                        percent={calculateProgress(topic.doneTest, topic.totalTest)}
                         status="active"
                       />
                       <Text className="text">{topic.description}</Text>
@@ -195,3 +159,4 @@ const Learn = () => {
 };
 
 export default Learn;
+

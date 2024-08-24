@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"; // Import useParams
 import axios from "axios";
 import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
 
-const DomainApi=process.env.REACT_APP_DOMAIN_API;
+const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -22,7 +22,9 @@ const Test = () => {
   const [tests, setTests] = useState([]);
   const [references, setReferences] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate();  // Add useNavigate hook
+  const navigate = useNavigate();
+  const { selectedTopicId } = useParams();
+
   const selectedCountry = location.state?.selectedCountry || {
     name: "United States",
   };
@@ -32,7 +34,6 @@ const Test = () => {
 
   useEffect(() => {
     const fetchTests = async () => {
-      const selectedTopicId = localStorage.getItem("selectedTopicId");
       if (!selectedTopicId) return;
 
       try {
@@ -45,11 +46,10 @@ const Test = () => {
       }
     };
     fetchTests();
-  }, [accessToken]);
+  }, [accessToken, selectedTopicId]);
 
   const handleStartClick = (testId) => {
-    localStorage.setItem("selectedTestId", testId);  // Save testId to localStorage
-    navigate("/question");  // Redirect to /question page
+    navigate(`/test/${testId}`);
   };
 
   return (
@@ -59,7 +59,7 @@ const Test = () => {
         <Header style={{ background: "#fff", padding: 0 }}>
           <div className="header-content-test">
             <div className="btn-test">
-              <Link to="/test">
+              <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-test">
                   <img className="test" src={imgTest} />
                   TESTS
@@ -67,7 +67,7 @@ const Test = () => {
               </Link>
             </div>
             <div className="btn-document">
-              <Link to="/document">
+              <Link to={`/learn/document/${selectedTopicId}`}>
                 <Button className="button-document">
                   <img className="document" src={imgDocument} />
                   DOCUMENTS
@@ -111,7 +111,7 @@ const Test = () => {
                       <div>
                         <Button
                           type="primary"
-                          onClick={() => handleStartClick(test._id)}  // Call the handler with testId
+                          onClick={() => handleStartClick(test._id)}
                         >
                           START
                         </Button>

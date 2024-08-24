@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentPage.style.css";
 import imgTest from "../../assets/imageBtn-test.png";
@@ -24,8 +24,9 @@ const Document = () => {
     name: "United States",
   };
   const accessToken = localStorage.getItem("accessToken");
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
+  const { selectedTopicId } = useParams();
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
@@ -81,7 +82,7 @@ const Document = () => {
         <Header style={{ background: "#fff", padding: 0 }}>
           <div className="header-content-test">
             <div className="btn-test">
-              <Link to="/test">
+              <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-Test">
                   <img className="test" src={imgTest} />
                   TESTS
@@ -89,7 +90,7 @@ const Document = () => {
               </Link>
             </div>
             <div className="btn-document">
-              <Link to="/document">
+              <Link to={`/learn/document/${selectedTopicId}`}>
                 <Button className="button-Document">
                   <img className="document" src={imgDocument} />
                   DOCUMENTS

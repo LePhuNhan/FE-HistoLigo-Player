@@ -27,10 +27,10 @@ const App = () => (
       <Route path="/updatePassword" element={<UpdatePassword />} />
       <Route path="/chooseCountry" element={<ChooseCountry />} />
       <Route path="/learn" element={<Learn />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="/document" element={<Document />} />
-      <Route path="/documentDetail" element={<DocumentDetail />} />
-      <Route path="/question" element={<QuestionPage />} />
+      <Route path="/learn/test/:selectedTopicId" element={<Test />} />
+      <Route path="/learn/document/:selectedTopicId" element={<Document />} />
+      <Route path="/document/documentDetail" element={<DocumentDetail />} />
+      <Route path="/test/:testId" element={<QuestionPage />} />
     </Routes>
   </Router>
 );

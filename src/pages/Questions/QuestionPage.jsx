@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import {
   Card,
   Radio,
@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
+import debounce from "lodash.debounce";
 
 const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -21,6 +22,8 @@ const QuizPage = () => {
   const [answeredQuestions, setAnsweredQuestions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+  const isInitialRender = useRef(true);
+  const isInitialRender2 = useRef(true);
   const locale = "en-US";
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
@@ -37,6 +40,10 @@ const QuizPage = () => {
     "lightcoral",
     "lightgoldenrodyellow",
   ];
+  
+  const debouncedCheckAnswer = debounce((question) => {
+    checkAnswer(question);
+  }, 1000);
 
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
@@ -161,24 +168,18 @@ const QuizPage = () => {
   const checkAnswer = async (question) => {
     const currentQuestion = questions[currentQuestionIndex];
     const currentAnswer = answers[currentQuestion._id];
-
+  
     let answerPayload;
-
+  
     switch (currentQuestion.questionType) {
       case 0: // Multiple Choice
-        answerPayload = {
-          questionId: currentQuestion._id,
-          selectedAnswer: currentAnswer,
-        };
-        break;
-
       case 1: // True/False
         answerPayload = {
           questionId: currentQuestion._id,
           selectedAnswer: currentAnswer,
         };
         break;
-
+  
       case 2: // Matching
         if (!areRightColumnColorsDistinct(rightColors)) {
           message.error(
@@ -194,61 +195,78 @@ const QuizPage = () => {
           })),
         };
         break;
-
+  
       case 3: // Fill-in-the-Blank
         answerPayload = {
           questionId: currentQuestion._id,
           selectedAnswer: [currentAnswer],
         };
         break;
-
+  
       default:
         return;
     }
-
+  
     try {
       const response = await axios.post(`${DomainApi}/question/${testId}`, {
         answer: answerPayload,
       });
-
+  
       const updatedQuestions = response.data.questions;
       const result = updatedQuestions.find(
         (q) => q.questionId === currentQuestion._id
       );
-
-      if (result.isCorrect === true) {
+  
+      if (result.isCorrect) {
         message.success("Correct!!!");
       } else {
         message.error("Incorrect!");
       }
+  
       setAggregatedResults((prevResults) => {
-        const newResults = [...prevResults, result];
+        const existingResults = new Map(prevResults.map(result => [result.questionId, result]));
+        const newResults = [...existingResults.values(), result];
         return newResults;
       });
+      
       setAnsweredQuestions((prevAnswered) => ({
         ...prevAnswered,
         [currentQuestion._id]: true,
       }));
+  
       setTimeout(() => {
         if (currentQuestionIndex < questions.length - 1) {
           setCurrentQuestionIndex((prev) => prev + 1);
-        } else {
-          handleSubmit(aggregatedResults);
         }
-        if (allQuestionsAnswered()) {
-          handleSubmit(aggregatedResults);
-          }
-      }, 1500);
+  
+      }, 1000);
     } catch (error) {
       message.error("Error checking answer. Please try again.");
     }
   };
+  useEffect(() => {
+    // bỏ vô check answer thì aggregatedResults ko nhận answer cuối
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+    if (isInitialRender2.current) {
+      isInitialRender2.current = false;
+      return;
+    }
+    if (allQuestionsAnswered() || currentQuestionIndex === questions.length - 1) {
+      handleSubmit(aggregatedResults);
+    }
+  }, [aggregatedResults]);
+  
+  
 
   const handleSubmit = async (results) => {
     if (!allQuestionsAnswered()) {
       message.warning("Please answer all questions before submitting.");
       return;
     }
+    
     try {
       const updateData = await axios.put(
         `${DomainApi}/playerTest/${playerTestId}`,
@@ -257,12 +275,11 @@ const QuizPage = () => {
         }
       );
       setPlayerTest(updateData.data);
-      console.log(playerTest);
       setIsQuizCompleted(true);
       message.success("Quiz completed! Redirecting to results page...");
       setTimeout(() => {
         navigate("/test/result");
-      }, 2000);
+      }, 1500);
     } catch (error) {
       console.error("Error submitting answers:", error);
       message.error("Error submitting answers. Please try again.");
@@ -451,7 +468,7 @@ const QuizPage = () => {
 
         <Button
           type="primary"
-          onClick={() => checkAnswer(questions[currentQuestionIndex])}
+          onClick={() => debouncedCheckAnswer(questions[currentQuestionIndex]) }
           disabled={
             !isAnswerSelected() ||
             answeredQuestions[questions[currentQuestionIndex]._id]

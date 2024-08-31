@@ -104,7 +104,7 @@ const Result = () => {
               style={{ fontSize: "2rem", color: "#fff", marginRight: "5px" }}
             />
             <Text strong style={{ fontSize: "2rem", color: "#fff" }}>
-              {score}
+              {score.toFixed(2)}
             </Text>
           </Card>
           <Card className="result-card" style={{ backgroundColor: "#32CD32" }}>

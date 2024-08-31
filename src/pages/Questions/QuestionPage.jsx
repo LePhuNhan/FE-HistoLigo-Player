@@ -235,6 +235,9 @@ const QuizPage = () => {
         } else {
           handleSubmit(aggregatedResults);
         }
+        if (allQuestionsAnswered()) {
+          handleSubmit(aggregatedResults);
+          }
       }, 1500);
     } catch (error) {
       message.error("Error checking answer. Please try again.");

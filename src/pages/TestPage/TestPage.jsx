@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom"; // Import useParams
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
@@ -20,11 +21,13 @@ const countryCodeMap = {
 
 const Test = () => {
   const [tests, setTests] = useState([]);
+  const [playerTests, setPlayerTests] = useState([]);
   const [references, setReferences] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
-
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
   const selectedCountry = location.state?.selectedCountry || {
     name: "United States",
   };
@@ -45,18 +48,55 @@ const Test = () => {
         console.error("Error fetching tests:", error);
       }
     };
+    const fetchPlayerTests = async () => {
+      try {
+        const response = await axios.get(`${DomainApi}/playerTest`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        setPlayerTests(response.data);
+      } catch (error) {
+        console.error("Error fetching player tests:", error);
+      }
+    };
     fetchTests();
+    fetchPlayerTests();
   }, [accessToken, selectedTopicId]);
 
-  const handleStartClick = (testId) => {
-    navigate(`/test/${testId}`);
+  const handleStartClick = async (testId) => {
+    try {
+      const playerTest = {
+        testId: testId,
+        time: 0,
+        score: 0,
+        questions: [],
+      };
+  
+      const response = await axios.post(`${DomainApi}/playerTest`, playerTest, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      localStorage.setItem("playerTestId", response.data._id);
+      navigate(`/test/${testId}`);
+    } catch (error) {
+      console.error("Error starting test:", error);
+    }
   };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }}>
+        <Header style={{
+            background: "#fff",
+            padding: 0,
+            position: "fixed",
+            width: "90%",
+            zIndex: "100"
+          }}>
           <div className="header-content-test">
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
@@ -83,43 +123,47 @@ const Test = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "4% 5% 5% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
-              {tests.map((test, index) => (
-                <Card
-                  key={index}
-                  style={{ marginBottom: "16px" }}
-                  className="learn-card"
-                >
-                  <div className="cardTest-content">
-                    <div className="cardTest">
-                      <div className="cardTest-text">
-                        <Text>{test.name}</Text>
-                      </div>
-                      <div className="cardTest-record">
-                        <div>
-                          <Text>Score:</Text>
+            {tests.map((test, index) => {
+                const playerTest = playerTests.find(
+                  (pt) => pt.testId === test._id
+                );
+
+                return (
+                  <Card key={index} style={{ marginBottom: "16px" }} className="learn-card">
+                    <div className="cardTest-content">
+                      <div className="cardTest">
+                        <div className="cardTest-text">
+                          <Text>{test.name}</Text>
                         </div>
+                        {playerTest && (
+                          <div className="cardTest-record">
+                            <div>
+                              <Text>Score: {playerTest.score.toFixed(2)}</Text>
+                            </div>
+                            <div>
+                              <Text>Time: {playerTest.time.toFixed(0)}s</Text>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div className="cardTest-img">
+                        <img src={imgStartTest} alt="Start Test" />
                         <div>
-                          <Text>Time:</Text>
+                          <Button
+                            type="primary"
+                            onClick={() => handleStartClick(test._id)}
+                          >
+                            START
+                          </Button>
                         </div>
                       </div>
                     </div>
-                    <div className="cardTest-img">
-                      <img src={imgStartTest} alt="Start Test" />
-                      <div>
-                        <Button
-                          type="primary"
-                          onClick={() => handleStartClick(test._id)}
-                        >
-                          START
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
             <div style={{ width: "40%" }} className="responsive-hide">
               <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />

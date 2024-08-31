@@ -13,6 +13,7 @@ import Test from "./pages/TestPage/TestPage";
 import Document from "./pages/Document/DocumentPage";
 import DocumentDetail from "./pages/DocumentDetail/DocumentDetailPage";
 import QuestionPage from "./pages/Questions/QuestionPage";
+import Result from "./pages/Result/ResultPage";
 
 const App = () => (
   <Router>
@@ -31,6 +32,7 @@ const App = () => (
       <Route path="/learn/document/:selectedTopicId" element={<Document />} />
       <Route path="/document/documentDetail" element={<DocumentDetail />} />
       <Route path="/test/:testId" element={<QuestionPage />} />
+      <Route path="/test/result" element={<Result />} />
     </Routes>
   </Router>
 );

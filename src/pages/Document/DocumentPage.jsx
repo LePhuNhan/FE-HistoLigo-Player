@@ -79,7 +79,13 @@ const Document = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }}>
+        <Header style={{
+            background: "#fff",
+            padding: 0,
+            position: "fixed",
+            width: "90%",
+            zIndex: "100"
+          }}>
           <div className="header-content-test">
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
@@ -106,7 +112,7 @@ const Document = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "4% 5% 5% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
               {topicsWithProgress.map((topic, index) => (

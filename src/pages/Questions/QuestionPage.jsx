@@ -19,15 +19,88 @@ const QuizPage = () => {
   const [testName, setTestName] = useState("");
   const [answers, setAnswers] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [correct, setCorrect] = useState(false);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const locale = "en-US";
   const { testId } = useParams();
+  const [highlightedLeft, setHighlightedLeft] = useState(null);
+  const [highlightedRight, setHighlightedRight] = useState(null);
+  const [leftColors, setLeftColors] = useState([]);
+  const [rightColors, setRightColors] = useState([]);
+  const [previouslySelectedRight, setPreviouslySelectedRight] = useState(null);
+  const playerTestId = localStorage.getItem("playerTestId");
+  const [playerTest, setPlayerTest] = useState({});
+  const [aggregatedResults, setAggregatedResults] = useState([]);
+  const highlightColors = [
+    "lightblue",
+    "lightgreen",
+    "lightcoral",
+    "lightgoldenrodyellow",
+  ];
+
+  const areRightColumnColorsDistinct = (colors) => {
+    const distinctColors = new Set(colors);
+    return distinctColors.size === 4;
+  };
+  const handleLeftClick = (index) => {
+    const color = highlightColors[index % highlightColors.length];
+    
+    const newLeftColors = leftColors.map((currentColor, i) =>
+      i === index ? color : currentColor
+    );
+  
+    setLeftColors(newLeftColors);
+    setHighlightedLeft(index);
+    const currentQuestion = questions[currentQuestionIndex];
+    if (highlightedRight !== null && currentQuestion) {
+      const updatedAnswer = {
+        leftColumn: currentQuestion.leftColumn[index],
+        rightColumn: currentQuestion.rightColumn[highlightedRight]
+      };
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [currentQuestion._id]: {
+          ...prevAnswers[currentQuestion._id],
+          [index]: updatedAnswer
+        }
+      }));
+    }
+  };
+  
+  const handleRightClick = (index) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (highlightedLeft !== null && currentQuestion) {
+      const color = leftColors[highlightedLeft];
+  
+      const newRightColors = rightColors.map((currentColor, i) =>
+        i === index
+          ? color
+          : i === previouslySelectedRight && highlightedLeft === null
+          ? "white"
+          : currentColor
+      );
+  
+      setRightColors(newRightColors);
+      setPreviouslySelectedRight(index);
+      setHighlightedRight(index);
+      const updatedAnswer = {
+        leftColumn: currentQuestion.leftColumn[highlightedLeft],
+        rightColumn: currentQuestion.rightColumn[index]
+      };
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [currentQuestion._id]: {
+          ...prevAnswers[currentQuestion._id],
+          [highlightedLeft]: updatedAnswer
+        }
+      }));
+    }
+  };
+  
 
   const navigate = useNavigate();
   const { Option } = Select;
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
+
   useEffect(() => {
     const fetchTestData = async () => {
       if (!testId) {
@@ -36,12 +109,22 @@ const QuizPage = () => {
       }
 
       try {
-        const response = await axios.get(
-          `${DomainApi}/question/${testId}`
-        );
+        const response = await axios.get(`${DomainApi}/question/${testId}`);
         const { test, questions } = response.data;
+
         setTestName(test.localeData[locale]?.name || test.name);
         setQuestions(questions);
+        if (questions.length > 0) {
+          const currentQuestion = questions[currentQuestionIndex];
+          if (currentQuestion.questionType === 2) {
+            setLeftColors(
+              new Array(currentQuestion.leftColumn.length).fill("white")
+            );
+            setRightColors(
+              new Array(currentQuestion.rightColumn.length).fill("white")
+            );
+          }
+        }
       } catch (error) {
         console.error("Error fetching test data:", error);
         message.error("Error fetching test data.");
@@ -50,6 +133,21 @@ const QuizPage = () => {
     fetchTestData();
   }, [testId]);
 
+  useEffect(() => {
+    if (questions.length > 0) {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion && currentQuestion.questionType === 2) {
+        setLeftColors(new Array(currentQuestion.leftColumn.length).fill("white"));
+        setRightColors(new Array(currentQuestion.rightColumn.length).fill("white"));
+        setAnswers((prevAnswers) => ({
+          ...prevAnswers,
+          [currentQuestion._id]: {}
+        }));
+      }
+    }
+  }, [currentQuestionIndex, questions]);
+  
+
   const handleAnswerChange = (questionId, value) => {
     setAnswers((prev) => ({
       ...prev,
@@ -57,65 +155,96 @@ const QuizPage = () => {
     }));
   };
 
-  const checkAnswer = (question) => {
-    const currentAnswer = answers[question._id];
-    let isCorrect = false;
-
-    switch (question.questionType) {
-      case 1: // True/False
-        isCorrect = currentAnswer === question.answer;
-        break;
-
+  const checkAnswer = async (question) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const currentAnswer = answers[currentQuestion._id];
+    
+    let answerPayload;
+  
+    switch (currentQuestion.questionType) {
       case 0: // Multiple Choice
-        isCorrect = currentAnswer === question.answer;
+        answerPayload = {
+          questionId: currentQuestion._id,
+          selectedAnswer: currentAnswer, 
+        };
         break;
-
-      case 3: // Fill-in-the-Blank
-        isCorrect = currentAnswer === question.answer[0];
+  
+      case 1: // True/False
+        answerPayload = {
+          questionId: currentQuestion._id,
+          selectedAnswer: currentAnswer, 
+        };
         break;
-
+  
       case 2: // Matching
-        const currentAnswerArray = question.leftColumn.map((item, index) => ({
-          leftColumn: item,
-          rightColumn: answers[question._id]?.[index] || null,
-        }));
-
-        const correctAnswerArray = question.answer.map((item) => ({
-          leftColumn: item.leftColumn,
-          rightColumn: item.rightColumn,
-        }));
-
-        isCorrect =
-          JSON.stringify(currentAnswerArray) ===
-          JSON.stringify(correctAnswerArray);
-
+        if (!areRightColumnColorsDistinct(rightColors)) {
+          message.error("Please ensure there are exactly four distinct colors in the right column.");
+          return;
+        }
+        answerPayload = {
+          questionId: currentQuestion._id,
+          selectedAnswer: Object.values(currentAnswer || {}).map(item => ({
+            leftColumn: item.leftColumn,
+            rightColumn: item.rightColumn
+          }))
+        };
         break;
-
+  
+      case 3: // Fill-in-the-Blank
+        answerPayload = {
+          questionId: currentQuestion._id,
+          selectedAnswer: [currentAnswer], 
+        };
+        break;
+  
       default:
-        isCorrect = false;
-        break;
+        return;
     }
-
-    setCorrect(isCorrect);
-    setShowFeedback(true);
-
-    setTimeout(() => {
-      setShowFeedback(false);
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex((prev) => prev + 1);
-      } else {
-        handleSubmit();
+  
+    try {
+      const response = await axios.post(`${DomainApi}/question/${testId}`, {
+        answer: answerPayload,
+      });
+      
+      const updatedQuestions = response.data.questions;
+      const result = updatedQuestions.find(
+        (q) => q.questionId === currentQuestion._id
+      );
+      
+      if(result.isCorrect===true){
+        message.success("Correct!!!");
       }
-    }, 2000);
+      else{
+        message.error("Incorrect!")
+      }
+      setAggregatedResults((prevResults) => {
+        const newResults = [...prevResults, result];
+        return newResults;
+      });
+
+      setTimeout(() => {
+        if (currentQuestionIndex < questions.length - 1) {
+          setCurrentQuestionIndex((prev) => prev + 1);
+        } else {
+          handleSubmit(aggregatedResults);
+        }
+      }, 1500);
+    } catch (error) {
+      message.error("Error checking answer. Please try again.");
+    }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (results) => {
     try {
-      await axios.post(`${DomainApi}/submit`, { answers });
+      const updateData = await axios.put(`${DomainApi}/playerTest/${playerTestId}`, {
+        questions: results,
+      });
+      setPlayerTest(updateData.data);
+      console.log(playerTest);
       setIsQuizCompleted(true);
       message.success("Quiz completed! Redirecting to results page...");
       setTimeout(() => {
-        navigate("/results"); // Adjust this path as necessary
+        navigate("/test/result");
       }, 2000);
     } catch (error) {
       console.error("Error submitting answers:", error);
@@ -125,37 +254,37 @@ const QuizPage = () => {
 
   const renderQuestion = (question) => {
     const localizedQuestion = question.localeData[locale] || question;
-
+  
     switch (question.questionType) {
       case 1: // True/False
-  return (
-    <div className="true-false-container">
-      <Radio.Group
-        onChange={(e) => handleAnswerChange(question._id, e.target.value)}
-        value={answers[question._id]}
-        className="true-false-group"
-        buttonStyle="solid"
-      >
-        <Radio.Button
-          value={true}
-          className={`true-false-option ${
-            answers[question._id] === true ? "selected" : ""
-          }`}
-        >
-          True
-        </Radio.Button>
-        <Radio.Button
-          value={false}
-          className={`true-false-option ${
-            answers[question._id] === false ? "selected" : ""
-          }`}
-        >
-          False
-        </Radio.Button>
-      </Radio.Group>
-    </div>
-  );
-
+        return (
+          <div className="multiple-choice-container">
+            <Radio.Group
+              onChange={(e) => handleAnswerChange(question._id, e.target.value)}
+              value={answers[question._id]}
+              className="multiple-choice-group"
+              buttonStyle="solid"
+            >
+              <Radio.Button
+                value={true}
+                className={`multiple-choice-option ${
+                  answers[question._id] === true ? "selected" : ""
+                }`}
+              >
+                True
+              </Radio.Button>
+              <Radio.Button
+                value={false}
+                className={`multiple-choice-option ${
+                  answers[question._id] === false ? "selected" : ""
+                }`}
+              >
+                False
+              </Radio.Button>
+            </Radio.Group>
+          </div>
+        );
+  
       case 0: // Multiple Choice
         return (
           <div className="multiple-choice-container">
@@ -176,66 +305,88 @@ const QuizPage = () => {
             </Radio.Group>
           </div>
         );
-
+  
       case 3: // Fill-in-the-Blank
         return (
           <Input
             onChange={(e) => handleAnswerChange(question._id, e.target.value)}
-            value={answers[question._id]}
+            value={answers[question._id] || ""}
             placeholder="Enter your answer"
           />
         );
+  
       case 2: // Matching
         return (
           <div>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16, 16]} className="matchingQuestion">
               <Col span={12}>
+                <h3>Left Column</h3>
                 {question.leftColumn.map((item, index) => (
-                  <div key={index} style={{ marginBottom: "20px",marginTop: "5px" }}>
+                  <div
+                    key={index}
+                    className="columnItem"
+                    onClick={() => handleLeftClick(index)}
+                    style={{
+                      backgroundColor: leftColors[index],
+                      padding: "8px",
+                      marginBottom: "8px",
+                    }}
+                  >
                     {item}
                   </div>
                 ))}
               </Col>
               <Col span={12}>
-                {question.leftColumn.map((_, index) => (
-                  <Select
+                <h3>Right Column</h3>
+                {question.rightColumn.map((item, index) => (
+                  <div
                     key={index}
-                    placeholder="Select match"
-                    onChange={(value) =>
-                      handleAnswerChange(question._id, {
-                        ...answers[question._id],
-                        [index]: value,
-                      })
-                    }
-                    value={answers[question._id]?.[index] || undefined}
-                    style={{ width: "100%", marginBottom: "10px" }}
+                    className="columnItem"
+                    onClick={() => handleRightClick(index)}
+                    style={{
+                      backgroundColor: rightColors[index],
+                      padding: "8px",
+                      marginBottom: "8px",
+                    }}
                   >
-                    {question.rightColumn.map((rightItem) => (
-                      <Option key={rightItem} value={rightItem}>
-                        {rightItem}
-                      </Option>
-                    ))}
-                  </Select>
+                    {item}
+                  </div>
                 ))}
               </Col>
             </Row>
           </div>
         );
+  
       default:
         return null;
     }
   };
+  
 
   const isAnswerSelected = () => {
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) {
       return false;
     }
+    if (currentQuestion && currentQuestion.questionType == 2) {
+      const leftColumnSelected = leftColors.some((color) => color !== "white");
+      const rightColumnSelected = rightColors.some(
+        (color) => color !== "white"
+      );
+
+      return leftColumnSelected && rightColumnSelected;
+    }
     const currentQuestionId = currentQuestion._id;
     const answer = answers[currentQuestionId];
     return answer !== undefined && answer !== null && answer !== "";
   };
 
+  const allQuestionsAnswered = () => {
+    return questions.every((question) =>
+      isAnswerSelected(question)
+    );
+  };
+  
   return (
     <div>
       <div className="processbar">
@@ -251,24 +402,20 @@ const QuizPage = () => {
       <div className="ask">
         <h2>{testName}</h2>
         {questions.length > 0 && (
-          <Card
-            title={`Question ${currentQuestionIndex + 1}`}
-            className="questionCard"
-          >
-            <p>
-              {questions[currentQuestionIndex].localeData[locale]?.ask ||
-                questions[currentQuestionIndex].ask}
-            </p>
-            {renderQuestion(questions[currentQuestionIndex])}
-          </Card>
-        )}
-        {showFeedback && (
-          <div style={{ marginTop: "10px", color: correct ? "green" : "red" }}>
-            {correct ? "Correct!" : "Incorrect!"}
+          <div className="questionContainer">
+            <Card
+              title={`Question ${currentQuestionIndex + 1}`}
+              className="questionCard"
+            >
+              <p>
+                {questions[currentQuestionIndex].localeData[locale]?.ask ||
+                  questions[currentQuestionIndex].ask}
+              </p>
+              {renderQuestion(questions[currentQuestionIndex])}
+            </Card>
           </div>
         )}
       </div>
-
       <div style={{ marginTop: "20px" }} className="btn">
         <Button
           type="primary"

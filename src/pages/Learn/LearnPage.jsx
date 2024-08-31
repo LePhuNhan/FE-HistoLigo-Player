@@ -48,6 +48,7 @@ const Learn = () => {
   }, [selectedCountry.name]);
 
   const handleTopicClick = (topicId) => {
+    localStorage.setItem("selectedTopicId", topicId);
     navigate(`/learn/test/${topicId}`);
   };
 
@@ -61,6 +62,7 @@ const Learn = () => {
             padding: 0,
             position: "fixed",
             width: "90%",
+            zIndex: "100"
           }}
         >
           <div className="header-content">
@@ -72,7 +74,7 @@ const Learn = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "9% 5% 0% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
               {topics.map((topic, index) => (
@@ -80,7 +82,7 @@ const Learn = () => {
                   key={index}
                   style={{ marginBottom: "16px" }}
                   className="learn-card"
-                  onClick={() => handleTopicClick(topic._id)} // Add onClick handler
+                  onClick={() => handleTopicClick(topic._id)}
                 >
                   <div className="card-content">
                     <div className="card-text">

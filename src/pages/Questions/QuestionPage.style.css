@@ -1,5 +1,5 @@
 .processbar {
-  padding: 5% 20% 0% 20%;
+  padding: 3% 20% 0% 20%;
   align-self: center;
   justify-content: center;
   display: flex;
@@ -16,7 +16,7 @@
 }
 
 .ask {
-  padding-top: 3%;
+  padding-top: 0%;
   padding-bottom: 10%;
   display: grid;
   align-self: center;
@@ -44,10 +44,23 @@
     width: 100px;
     background-color: #52c41a !important;
 }
-.questionCard {
+.questionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
-.true-false-container {
+
+.questionCard {
+  width: 100%;
+  min-width: 700px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* .true-false-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -84,7 +97,7 @@
   background-color: #52c41a !important;
   color: white;
   border: 2px solid black !important;
-}
+} */
 
 .multiple-choice-container {
   margin-top: 20px;
@@ -118,13 +131,30 @@
 .multiple-choice-option:where(
     .css-dev-only-do-not-override-p8b6i
   ).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-  background-color: #52c41a !important;
-  border-color: #52c41a !important;
-  color: white;
-  border-inline-start: 9px solid #5e9aee !important;
-  border-inline-end: 9px solid #5e9aee !important;
+    background-color: #c6e8f8;
+    border-color: #0684f9;
+    color: #1890ff;
 }
 
 .multiple-choice-option span.ant-radio {
   display: none;
+}
+.matchingQuestion {
+  margin-left: 0px !important;
+}
+
+.columnItem {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 601px) {
+  .questionCard {
+    min-width: 100%;
+  }
 }

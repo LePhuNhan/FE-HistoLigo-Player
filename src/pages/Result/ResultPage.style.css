@@ -1,0 +1,32 @@
+.header {
+  text-align: center;
+  background-color: transparent;
+}
+
+.header-title {
+  color: #ffd700;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.result-cards {
+  display: flex;
+  gap: 20px;
+}
+
+.result-card {
+  width: 200px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}

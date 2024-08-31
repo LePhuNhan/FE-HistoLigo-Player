@@ -18,6 +18,7 @@ const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
   const [testName, setTestName] = useState("");
   const [answers, setAnswers] = useState({});
+  const [answeredQuestions, setAnsweredQuestions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const locale = "en-US";
@@ -43,34 +44,34 @@ const QuizPage = () => {
   };
   const handleLeftClick = (index) => {
     const color = highlightColors[index % highlightColors.length];
-    
+
     const newLeftColors = leftColors.map((currentColor, i) =>
       i === index ? color : currentColor
     );
-  
+
     setLeftColors(newLeftColors);
     setHighlightedLeft(index);
     const currentQuestion = questions[currentQuestionIndex];
     if (highlightedRight !== null && currentQuestion) {
       const updatedAnswer = {
         leftColumn: currentQuestion.leftColumn[index],
-        rightColumn: currentQuestion.rightColumn[highlightedRight]
+        rightColumn: currentQuestion.rightColumn[highlightedRight],
       };
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [currentQuestion._id]: {
           ...prevAnswers[currentQuestion._id],
-          [index]: updatedAnswer
-        }
+          [index]: updatedAnswer,
+        },
       }));
     }
   };
-  
+
   const handleRightClick = (index) => {
     const currentQuestion = questions[currentQuestionIndex];
     if (highlightedLeft !== null && currentQuestion) {
       const color = leftColors[highlightedLeft];
-  
+
       const newRightColors = rightColors.map((currentColor, i) =>
         i === index
           ? color
@@ -78,24 +79,23 @@ const QuizPage = () => {
           ? "white"
           : currentColor
       );
-  
+
       setRightColors(newRightColors);
       setPreviouslySelectedRight(index);
       setHighlightedRight(index);
       const updatedAnswer = {
         leftColumn: currentQuestion.leftColumn[highlightedLeft],
-        rightColumn: currentQuestion.rightColumn[index]
+        rightColumn: currentQuestion.rightColumn[index],
       };
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [currentQuestion._id]: {
           ...prevAnswers[currentQuestion._id],
-          [highlightedLeft]: updatedAnswer
-        }
+          [highlightedLeft]: updatedAnswer,
+        },
       }));
     }
   };
-  
 
   const navigate = useNavigate();
   const { Option } = Select;
@@ -137,16 +137,19 @@ const QuizPage = () => {
     if (questions.length > 0) {
       const currentQuestion = questions[currentQuestionIndex];
       if (currentQuestion && currentQuestion.questionType === 2) {
-        setLeftColors(new Array(currentQuestion.leftColumn.length).fill("white"));
-        setRightColors(new Array(currentQuestion.rightColumn.length).fill("white"));
+        setLeftColors(
+          new Array(currentQuestion.leftColumn.length).fill("white")
+        );
+        setRightColors(
+          new Array(currentQuestion.rightColumn.length).fill("white")
+        );
         setAnswers((prevAnswers) => ({
           ...prevAnswers,
-          [currentQuestion._id]: {}
+          [currentQuestion._id]: {},
         }));
       }
     }
   }, [currentQuestionIndex, questions]);
-  
 
   const handleAnswerChange = (questionId, value) => {
     setAnswers((prev) => ({
@@ -158,70 +161,74 @@ const QuizPage = () => {
   const checkAnswer = async (question) => {
     const currentQuestion = questions[currentQuestionIndex];
     const currentAnswer = answers[currentQuestion._id];
-    
+
     let answerPayload;
-  
+
     switch (currentQuestion.questionType) {
       case 0: // Multiple Choice
         answerPayload = {
           questionId: currentQuestion._id,
-          selectedAnswer: currentAnswer, 
+          selectedAnswer: currentAnswer,
         };
         break;
-  
+
       case 1: // True/False
         answerPayload = {
           questionId: currentQuestion._id,
-          selectedAnswer: currentAnswer, 
+          selectedAnswer: currentAnswer,
         };
         break;
-  
+
       case 2: // Matching
         if (!areRightColumnColorsDistinct(rightColors)) {
-          message.error("Please ensure there are exactly four distinct colors in the right column.");
+          message.error(
+            "Please ensure there are exactly four distinct colors in the right column."
+          );
           return;
         }
         answerPayload = {
           questionId: currentQuestion._id,
-          selectedAnswer: Object.values(currentAnswer || {}).map(item => ({
+          selectedAnswer: Object.values(currentAnswer || {}).map((item) => ({
             leftColumn: item.leftColumn,
-            rightColumn: item.rightColumn
-          }))
+            rightColumn: item.rightColumn,
+          })),
         };
         break;
-  
+
       case 3: // Fill-in-the-Blank
         answerPayload = {
           questionId: currentQuestion._id,
-          selectedAnswer: [currentAnswer], 
+          selectedAnswer: [currentAnswer],
         };
         break;
-  
+
       default:
         return;
     }
-  
+
     try {
       const response = await axios.post(`${DomainApi}/question/${testId}`, {
         answer: answerPayload,
       });
-      
+
       const updatedQuestions = response.data.questions;
       const result = updatedQuestions.find(
         (q) => q.questionId === currentQuestion._id
       );
-      
-      if(result.isCorrect===true){
+
+      if (result.isCorrect === true) {
         message.success("Correct!!!");
-      }
-      else{
-        message.error("Incorrect!")
+      } else {
+        message.error("Incorrect!");
       }
       setAggregatedResults((prevResults) => {
         const newResults = [...prevResults, result];
         return newResults;
       });
-
+      setAnsweredQuestions((prevAnswered) => ({
+        ...prevAnswered,
+        [currentQuestion._id]: true,
+      }));
       setTimeout(() => {
         if (currentQuestionIndex < questions.length - 1) {
           setCurrentQuestionIndex((prev) => prev + 1);
@@ -235,10 +242,17 @@ const QuizPage = () => {
   };
 
   const handleSubmit = async (results) => {
+    if (!allQuestionsAnswered()) {
+      message.warning("Please answer all questions before submitting.");
+      return;
+    }
     try {
-      const updateData = await axios.put(`${DomainApi}/playerTest/${playerTestId}`, {
-        questions: results,
-      });
+      const updateData = await axios.put(
+        `${DomainApi}/playerTest/${playerTestId}`,
+        {
+          questions: results,
+        }
+      );
       setPlayerTest(updateData.data);
       console.log(playerTest);
       setIsQuizCompleted(true);
@@ -254,7 +268,7 @@ const QuizPage = () => {
 
   const renderQuestion = (question) => {
     const localizedQuestion = question.localeData[locale] || question;
-  
+
     switch (question.questionType) {
       case 1: // True/False
         return (
@@ -284,7 +298,7 @@ const QuizPage = () => {
             </Radio.Group>
           </div>
         );
-  
+
       case 0: // Multiple Choice
         return (
           <div className="multiple-choice-container">
@@ -305,7 +319,7 @@ const QuizPage = () => {
             </Radio.Group>
           </div>
         );
-  
+
       case 3: // Fill-in-the-Blank
         return (
           <Input
@@ -314,7 +328,7 @@ const QuizPage = () => {
             placeholder="Enter your answer"
           />
         );
-  
+
       case 2: // Matching
         return (
           <div>
@@ -356,12 +370,11 @@ const QuizPage = () => {
             </Row>
           </div>
         );
-  
+
       default:
         return null;
     }
   };
-  
 
   const isAnswerSelected = () => {
     const currentQuestion = questions[currentQuestionIndex];
@@ -382,11 +395,18 @@ const QuizPage = () => {
   };
 
   const allQuestionsAnswered = () => {
-    return questions.every((question) =>
-      isAnswerSelected(question)
-    );
+    return questions.every((question) => {
+      const answer = answers[question._id];
+      if (question.questionType === 2) {
+        return (
+          answer && Object.keys(answer).length === question.leftColumn.length
+        );
+      } else {
+        return answer !== undefined && answer !== null && answer !== "";
+      }
+    });
   };
-  
+
   return (
     <div>
       <div className="processbar">
@@ -425,14 +445,27 @@ const QuizPage = () => {
         >
           Skip
         </Button>
+
         <Button
           type="primary"
           onClick={() => checkAnswer(questions[currentQuestionIndex])}
-          disabled={!isAnswerSelected()}
+          disabled={
+            !isAnswerSelected() ||
+            answeredQuestions[questions[currentQuestionIndex]._id]
+          }
           style={{ marginLeft: "10px" }}
           className="button"
         >
           Answer
+        </Button>
+
+        <Button
+          type="primary"
+          onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
+          disabled={currentQuestionIndex <= 0}
+          className="button"
+        >
+          Previous
         </Button>
       </div>
     </div>

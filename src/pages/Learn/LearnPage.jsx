@@ -64,6 +64,7 @@ const Learn = () => {
             width: "90%",
             zIndex: "100"
           }}
+          className="header"
         >
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
@@ -74,7 +75,7 @@ const Learn = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "8% 5% 0% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
               {topics.map((topic, index) => (
@@ -86,7 +87,7 @@ const Learn = () => {
                 >
                   <div className="card-content">
                     <div className="card-text">
-                      <Title level={4}>{topic.name}</Title>
+                      <Title level={4} className="learnTitle">{topic.name}</Title>
                       <Progress
                         percent={calculateProgress(topic.doneTest, topic.totalTest)}
                         status="active"

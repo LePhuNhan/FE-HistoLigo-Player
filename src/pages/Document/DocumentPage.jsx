@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentPage.style.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
+import imgStartDocument from "../../assets/imageDocument.png";
+
+const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -16,80 +19,62 @@ const countryCodeMap = {
 };
 
 const Document = () => {
-  const [topics, setTopics] = useState([]);
-  const [playerProcess, setPlayerProcess] = useState(null);
+  const [documents, setDocuments] = useState([]);
+  const [playerDocuments, setPlayerDocuments] = useState([]);
   const [references, setReferences] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { selectedTopicId } = useParams();
   const selectedCountry = location.state?.selectedCountry || {
     name: "United States",
   };
-  const accessToken = localStorage.getItem("accessToken");
-  const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
-  const { selectedTopicId } = useParams();
   const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
-  const calculateProgress = (doneTest, totalTest) => {
-    if (totalTest === 0) return 0;
-    return Math.round((doneTest / totalTest) * 100);
-  };
 
   useEffect(() => {
-    const fetchTopics = async () => {
+    const fetchDocuments = async () => {
+      if (!selectedTopicId) return;
+
       try {
-        const [topicsResponse, playerProcessResponse] = await Promise.all([
-          axios.get(`${DomainApi}/topic`),
-          axios.get(`${DomainApi}/playerProcess`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }),
-        ]);
-        const fetchedTopics = topicsResponse.data;
-        const fetchedPlayerProcess = playerProcessResponse.data;
-
-        const playerProcessTopicIds = new Set(
-          fetchedPlayerProcess.topics.map((topic) => topic._id)
+        const response = await axios.get(
+          `${DomainApi}/documentation/topic/${selectedTopicId}`
         );
-
-        const filteredTopics = fetchedTopics.filter((topic) =>
-          playerProcessTopicIds.has(topic._id)
-        );
-
-        setTopics(filteredTopics);
-        setPlayerProcess(fetchedPlayerProcess);
+        setDocuments(response.data);
       } catch (error) {
-        console.error("Error fetching topics:", error);
+        console.error("Error fetching documents:", error);
       }
     };
-    fetchTopics();
-  }, [selectedCountry.name]);
+    fetchDocuments();
+    
+  }, [selectedTopicId]);
 
-  const topicsWithProgress = topics.map((topic) => {
-    const progressData = playerProcess?.topics.find((t) => t._id === topic._id);
-    return {
-      ...topic,
-      doneTest: progressData?.doneTest || 0,
-      totalTest: progressData?.totalTest || 0,
-      score: progressData?.score || 0, // Add score from player process
-      time: progressData?.time || 0, // Add time from player process
-    };
-  });
+  const handleStartClick = async (documentId) => {
+    navigate(`/documentDetail/${documentId}`);
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{
+        <Header
+          style={{
             background: "#fff",
             padding: 0,
             position: "fixed",
             width: "90%",
-            zIndex: "100"
-          }}>
-          <div className="header-content-test">
+            zIndex: "100",
+          }}
+          className="header"
+        >
+          <div className="header-content-document">
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
-                <Button className="button-Test">
+                <Button
+                  className="button-test"
+                  style={{
+                    background: "#fff",
+                  }}
+                >
                   <img className="test" src={imgTest} />
                   TESTS
                 </Button>
@@ -97,7 +82,7 @@ const Document = () => {
             </div>
             <div className="btn-document">
               <Link to={`/learn/document/${selectedTopicId}`}>
-                <Button className="button-Document">
+                <Button className="button-document">
                   <img className="document" src={imgDocument} />
                   DOCUMENTS
                 </Button>
@@ -112,37 +97,47 @@ const Document = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "8% 5% 0% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
-              {topicsWithProgress.map((topic, index) => (
-                <Card
-                  key={index}
-                  title={<Title level={4}>{topic.name}</Title>}
-                  style={{ marginBottom: "16px" }}
-                  className="learn-card"
-                >
-                  <div className="card-content">
-                    <div className="card-text">
-                      <Text className="text">{topic.description}</Text>
-                      <div>
-                        <Text>Score: {topic.score}</Text>
+              {documents.map((document, index) => {
+                const titles = document.content.match(
+                  /^(I+)\. .+$/gm
+                );
+
+                return (
+                  <Card
+                    key={index}
+                    style={{ marginBottom: "16px" }}
+                    className="learn-card"
+                  >
+                    <div className="cardDocument-content">
+                      <div className="cardDocument">
+                        <div className="cardDocument-text">
+                          <Text>{document.name}</Text>
+                        </div>
+                        
+                        {titles?.map((title, idx) => (
+                          <Text className="text" key={idx}>
+                            {title}
+                          </Text>
+                        ))}
                       </div>
-                      <div>
-                        <Text>Time: {topic.time}s</Text>
+                      <div className="cardDocument-img">
+                        <img src={imgStartDocument} alt="Start Read" />
+                        <div>
+                          <Button
+                            type="primary"
+                            onClick={() => handleStartClick(document._id)}
+                          >
+                            START
+                          </Button>
+                        </div>
                       </div>
-                      <Button type="primary">
-                        {topic.score > 0 ? "TRY AGAIN" : "START"}
-                      </Button>
                     </div>
-                    <img
-                      className="card-image"
-                      alt={topic.name}
-                      src={topic.image}
-                    />
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
             <div style={{ width: "40%" }} className="responsive-hide">
               <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />

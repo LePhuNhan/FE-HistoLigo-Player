@@ -1,0 +1,22 @@
+.documentTitle {
+  color: black;
+}
+.btnBack {
+  padding: 0;
+  margin: 0% 8px 0 0;
+  justify-content: flex-start;
+  color: black !important;
+}
+.btnBack:hover {
+  color: #1677ff !important;
+}
+@media (max-width: 1000px) and (min-width: 768px) {
+    .btnBack {
+        margin: 5% 8px 0 0;
+      }
+  }
+  @media (max-width: 768px){
+    .btnBack {
+        margin: 8% 8px 0 0;
+      }
+  }

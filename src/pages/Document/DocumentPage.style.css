@@ -1,13 +1,153 @@
-.button-Document {
-    background-color: rgba(221, 244, 255, 1);
-    border: 2px solid;
-    border-color: rgba(132, 216, 255, 1);
-    color:  rgb(41, 182, 247);
-    font-weight: 600;
+.header-content-document {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
-.button-Test {
-    border: 2px solid;
-    border-color: rgba(132, 216, 255, 1);
-    color:  rgb(41, 182, 247);
-    font-weight: 600;
+.btn-test {
+  margin-right: 5%;
+}
+.btn-document {
+  margin-right: 30%;
+}
+.button-document {
+  background-color: rgba(221, 244, 255, 1);
+  border: 2px solid;
+  border-color: rgba(132, 216, 255, 1);
+  color: rgb(41, 182, 247);
+  font-weight: 600;
+}
+.button-document {
+  border: 2px solid;
+  border-color: rgba(132, 216, 255, 1);
+  color: rgb(41, 182, 247);
+  font-weight: 600;
+}
+.test {
+  height: 100%;
+}
+.document {
+  height: 100%;
+}
+.cardDocument-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cardDocument {
+  display: grid;
+  align-items: center;
+  width: 70%;
+}
+.cardDocument-text {
+  margin-bottom: 3%;
+}
+.cardDocument-text :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+}
+.cardDocument-record {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.cardDocument-record
+  :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+}
+.cardDocument-img {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+.cardDocument-img img {
+  width: 70%;
+  margin-left: 30%;
+}
+.cardDocument-img button {
+  width: 120%;
+  margin-left: 5%;
+  margin-top: 10%;
+  background-color: rgba(221, 244, 255, 1);
+  color: rgba(132, 216, 255, 1);
+  font-weight: 600;
+  border: 2px solid;
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  .btn-test {
+    margin-right: 3%;
   }
+  .btn-document {
+    margin-right: 15%;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 480px) {
+  .main {
+    margin: 8% 0% 0% 0% !important;
+  }
+  .header {
+    width: 100% !important;
+  }
+  .btn-test {
+    margin-right: 5%;
+  }
+  .btn-document {
+    margin-right: 10%;
+  }
+  .cardDocument {
+    display: grid;
+    align-items: center;
+    width: 50%;
+  }
+  .cardDocument-record {
+    display: grid;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 10%;
+  }
+  .cardDocument-content {
+    display: flex;
+    flex-direction: row !important;
+  }
+  .cardDocument-img img {
+    width: 70%;
+    margin-left: 40%;
+  }
+  .cardDocument-img button {
+    width: 120%;
+    margin-left: 15%;
+    margin-top: 10%;
+    background-color: rgba(221, 244, 255, 1);
+    color: rgba(132, 216, 255, 1);
+    font-weight: 600;
+    border: 2px solid;
+  }
+}
+@media (max-width: 480px) {
+  .btn-test {
+    margin-right: 5%;
+  }
+  .btn-document {
+    margin-right: 5%;
+  }
+  .cardDocument-img img {
+    width: 70%;
+    margin-left: 20%;
+  }
+  .cardDocument-img button {
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 10%;
+    background-color: rgba(221, 244, 255, 1);
+    color: rgba(132, 216, 255, 1);
+    font-weight: 600;
+    border: 2px solid;
+  }
+}

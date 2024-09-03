@@ -8,6 +8,7 @@ import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
+import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -72,13 +73,13 @@ const Test = () => {
         score: 0,
         questions: [],
       };
-  
+
       const response = await axios.post(`${DomainApi}/playerTest`, playerTest, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-  
+
       localStorage.setItem("playerTestId", response.data._id);
       navigate(`/test/${testId}`);
     } catch (error) {
@@ -90,13 +91,16 @@ const Test = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Header style={{
+        <Header
+          style={{
             background: "#fff",
             padding: 0,
             position: "fixed",
             width: "90%",
-            zIndex: "100"
-          }}>
+            zIndex: "100",
+          }}
+          className="header"
+        >
           <div className="header-content-test">
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
@@ -108,7 +112,12 @@ const Test = () => {
             </div>
             <div className="btn-document">
               <Link to={`/learn/document/${selectedTopicId}`}>
-                <Button className="button-document">
+                <Button
+                  className="button-document"
+                  style={{
+                    background: "#fff",
+                  }}
+                >
                   <img className="document" src={imgDocument} />
                   DOCUMENTS
                 </Button>
@@ -123,16 +132,20 @@ const Test = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "8% 5% 0% 0%" }}>
+        <Content style={{ margin: "8% 5% 0% 0%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
-            {tests.map((test, index) => {
+              {tests.map((test, index) => {
                 const playerTest = playerTests.find(
                   (pt) => pt.testId === test._id
                 );
 
                 return (
-                  <Card key={index} style={{ marginBottom: "16px" }} className="learn-card">
+                  <Card
+                    key={index}
+                    style={{ marginBottom: "16px" }}
+                    className="learn-card"
+                  >
                     <div className="cardTest-content">
                       <div className="cardTest">
                         <div className="cardTest-text">
@@ -141,9 +154,23 @@ const Test = () => {
                         {playerTest && (
                           <div className="cardTest-record">
                             <div>
+                              <ThunderboltOutlined
+                                style={{
+                                  fontSize: "2rem",
+                                  color: "#fff",
+                                  marginRight: "5px",
+                                }}
+                              />
                               <Text>Score: {playerTest.score.toFixed(2)}</Text>
                             </div>
                             <div>
+                              <ClockCircleOutlined
+                                style={{
+                                  fontSize: "2rem",
+                                  color: "#fff",
+                                  marginRight: "5px",
+                                }}
+                              />
                               <Text>Time: {playerTest.time.toFixed(0)}s</Text>
                             </div>
                           </div>

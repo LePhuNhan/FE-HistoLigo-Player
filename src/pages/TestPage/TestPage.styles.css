@@ -18,6 +18,7 @@
   font-weight: 600;
 }
 .button-document {
+  background-color: rgba(221, 244, 255, 1);
   border: 2px solid;
   border-color: rgba(132, 216, 255, 1);
   color: rgb(41, 182, 247);
@@ -40,7 +41,7 @@
   width: 70%;
 }
 .cardTest-text {
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 .cardTest-text :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
   color: white;
@@ -87,6 +88,12 @@
 }
 
 @media (max-width: 768px) and (min-width: 480px) {
+  .main{
+    margin: 8% 0% 0% 0% !important;
+  }
+  .header{
+    width: 100% !important;
+  }
   .btn-test {
     margin-right: 5%;
   }
@@ -124,6 +131,12 @@
   }
 }
 @media (max-width: 480px) {
+  .main{
+    margin: 8% 0% 0% 0% !important;
+  }
+  .header{
+    width: 100% !important;
+  }
   .btn-test {
     margin-right: 5%;
   }

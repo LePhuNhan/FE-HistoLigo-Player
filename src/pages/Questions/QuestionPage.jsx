@@ -14,6 +14,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 import debounce from "lodash.debounce";
+import TextArea from "antd/es/input/TextArea";
 
 const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -24,7 +25,7 @@ const QuizPage = () => {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = "en-US";
+  const locale = "vi-VN";
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);
@@ -39,6 +40,7 @@ const QuizPage = () => {
     "lightgreen",
     "lightcoral",
     "lightgoldenrodyellow",
+    "blue"
   ];
 
   const debouncedCheckAnswer = debounce((question) => {
@@ -47,7 +49,7 @@ const QuizPage = () => {
 
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
-    return distinctColors.size === 4;
+    return distinctColors.size === 5;
   };
   const handleLeftClick = (index) => {
     const color = highlightColors[index % highlightColors.length];
@@ -115,7 +117,11 @@ const QuizPage = () => {
       }
 
       try {
-        const response = await axios.get(`${DomainApi}/question/${testId}`);
+        const response = await axios.get(`${DomainApi}/question/${testId}`, {
+          headers: {
+            "Content-Language": `${locale}`,
+          },
+        });
         const { test, questions } = response.data;
 
         setTestName(test.localeData[locale]?.name || test.name);
@@ -209,6 +215,10 @@ const QuizPage = () => {
     try {
       const response = await axios.post(`${DomainApi}/question/${testId}`, {
         answer: answerPayload,
+      },{
+        headers: {
+          "Content-Language": `${locale}`,
+        },
       });
 
       const updatedQuestions = response.data.questions;
@@ -288,7 +298,7 @@ const QuizPage = () => {
   };
 
   const renderQuestion = (question) => {
-    const localizedQuestion = question.localeData[locale] || question;
+    // const localizedQuestion = question.localeData[locale] || question;
 
     switch (question.questionType) {
       case 1: // True/False
@@ -328,7 +338,7 @@ const QuizPage = () => {
               value={answers[question._id]}
               className="multiple-choice-group"
             >
-              {localizedQuestion.options.map((option, index) => (
+              {question.options.map((option, index) => (
                 <Radio.Button
                   key={index}
                   value={index}
@@ -336,7 +346,10 @@ const QuizPage = () => {
                 >
                   <div className="multiple-choice-option-radio">
                     <strong>{String.fromCharCode(65 + index)}. </strong>
-                    <span dangerouslySetInnerHTML={{ __html: option }} className="multiple-choice-option-span"/>
+                    <span
+                      dangerouslySetInnerHTML={{ __html: option }}
+                      className="multiple-choice-option-span"
+                    />
                   </div>
                 </Radio.Button>
               ))}
@@ -346,7 +359,7 @@ const QuizPage = () => {
 
       case 3: // Fill-in-the-Blank
         return (
-          <Input
+          <TextArea
             onChange={(e) => handleAnswerChange(question._id, e.target.value)}
             value={answers[question._id] || ""}
             placeholder="Enter your answer"
@@ -370,7 +383,10 @@ const QuizPage = () => {
                       marginBottom: "8px",
                     }}
                   >
-                    <span dangerouslySetInnerHTML={{ __html: item }} className="multiple-choice-option-span"/>
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item }}
+                      className="multiple-choice-option-span"
+                    />
                   </div>
                 ))}
               </Col>
@@ -387,7 +403,10 @@ const QuizPage = () => {
                       marginBottom: "8px",
                     }}
                   >
-                    {item}
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item }}
+                      className="multiple-choice-option-span"
+                    />
                   </div>
                 ))}
               </Col>
@@ -430,6 +449,8 @@ const QuizPage = () => {
       }
     });
   };
+  const currentQuestion = questions[currentQuestionIndex];
+  console.log(currentQuestion);
 
   return (
     <div>
@@ -451,11 +472,8 @@ const QuizPage = () => {
               title={`Question ${currentQuestionIndex + 1}`}
               className="questionCard"
             >
-              <p>
-                {questions[currentQuestionIndex].localeData[locale]?.ask ||
-                  questions[currentQuestionIndex].ask}
-              </p>
-              {renderQuestion(questions[currentQuestionIndex])}
+              <p>{currentQuestion?.ask}</p>
+              {currentQuestion && renderQuestion(questions[currentQuestionIndex])}
             </Card>
           </div>
         )}

@@ -16,28 +16,78 @@ const Result = () => {
   const [feedback, setFeedback] = useState("");
   const topicId = localStorage.getItem("selectedTopicId");
   const playerTestId = localStorage.getItem("playerTestId");
+  const playerProcessId = localStorage.getItem("playerProcessId");
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
+  const accessToken = localStorage.getItem("accessToken");
+  const fetchTestData = async () => {
+    if (!playerTestId) {
+      message.error("Test Id not found. Redirecting...");
+      return;
+    }
 
+    try {
+      const response = await axios.get(
+        `${DomainApi}/playerTest/${playerTestId}`
+      );
+      const { score, time, testId } = response.data;
+      setScore(score);
+      setTime(time);
+
+      await updatePlayerProcess(testId, score, time);
+
+    } catch (error) {
+      message.error("Error fetching test data.");
+    }
+  };
+  const updatePlayerProcess = async (testId, score, time) => {
+    try {
+     
+      
+      const response = await axios.put(
+        `${DomainApi}/playerProcess/combindedTopic`,
+        {
+          topics: [
+            {
+              topicId: topicId,
+              tests: [
+                {
+                  testId,
+                  score,
+                  time: `${time}s`,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log({
+        topics: [
+          {
+            topicId: topicId,
+            tests: [
+              {
+                testId,
+                score,
+                time: `${time}s`,
+              },
+            ],
+          },
+        ],
+      });
+      console.log("Player process updated successfully!");
+    } catch (error) {
+      message.error("Error updating player process.");
+    }
+  };
   useEffect(() => {
-    const fetchTestData = async () => {
-      if (!playerTestId) {
-        message.error("Test Id not found. Redirecting...");
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          `${DomainApi}/playerTest/${playerTestId}`
-        );
-        setScore(response.data.score);
-        setTime(response.data.time);
-      } catch (error) {
-        message.error("Error fetching test data.");
-      }
-    };
     fetchTestData();
-  }, [playerTestId]);
+  }, []);
 
   const handleTopicClick = () => {
     navigate(`/learn/test/${topicId}`);

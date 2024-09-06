@@ -7,10 +7,11 @@ import "./DocumentPage.style.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartDocument from "../../assets/imageDocument.png";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
@@ -20,8 +21,6 @@ const countryCodeMap = {
 
 const Document = () => {
   const [documents, setDocuments] = useState([]);
-  const [playerDocuments, setPlayerDocuments] = useState([]);
-  const [references, setReferences] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
@@ -49,6 +48,7 @@ const Document = () => {
   }, [selectedTopicId]);
 
   const handleStartClick = async (documentId) => {
+    localStorage.setItem("selectedDocumentId", documentId);
     navigate(`/documentDetail/${documentId}`);
   };
 
@@ -139,54 +139,7 @@ const Document = () => {
                 );
               })}
             </div>
-            <div style={{ width: "40%" }} className="responsive-hide">
-              <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />
-              <Card title="The references you have read">
-                <List
-                  size="small"
-                  dataSource={references}
-                  renderItem={(item, index) => (
-                    <List.Item key={index}>
-                      <Link to="/">
-                        <Text className="references">{item}</Text>
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Card>
-              <Row gutter={[16, 16]} className="flex-container">
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INTRODUCE</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>EFFECTIVENESS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>JOB</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INVESTORS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>RULES</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>PRIVACY</h4>
-                  </Col>
-                </Link>
-              </Row>
-            </div>
+            <Sidebar/>
           </div>
         </Content>
       </Layout>

@@ -7,7 +7,6 @@ import {
   Row,
   Col,
   Button,
-  PageHeader,
   Divider,
 } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
@@ -16,6 +15,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentDetailPage.styles.css";
 import imgRead from "../../assets/imageRead.png";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -29,9 +29,7 @@ const countryCodeMap = {
 
 const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
-  const [references, setReferences] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate();
   const selectedTopicId = localStorage.getItem("selectedTopicId");
   const { id } = useParams();
   const selectedCountry = location.state?.selectedCountry || {
@@ -146,54 +144,7 @@ const DocumentDetail = () => {
                 </Typography>
               )}
             </div>
-            <div style={{ width: "40%" }} className="responsive-hide">
-              <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />
-              <Card title="The references you have read">
-                <List
-                  size="small"
-                  dataSource={references}
-                  renderItem={(item, index) => (
-                    <List.Item key={index}>
-                      <Link to="/">
-                        <Text className="references">{item}</Text>
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Card>
-              <Row gutter={[16, 16]} className="flex-container">
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INTRODUCE</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>EFFECTIVENESS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>JOB</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INVESTORS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>RULES</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>PRIVACY</h4>
-                  </Col>
-                </Link>
-              </Row>
-            </div>
+            <Sidebar/>
           </div>
         </Content>
       </Layout>

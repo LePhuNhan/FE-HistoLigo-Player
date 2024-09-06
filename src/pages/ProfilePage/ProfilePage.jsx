@@ -13,7 +13,7 @@ import {
   message,
 } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { UserOutlined, UploadOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dayjs from "dayjs";
 import styles from "./ProfilePage.styles.css";

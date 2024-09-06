@@ -4,6 +4,7 @@ import Menu from "../../components/Menu/Menu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LearnPage.styles.css";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -16,10 +17,11 @@ const countryCodeMap = {
 
 const Learn = () => {
   const [topics, setTopics] = useState([]);
-  const [references, setReferences] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedCountry = location.state?.selectedCountry || { name: "United States" };
+  const selectedCountry = location.state?.selectedCountry || {
+    name: "United States",
+  };
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry.name] || "US";
@@ -33,17 +35,20 @@ const Learn = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get(`${DomainApi}/playerProcess/combindedTopic`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          `${DomainApi}/playerProcess/combindedTopic`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
         setTopics(response.data);
       } catch (error) {
         console.error("Error fetching topics:", error);
       }
     };
-    
+
     fetchTopics();
   }, [selectedCountry.name]);
 
@@ -62,7 +67,7 @@ const Learn = () => {
             padding: 0,
             position: "fixed",
             width: "90%",
-            zIndex: "100"
+            zIndex: "100",
           }}
           className="header"
         >
@@ -87,9 +92,14 @@ const Learn = () => {
                 >
                   <div className="card-content">
                     <div className="card-text">
-                      <Title level={4} className="learnTitle">{topic.name}</Title>
+                      <Title level={4} className="learnTitle">
+                        {topic.name}
+                      </Title>
                       <Progress
-                        percent={calculateProgress(topic.doneTest, topic.totalTest)}
+                        percent={calculateProgress(
+                          topic.doneTest,
+                          topic.totalTest
+                        )}
                         status="active"
                       />
                       <Text className="text">{topic.description}</Text>
@@ -103,57 +113,7 @@ const Learn = () => {
                 </Card>
               ))}
             </div>
-            <div style={{ width: "40%" }} className="responsive-hide">
-              <Card
-                title="Leaderboards!"
-                style={{ marginBottom: "16px" }}
-              ></Card>
-              <Card title="The references you have read">
-                <List
-                  size="small"
-                  dataSource={references}
-                  renderItem={(item, index) => (
-                    <List.Item key={index}>
-                      <Link to="/">
-                        <Text className="references">{item}</Text>
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Card>
-              <Row gutter={[16, 16]} className="flex-container">
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INTRODUCE</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>EFFECTIVENESS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>JOB</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INVESTORS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>RULES</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>PRIVACY</h4>
-                  </Col>
-                </Link>
-              </Row>
-            </div>
+            <Sidebar />
           </div>
         </Content>
       </Layout>
@@ -162,4 +122,3 @@ const Learn = () => {
 };
 
 export default Learn;
-

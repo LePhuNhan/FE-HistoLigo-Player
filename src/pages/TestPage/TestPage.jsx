@@ -3,16 +3,17 @@ import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
+import imgCup from "../../assets/imageCup.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
 import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
@@ -23,12 +24,9 @@ const countryCodeMap = {
 const Test = () => {
   const [tests, setTests] = useState([]);
   const [playerTests, setPlayerTests] = useState([]);
-  const [references, setReferences] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
-  const [score, setScore] = useState(0);
-  const [time, setTime] = useState(0);
   const selectedCountry = location.state?.selectedCountry || {
     name: "United States",
   };
@@ -105,7 +103,7 @@ const Test = () => {
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-test">
-                  <img className="test" src={imgTest} />
+                  <img className="test" src={imgTest} alt="imgTest"/>
                   TESTS
                 </Button>
               </Link>
@@ -118,7 +116,7 @@ const Test = () => {
                     background: "#fff",
                   }}
                 >
-                  <img className="document" src={imgDocument} />
+                  <img className="document" src={imgDocument} alt="imgDocument"/>
                   DOCUMENTS
                 </Button>
               </Link>
@@ -151,95 +149,66 @@ const Test = () => {
                         <div className="cardTest-text">
                           <Text>{test.name}</Text>
                         </div>
-                        {playerTest && (
-                          <div className="cardTest-record">
-                            <div>
-                              <ThunderboltOutlined
-                                style={{
-                                  fontSize: "2rem",
-                                  color: "#fff",
-                                  marginRight: "5px",
-                                }}
-                              />
-                              <Text>Score: {playerTest.score.toFixed(2)}</Text>
-                            </div>
-                            <div>
-                              <ClockCircleOutlined
-                                style={{
-                                  fontSize: "2rem",
-                                  color: "#fff",
-                                  marginRight: "5px",
-                                }}
-                              />
-                              <Text>Time: {playerTest.time.toFixed(0)}s</Text>
-                            </div>
+                        <div className="cardTest-record">
+                          <div>
+                            <ThunderboltOutlined
+                              style={{
+                                fontSize: "2rem",
+                                color: "#fff",
+                                marginRight: "5px",
+                              }}
+                            />
+                            <Text>
+                              Score: {(playerTest?.score || 0).toFixed(2)}
+                            </Text>
                           </div>
-                        )}
+                          <div>
+                            <ClockCircleOutlined
+                              style={{
+                                fontSize: "2rem",
+                                color: "#fff",
+                                marginRight: "5px",
+                              }}
+                            />
+                            <Text>
+                              Time: {(playerTest?.time || 0).toFixed(0)}s
+                            </Text>
+                          </div>
+                        </div>
                       </div>
                       <div className="cardTest-img">
-                        <img src={imgStartTest} alt="Start Test" />
-                        <div>
-                          <Button
-                            type="primary"
-                            onClick={() => handleStartClick(test._id)}
-                          >
-                            START
-                          </Button>
-                        </div>
+                        {playerTest?.score > 0 && playerTest?.time > 0 ? (
+                          <>
+                            <img src={imgCup} alt="Congratulations" />
+                            <div>
+                              <Button
+                                type="primary"
+                                onClick={() => handleStartClick(test._id)}
+                              >
+                                TRY AGAIN
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <img src={imgStartTest} alt="Start Test" />
+                            <div>
+                              <Button
+                                type="primary"
+                                onClick={() => handleStartClick(test._id)}
+                              >
+                                START
+                              </Button>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </Card>
                 );
               })}
             </div>
-            <div style={{ width: "40%" }} className="responsive-hide">
-              <Card title="Leaderboards!" style={{ marginBottom: "16px" }} />
-              <Card title="The references you have read">
-                <List
-                  size="small"
-                  dataSource={references}
-                  renderItem={(item, index) => (
-                    <List.Item key={index}>
-                      <Link to="/">
-                        <Text className="references">{item}</Text>
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Card>
-              <Row gutter={[16, 16]} className="flex-container">
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INTRODUCE</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>EFFECTIVENESS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>JOB</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>INVESTORS</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>RULES</h4>
-                  </Col>
-                </Link>
-                <Link to="/">
-                  <Col className="flex-item">
-                    <h4>PRIVACY</h4>
-                  </Col>
-                </Link>
-              </Row>
-            </div>
+            <Sidebar/>
           </div>
         </Content>
       </Layout>

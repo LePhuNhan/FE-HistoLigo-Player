@@ -110,6 +110,7 @@
 }
 
 .multiple-choice-option {
+  display: block;
   border-radius: 10px !important;
   border-inline-start: 9px solid #5e9aee !important;
   border-start-start-radius: 0px !important;
@@ -135,7 +136,12 @@
     border-color: #0684f9;
     color: #1890ff;
 }
-
+.multiple-choice-option-radio{
+  display: flex;
+}
+.multiple-choice-option-span{
+  margin-left: 3px;
+}
 .multiple-choice-option span.ant-radio {
   display: none;
 }

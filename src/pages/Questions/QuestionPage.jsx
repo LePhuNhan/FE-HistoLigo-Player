@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Card,
   Radio,
@@ -40,10 +40,10 @@ const QuizPage = () => {
     "lightcoral",
     "lightgoldenrodyellow",
   ];
-  
+
   const debouncedCheckAnswer = debounce((question) => {
     checkAnswer(question);
-  }, 1000);
+  }, 500);
 
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
@@ -168,9 +168,9 @@ const QuizPage = () => {
   const checkAnswer = async (question) => {
     const currentQuestion = questions[currentQuestionIndex];
     const currentAnswer = answers[currentQuestion._id];
-  
+
     let answerPayload;
-  
+
     switch (currentQuestion.questionType) {
       case 0: // Multiple Choice
       case 1: // True/False
@@ -179,7 +179,7 @@ const QuizPage = () => {
           selectedAnswer: currentAnswer,
         };
         break;
-  
+
       case 2: // Matching
         if (!areRightColumnColorsDistinct(rightColors)) {
           message.error(
@@ -195,50 +195,51 @@ const QuizPage = () => {
           })),
         };
         break;
-  
+
       case 3: // Fill-in-the-Blank
         answerPayload = {
           questionId: currentQuestion._id,
           selectedAnswer: [currentAnswer],
         };
         break;
-  
+
       default:
         return;
     }
-  
+
     try {
       const response = await axios.post(`${DomainApi}/question/${testId}`, {
         answer: answerPayload,
       });
-  
+
       const updatedQuestions = response.data.questions;
       const result = updatedQuestions.find(
         (q) => q.questionId === currentQuestion._id
       );
-  
+
       if (result.isCorrect) {
         message.success("Correct!!!");
       } else {
         message.error("Incorrect!");
       }
-  
+
       setAggregatedResults((prevResults) => {
-        const existingResults = new Map(prevResults.map(result => [result.questionId, result]));
+        const existingResults = new Map(
+          prevResults.map((result) => [result.questionId, result])
+        );
         const newResults = [...existingResults.values(), result];
         return newResults;
       });
-      
+
       setAnsweredQuestions((prevAnswered) => ({
         ...prevAnswered,
         [currentQuestion._id]: true,
       }));
-  
+
       setTimeout(() => {
         if (currentQuestionIndex < questions.length - 1) {
           setCurrentQuestionIndex((prev) => prev + 1);
         }
-  
       }, 1000);
     } catch (error) {
       message.error("Error checking answer. Please try again.");
@@ -254,19 +255,20 @@ const QuizPage = () => {
       isInitialRender2.current = false;
       return;
     }
-    if (allQuestionsAnswered() || currentQuestionIndex === questions.length - 1) {
+    if (
+      allQuestionsAnswered() ||
+      currentQuestionIndex === questions.length - 1
+    ) {
       handleSubmit(aggregatedResults);
     }
   }, [aggregatedResults]);
-  
-  
 
   const handleSubmit = async (results) => {
     if (!allQuestionsAnswered()) {
       message.warning("Please answer all questions before submitting.");
       return;
     }
-    
+
     try {
       const updateData = await axios.put(
         `${DomainApi}/playerTest/${playerTestId}`,
@@ -333,7 +335,10 @@ const QuizPage = () => {
                   value={index}
                   className="multiple-choice-option"
                 >
-                  <strong>{String.fromCharCode(65 + index)}.</strong> {option}
+                  <div className="multiple-choice-option-radio">
+                    <strong>{String.fromCharCode(65 + index)}. </strong>
+                    <span dangerouslySetInnerHTML={{ __html: option }} className="multiple-choice-option-span"/>
+                  </div>
                 </Radio.Button>
               ))}
             </Radio.Group>
@@ -366,7 +371,7 @@ const QuizPage = () => {
                       marginBottom: "8px",
                     }}
                   >
-                    {item}
+                    <span dangerouslySetInnerHTML={{ __html: item }} className="multiple-choice-option-span"/>
                   </div>
                 ))}
               </Col>
@@ -401,7 +406,7 @@ const QuizPage = () => {
     if (!currentQuestion) {
       return false;
     }
-    if (currentQuestion && currentQuestion.questionType == 2) {
+    if (currentQuestion && currentQuestion.questionType === 2) {
       const leftColumnSelected = leftColors.some((color) => color !== "white");
       const rightColumnSelected = rightColors.some(
         (color) => color !== "white"
@@ -468,7 +473,7 @@ const QuizPage = () => {
 
         <Button
           type="primary"
-          onClick={() => debouncedCheckAnswer(questions[currentQuestionIndex]) }
+          onClick={() => debouncedCheckAnswer(questions[currentQuestionIndex])}
           disabled={
             !isAnswerSelected() ||
             answeredQuestions[questions[currentQuestionIndex]._id]

@@ -105,7 +105,6 @@ const QuizPage = () => {
   };
 
   const navigate = useNavigate();
-  const { Option } = Select;
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
 
   useEffect(() => {

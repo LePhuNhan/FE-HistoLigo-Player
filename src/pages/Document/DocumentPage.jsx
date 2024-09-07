@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
+import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentPage.style.css";
 import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartDocument from "../../assets/imageDocument.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -15,20 +16,21 @@ const { Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
-  "United States": "US",
+  America: "US",
   Russia: "RU",
+  France: "FR",
+  Germany: "DE",
+  Japan: "JP",
+  Korea: "KR",
 };
-
 const Document = () => {
   const [documents, setDocuments] = useState([]);
-  const location = useLocation();
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
-  const selectedCountry = location.state?.selectedCountry || {
-    name: "United States",
+  const selectedCountry = localStorage.getItem("selectedCountry") || {
+    name: "America",
   };
-  const countryCode = countryCodeMap[selectedCountry.name] || "US";
-  const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
+  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -44,7 +46,6 @@ const Document = () => {
       }
     };
     fetchDocuments();
-    
   }, [selectedTopicId]);
 
   const handleStartClick = async (documentId) => {
@@ -91,7 +92,7 @@ const Document = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <img className="flag" src={flagUrl} alt="flag" />
+                <FlagIcon code={countryCode} className="flag" />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
@@ -101,9 +102,7 @@ const Document = () => {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ width: "60%", marginLeft: "5%" }} className="card">
               {documents.map((document, index) => {
-                const titles = document.content.match(
-                  /^(I+)\. .+$/gm
-                );
+                const titles = document.content.match(/^(I+)\. .+$/gm);
 
                 return (
                   <Card
@@ -116,7 +115,7 @@ const Document = () => {
                         <div className="cardDocument-text">
                           <Text>{document.name}</Text>
                         </div>
-                        
+
                         {titles?.map((title, idx) => (
                           <Text className="text" key={idx}>
                             {title}
@@ -139,7 +138,7 @@ const Document = () => {
                 );
               })}
             </div>
-            <Sidebar/>
+            <Sidebar />
           </div>
         </Content>
       </Layout>

@@ -3,11 +3,9 @@ import {
   Card,
   Radio,
   Button,
-  Input,
   Row,
   Col,
   Progress,
-  Select,
   message,
 } from "antd";
 import axios from "axios";
@@ -22,10 +20,9 @@ const QuizPage = () => {
   const [answers, setAnswers] = useState({});
   const [answeredQuestions, setAnsweredQuestions] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = "vi-VN";
+  const locale = "en-US";
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);
@@ -33,7 +30,6 @@ const QuizPage = () => {
   const [rightColors, setRightColors] = useState([]);
   const [previouslySelectedRight, setPreviouslySelectedRight] = useState(null);
   const playerTestId = localStorage.getItem("playerTestId");
-  const [playerTest, setPlayerTest] = useState({});
   const [aggregatedResults, setAggregatedResults] = useState([]);
   const highlightColors = [
     "lightblue",
@@ -285,8 +281,6 @@ const QuizPage = () => {
           questions: results,
         }
       );
-      setPlayerTest(updateData.data);
-      setIsQuizCompleted(true);
       message.success("Quiz completed! Redirecting to results page...");
       setTimeout(() => {
         navigate("/test/result");

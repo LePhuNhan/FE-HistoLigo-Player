@@ -1,13 +1,17 @@
 import React from "react";
 import "./LoginPage.styles.css";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import debounce from "lodash.debounce";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const debouncedOnFinish = debounce((values) => {
+    onFinish(values);
+  }, 500);
   const onFinish = async (values) => {
     try {
       const response = await axios.post(`${DomainApi}/api/v1/login`, {
@@ -19,9 +23,10 @@ const LoginPage = () => {
         localStorage.removeItem('accessToken');
       }
       localStorage.setItem('accessToken', accessToken);
-
+      message.success("Login success!");
       navigate(`/learn`);
     } catch (error) {
+      message.error("Login failed!");
       console.error("Login failed:", error);
     }
   };
@@ -32,7 +37,7 @@ const LoginPage = () => {
         name="normal_login"
         className="login-form"
         initialValues={{ remember: true }}
-        onFinish={onFinish}
+        onFinish={debouncedOnFinish}
       >
         <h1 className="login_heading">Login</h1>
         <Form.Item className="antFormItem"

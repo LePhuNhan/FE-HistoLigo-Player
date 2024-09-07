@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, List, Typography, Row, Col, Button } from "antd";
+import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./TestPage.styles.css";
 import imgTest from "../../assets/imageBtn-test.png";
@@ -10,6 +10,7 @@ import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
 import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -17,22 +18,23 @@ const { Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
-  "United States": "US",
+  America: "US",
   Russia: "RU",
+  France: "FR",
+  Germany: "DE",
+  Japan: "JP",
+  Korea: "KR",
 };
-
 const Test = () => {
   const [tests, setTests] = useState([]);
   const [playerTests, setPlayerTests] = useState([]);
-  const location = useLocation();
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
-  const selectedCountry = location.state?.selectedCountry || {
-    name: "United States",
+  const selectedCountry = localStorage.getItem("selectedCountry") || {
+    name: "America",
   };
   const accessToken = localStorage.getItem("accessToken");
-  const countryCode = countryCodeMap[selectedCountry.name] || "US";
-  const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
+  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -103,7 +105,7 @@ const Test = () => {
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-test">
-                  <img className="test" src={imgTest} alt="imgTest"/>
+                  <img className="test" src={imgTest} alt="imgTest" />
                   TESTS
                 </Button>
               </Link>
@@ -116,7 +118,11 @@ const Test = () => {
                     background: "#fff",
                   }}
                 >
-                  <img className="document" src={imgDocument} alt="imgDocument"/>
+                  <img
+                    className="document"
+                    src={imgDocument}
+                    alt="imgDocument"
+                  />
                   DOCUMENTS
                 </Button>
               </Link>
@@ -124,7 +130,7 @@ const Test = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <img className="flag" src={flagUrl} alt="flag" />
+                <FlagIcon code={countryCode} className="flag" />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
@@ -208,7 +214,7 @@ const Test = () => {
                 );
               })}
             </div>
-            <Sidebar/>
+            <Sidebar />
           </div>
         </Content>
       </Layout>

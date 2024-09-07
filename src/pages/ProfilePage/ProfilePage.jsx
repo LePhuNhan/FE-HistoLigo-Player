@@ -18,6 +18,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import styles from "./ProfilePage.styles.css";
 import imageCompression from 'browser-image-compression';
+import debounce from "lodash.debounce";
 
 const { Option } = Select;
 
@@ -26,18 +27,21 @@ const ProfilePage = () => {
   const [avatar, setAvatar] = useState(null);
   const [avatarURL, setAvatarURL] = useState("");
   const [form] = Form.useForm();
+  const debouncedHandleUpdateProfile = debounce(() => {
+    handleUpdateProfile();
+  }, 500);
   
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const localeToLabel = {
-    "vi_VN": "vietNam",
-    "en_US": "english",
-    "ru_RU": "pусский",
+    "vi-VN": "vietNam",
+    "en-US": "english",
+    "ru-RU": "pусский",
   };
   const labelToLocale = {
-    "vietNam": "vi_VN",
-    "english": "en_US",
-    "pусский": "ru_RU",
+    "vietNam": "vi-VN",
+    "english": "en-US",
+    "pусский": "ru-RU",
   };
 
   const getLocaleFromLabel = (label) => {
@@ -86,10 +90,11 @@ const ProfilePage = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    message.success("Profile updated successfully!");
+    message.success("Profile updated successfully!", values);
   };
 
   const onFinishFailed = (errorInfo) => {
+    message.error("Profile updated failed!", errorInfo);
     console.log("Failed:", errorInfo);
   };
 
@@ -142,6 +147,8 @@ const ProfilePage = () => {
         avatar: avatar,
         locale: getLocaleFromLabel(values.language),
       };
+      console.log(getLocaleFromLabel(values.language));
+      
       const response = await axios.put(`${DomainApi}/player/${id}`, updateData);
       console.log("Success:", response.data);
       onFinish(response.data);
@@ -198,7 +205,6 @@ const ProfilePage = () => {
             </Form.Item>
           </Form.Item>
           <Row gutter={16}>
-            {/* Left side */}
             <Col xs={24} sm={24} md={12}>
               <Form.Item
                 label="Full name"
@@ -210,19 +216,6 @@ const ProfilePage = () => {
                 <Input
                   className={styles.inputOutlined}
                   placeholder="Please enter your full name"
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  { required: true, message: "Please enter your username!" },
-                ]}
-              >
-                <Input
-                  className={styles.inputOutlined}
-                  placeholder="Please enter your username"
                 />
               </Form.Item>
               <Form.Item
@@ -261,8 +254,6 @@ const ProfilePage = () => {
                 </Select>
               </Form.Item>
             </Col>
-
-            {/* Right side */}
             <Col xs={24} sm={24} md={12}>
               <Form.Item
                 label="Email"
@@ -310,14 +301,12 @@ const ProfilePage = () => {
               </Form.Item>
             </Col>
           </Row>
-
-          {/* Submit and Reset Buttons */}
           <Form.Item>
             <Button
               type="primary"
               htmlType="button"
               style={{ background: "#D74632" }}
-              onClick={handleUpdateProfile}
+              onClick={debouncedHandleUpdateProfile}
             >
               Update Profile
             </Button>

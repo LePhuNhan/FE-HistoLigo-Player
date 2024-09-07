@@ -10,13 +10,16 @@ const { Header, Content, Footer } = Layout;
 
 const countryCodeMap = {
   Vietnam: "VN",
-  "United States": "US",
+  America: "US",
   Russia: "RU",
+  France: "FR",
+  Germany: "DE",
+  Japan: "JP",
+  Korea: "KR"
 };
 
 const ChooseCountry = () => {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
   const DomainApi=process.env.REACT_APP_DOMAIN_API;
 
@@ -24,6 +27,8 @@ const ChooseCountry = () => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get(`${DomainApi}/country`);
+        console.log(response);
+        
         setCountries(response.data);
       } catch (error) {
         console.error("Error fetching country data:", error);
@@ -33,9 +38,9 @@ const ChooseCountry = () => {
     fetchCountries();
   }, []);
 
-  const handleCountryClick = (country) => {
-    setSelectedCountry(country);
-    navigate("/learn", { state: { selectedCountry: country } });
+  const handleCountryClick = (country) => {   
+    localStorage.setItem("selectedCountry", country.name);
+    navigate("/learn");
   };  
 
   const {

@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  Layout,
-  Card,
-  List,
-  Typography,
-  Row,
-  Col,
-  Button,
-  Divider,
-} from "antd";
+import { Layout, Typography, Button, Divider } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentDetailPage.styles.css";
 import imgRead from "../../assets/imageRead.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -23,20 +15,22 @@ const { Title, Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
-  "United States": "US",
+  America: "US",
   Russia: "RU",
+  France: "FR",
+  Germany: "DE",
+  Japan: "JP",
+  Korea: "KR",
 };
 
 const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
-  const location = useLocation();
   const selectedTopicId = localStorage.getItem("selectedTopicId");
   const { id } = useParams();
-  const selectedCountry = location.state?.selectedCountry || {
-    name: "United States",
+  const selectedCountry = localStorage.getItem("selectedCountry") || {
+    name: "America",
   };
-  const countryCode = countryCodeMap[selectedCountry.name] || "US";
-  const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
+  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -52,6 +46,7 @@ const DocumentDetail = () => {
     fetchDocuments();
     console.log(documents);
   }, [selectedTopicId]);
+  console.log(documents.content);
 
   const renderContent = (content) => {
     const titles = content.match(/^(I+)\. .+$/gm) || [];
@@ -102,7 +97,7 @@ const DocumentDetail = () => {
           <div className="header-content-document">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <img className="flag" src={flagUrl} alt="flag" />
+                <FlagIcon code={countryCode} className="flag" />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
@@ -144,7 +139,7 @@ const DocumentDetail = () => {
                 </Typography>
               )}
             </div>
-            <Sidebar/>
+            <Sidebar />
           </div>
         </Content>
       </Layout>

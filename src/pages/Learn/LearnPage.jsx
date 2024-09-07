@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Card, Typography, Progress, Row, Col, List } from "antd";
+import { Layout, Card, Typography, Progress} from "antd";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LearnPage.styles.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { FlagIcon } from "react-flag-kit";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
 const countryCodeMap = {
   Vietnam: "VN",
-  "United States": "US",
+  America: "US",
   Russia: "RU",
+  France: "FR",
+  Germany: "DE",
+  Japan: "JP",
+  Korea: "KR"
 };
 
 const Learn = () => {
   const [topics, setTopics] = useState([]);
-  const location = useLocation();
   const navigate = useNavigate();
-  const selectedCountry = location.state?.selectedCountry || {
-    name: "United States",
+  const selectedCountry = localStorage.getItem("selectedCountry") || {
+    name: "America",
   };
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const countryCode = countryCodeMap[selectedCountry.name] || "US";
-  const flagUrl = `https://cdn.jsdelivr.net/gh/umidbekk/react-flag-kit@1/assets/${countryCode}.svg`;
+  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
@@ -56,7 +59,7 @@ const Learn = () => {
     localStorage.setItem("selectedTopicId", topicId);
     navigate(`/learn/test/${topicId}`);
   };
-
+  
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
@@ -74,7 +77,7 @@ const Learn = () => {
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <img className="flag" src={flagUrl} alt="flag" />
+                <FlagIcon code={countryCode} className="flag" />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>

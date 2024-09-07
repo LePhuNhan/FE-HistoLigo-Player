@@ -44,9 +44,7 @@ const DocumentDetail = () => {
       }
     };
     fetchDocuments();
-    console.log(documents);
-  }, [selectedTopicId]);
-  console.log(documents.content);
+  }, [id]);
 
   const renderContent = (content) => {
     const titles = content.match(/^(I+)\. .+$/gm) || [];

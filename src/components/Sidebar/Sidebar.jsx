@@ -8,7 +8,7 @@ const Sidebar = () => {
   const [references, setReferences] = useState([]);
   const { Text } = Typography;
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const documentId = localStorage.getItem("selectedDocumentId");
+
   useEffect(() => {
     const fetchReferences = async () => {
       const topicId = localStorage.getItem("selectedTopicId");
@@ -18,7 +18,7 @@ const Sidebar = () => {
             `${DomainApi}/documentation/topic/${topicId}`
           );
           const referencesData = response.data;
-
+          
           const shuffled = referencesData.sort(() => 0.5 - Math.random());
           const fiveRandomReferences = shuffled.slice(0, 5);
 
@@ -31,6 +31,7 @@ const Sidebar = () => {
 
     fetchReferences();
   }, []);
+
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
       <Card title="Leaderboards!" style={{ marginBottom: "16px" }}></Card>
@@ -40,7 +41,7 @@ const Sidebar = () => {
           dataSource={references}
           renderItem={(item, index) => (
             <List.Item key={index}>
-              <Link to={`/documentDetail/${documentId}`}>
+              <Link to={`/documentDetail/${item._id}`}>
                 <Text className="references">{item.name}</Text>
               </Link>
             </List.Item>

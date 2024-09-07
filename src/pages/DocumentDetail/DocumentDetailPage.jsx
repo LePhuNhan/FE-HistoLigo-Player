@@ -131,8 +131,21 @@ const DocumentDetail = () => {
                 />
               </div>
 
-              {documents.content ? (
+              {/* {documents.content ? (
                 renderContent(documents.content)
+              ) : (
+                <Typography style={{ marginTop: "16px" }}>
+                  <Text>No content available.</Text>
+                </Typography>
+              )} */}
+              {documents.content ? (
+                <Typography style={{ marginTop: "16px" }}>
+                  <Link to={documents.source}>
+                    <span
+                      dangerouslySetInnerHTML={{ __html: documents.content }}
+                    />
+                  </Link>
+                </Typography>
               ) : (
                 <Typography style={{ marginTop: "16px" }}>
                   <Text>No content available.</Text>

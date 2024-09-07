@@ -15,20 +15,20 @@ const countryCodeMap = {
   France: "FR",
   Germany: "DE",
   Japan: "JP",
-  Korea: "KR"
+  Korea: "KR",
 };
 
 const ChooseCountry = () => {
   const [countries, setCountries] = useState([]);
   const navigate = useNavigate();
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
-
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get(`${DomainApi}/country`);
         console.log(response);
-        
+
         setCountries(response.data);
       } catch (error) {
         console.error("Error fetching country data:", error);
@@ -38,10 +38,30 @@ const ChooseCountry = () => {
     fetchCountries();
   }, []);
 
-  const handleCountryClick = (country) => {   
+  const handleCountryClick = (country) => {
+    localStorage.setItem("selectedCountryId", country._id);
     localStorage.setItem("selectedCountry", country.name);
-    navigate("/learn");
-  };  
+    const fetchPlayerProcess = async () => {
+      try {
+        const response = await axios.post(
+          `${DomainApi}/playerProcess`,
+          {countryId:country._id},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response);
+        navigate("/learn");
+        setCountries(response.data);
+      } catch (error) {
+        console.error("Error fetching country data:", error);
+      }
+    };
+    fetchPlayerProcess();
+    
+  };
 
   const {
     token: { colorBgContainer, borderRadiusLG },

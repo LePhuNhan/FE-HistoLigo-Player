@@ -26,6 +26,7 @@ const Learn = () => {
   const selectedCountry = localStorage.getItem("selectedCountry") || {
     name: "America",
   };
+  const selectedCountryId = localStorage.getItem("selectedCountryId");
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const countryCode = countryCodeMap[selectedCountry] || "US";
@@ -44,7 +45,10 @@ const Learn = () => {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          }
+            params:{
+              countryId:selectedCountryId
+            }
+          },
         );
         setTopics(response.data);
       } catch (error) {

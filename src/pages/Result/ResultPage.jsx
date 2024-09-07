@@ -4,6 +4,7 @@ import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResultPage.style.css";
+import { countries } from "country-flag-icons";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -14,9 +15,10 @@ const Result = () => {
   const [time, setTime] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
+  // const [countryId, selectedCountryId]= useState("");
   const topicId = localStorage.getItem("selectedTopicId");
   const playerTestId = localStorage.getItem("playerTestId");
-  const playerProcessId = localStorage.getItem("playerProcessId");
+  const selectedCountryId = localStorage.getItem("selectedCountryId");
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
@@ -35,30 +37,18 @@ const Result = () => {
       setTime(time);
 
       await updatePlayerProcess(testId, score, time);
-
     } catch (error) {
       message.error("Error fetching test data.");
     }
   };
   const updatePlayerProcess = async (testId, score, time) => {
     try {
-     
-      
       const response = await axios.put(
         `${DomainApi}/playerProcess/combindedTopic`,
         {
-          topics: [
-            {
-              topicId: topicId,
-              tests: [
-                {
-                  testId,
-                  score,
-                  time: `${time}s`,
-                },
-              ],
-            },
-          ],
+          testId,
+          score,
+          time: `${time}s`,
         },
         {
           headers: {

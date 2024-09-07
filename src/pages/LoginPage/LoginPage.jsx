@@ -24,7 +24,7 @@ const LoginPage = () => {
       }
       localStorage.setItem('accessToken', accessToken);
       message.success("Login success!");
-      navigate(`/learn`);
+      navigate(`/chooseCountry`);
     } catch (error) {
       message.error("Login failed!");
       console.error("Login failed:", error);

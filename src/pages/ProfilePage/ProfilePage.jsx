@@ -149,7 +149,16 @@ const ProfilePage = () => {
       };
       console.log(getLocaleFromLabel(values.language));
       
-      const response = await axios.put(`${DomainApi}/player/${id}`, updateData);
+      const response = await axios.put(
+        `${DomainApi}/player/${id}`,
+        updateData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      
       console.log("Success:", response.data);
       onFinish(response.data);
 

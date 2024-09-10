@@ -68,7 +68,6 @@
   margin-top: 20px;
 }
 
-/* Footer */
 .footer {
   text-align: center;
   background: #001529;
@@ -76,7 +75,6 @@
   padding: 16px;
 }
 
-/* Ant Design Overrides */
 .ant-layout-header {
   padding: 0;
 }

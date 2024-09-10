@@ -43,7 +43,7 @@
 .cardTest-text {
   margin-bottom: 5%;
 }
-.cardTest-text :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+.cardTest-text .ant-typography {
   color: white;
   font-weight: 600;
   font-size: 25px;
@@ -54,7 +54,7 @@
   justify-content: space-evenly;
   width: 100%;
 }
-.cardTest-record :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+.cardTest-record .ant-typography {
   color: white;
   font-weight: 600;
   font-size: 20px;

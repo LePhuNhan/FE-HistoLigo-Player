@@ -4,14 +4,10 @@
   justify-content: center;
   display: flex;
 }
-.processbar
-  :where(.css-dev-only-do-not-override-p8b6i).ant-progress
-  .ant-progress-inner {
+.processbar .ant-progress .ant-progress-inner {
   height: 15px;
 }
-.processbar
-  :where(.css-dev-only-do-not-override-p8b6i).ant-progress
-  .ant-progress-bg {
+.processbar.ant-progress .ant-progress-bg {
   background-color: #52c41a;
 }
 
@@ -24,7 +20,6 @@
   width: 100%;
 }
 .btn {
-
   position: fixed;
   bottom: 0;
   left: 0;
@@ -36,13 +31,13 @@
   display: flex;
   justify-content: space-around;
 }
-.button{
-    width: 100px;
-    background-color:rgb(15, 148, 250);;
+.button {
+  width: 100px;
+  background-color: rgb(15, 148, 250);
 }
-.button:hover{
-    width: 100px;
-    background-color: #52c41a !important;
+.button:hover {
+  width: 100px;
+  background-color: #52c41a !important;
 }
 .questionContainer {
   display: flex;
@@ -129,17 +124,15 @@
   color: #1890ff;
 }
 
-.multiple-choice-option:where(
-    .css-dev-only-do-not-override-p8b6i
-  ).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    background-color: #c6e8f8;
-    border-color: #0684f9;
-    color: #1890ff;
+.multiple-choice-option.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background-color: #c6e8f8;
+  border-color: #0684f9;
+  color: #1890ff;
 }
-.multiple-choice-option-radio{
+.multiple-choice-option-radio {
   display: flex;
 }
-.multiple-choice-option-span{
+.multiple-choice-option-span {
   margin-left: 3px;
 }
 .multiple-choice-option span.ant-radio {

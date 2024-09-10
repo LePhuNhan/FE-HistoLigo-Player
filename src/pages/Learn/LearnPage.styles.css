@@ -89,28 +89,28 @@
 .learn-card {
   background-color: rgba(28, 176, 246, 1) !important;
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-progress
-  .ant-progress-success-bg,
-:where(.css-dev-only-do-not-override-p8b6i).ant-progress .ant-progress-bg {
+.ant-progress
+.ant-progress-success-bg,
+.ant-progress .ant-progress-bg {
   background-color: rgba(255, 200, 0, 1);
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-progress .ant-progress-inner {
+.ant-progress .ant-progress-inner {
   background-color: rgba(132, 216, 255, 1);
 }
 .learnTitle {
   color: rgba(255, 255, 255) !important;
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-progress .ant-progress-outer {
+.ant-progress .ant-progress-outer {
   margin-bottom: 15px;
 }
 .text {
   color: rgba(255, 255, 255);
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-progress
-  .ant-progress-text.ant-progress-text-outer {
+.ant-progress
+.ant-progress-text.ant-progress-text-outer {
   color: rgba(255, 255, 255);
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-row {
+.ant-row {
   margin-left: 10% !important;
 }
 .gutter-row {

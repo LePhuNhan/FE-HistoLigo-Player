@@ -48,7 +48,7 @@
 
 .questionCard {
   width: 100%;
-  min-width: 700px;
+  min-width: 1000px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -151,7 +151,11 @@
   background-color: white;
   transition: background-color 0.3s ease;
 }
-
+@media (min-width: 601px) and (max-width:1001px){
+  .questionCard {
+    min-width: 100%;
+  }
+}
 @media (max-width: 601px) {
   .questionCard {
     min-width: 100%;

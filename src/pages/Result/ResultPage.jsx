@@ -4,7 +4,6 @@ import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResultPage.style.css";
-import { countries } from "country-flag-icons";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -15,10 +14,9 @@ const Result = () => {
   const [time, setTime] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
-  // const [countryId, selectedCountryId]= useState("");
   const topicId = localStorage.getItem("selectedTopicId");
   const playerTestId = localStorage.getItem("playerTestId");
-  const selectedCountryId = localStorage.getItem("selectedCountryId");
+  const selectedTestId = localStorage.getItem("selectedTestId");
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
@@ -100,7 +98,7 @@ const Result = () => {
           `${DomainApi}/feedback`,
           {
             content: feedback,
-            testId: playerTestId,
+            testId: selectedTestId,
           },
           {
             headers: {

@@ -8,21 +8,11 @@ import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartDocument from "../../assets/imageDocument.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
-const countryCodeMap = {
-  Vietnam: "VN",
-  America: "US",
-  Russia: "RU",
-  France: "FR",
-  Germany: "DE",
-  Japan: "JP",
-  Korea: "KR",
-};
 const Document = () => {
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
@@ -30,7 +20,8 @@ const Document = () => {
   const selectedCountry = localStorage.getItem("selectedCountry") || {
     name: "America",
   };
-  const countryCode = countryCodeMap[selectedCountry] || "US";
+  const selectedCountryId = localStorage.getItem("selectedCountryId");
+  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -92,7 +83,12 @@ const Document = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <FlagIcon code={countryCode} className="flag" />
+              <img
+                    src={selectedCountryImg}
+                    alt={selectedCountry}
+                    style={{ width: 50, borderRadius: 1 }}
+                    className="flag"
+                  />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>

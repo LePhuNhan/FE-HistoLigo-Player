@@ -5,20 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LearnPage.styles.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { FlagIcon } from "react-flag-kit";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
-const countryCodeMap = {
-  Vietnam: "VN",
-  America: "US",
-  Russia: "RU",
-  France: "FR",
-  Germany: "DE",
-  Japan: "JP",
-  Korea: "KR"
-};
 
 const Learn = () => {
   const [topics, setTopics] = useState([]);
@@ -27,9 +17,9 @@ const Learn = () => {
     name: "America",
   };
   const selectedCountryId = localStorage.getItem("selectedCountryId");
+  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
@@ -81,7 +71,12 @@ const Learn = () => {
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <FlagIcon code={countryCode} className="flag" />
+              <img
+                    src={selectedCountryImg}
+                    alt={selectedCountry}
+                    style={{ width: 50, borderRadius: 1 }}
+                    className="flag"
+                  />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>

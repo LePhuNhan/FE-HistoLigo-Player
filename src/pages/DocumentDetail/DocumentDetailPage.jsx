@@ -2,26 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Layout, Typography, Button, Divider } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Menu from "../../components/Menu/Menu";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./DocumentDetailPage.styles.css";
 import imgRead from "../../assets/imageRead.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
-const countryCodeMap = {
-  Vietnam: "VN",
-  America: "US",
-  Russia: "RU",
-  France: "FR",
-  Germany: "DE",
-  Japan: "JP",
-  Korea: "KR",
-};
 
 const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
@@ -30,8 +20,7 @@ const DocumentDetail = () => {
   const selectedCountry = localStorage.getItem("selectedCountry") || {
     name: "America",
   };
-  const countryCode = countryCodeMap[selectedCountry] || "US";
-
+  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
   useEffect(() => {
     const fetchDocuments = async () => {
       if (!id) return;
@@ -46,37 +35,37 @@ const DocumentDetail = () => {
     fetchDocuments();
   }, [id]);
 
-  const renderContent = (content) => {
-    const titles = content.match(/^(I+)\. .+$/gm) || [];
+  // const renderContent = (content) => {
+  //   const titles = content.match(/^(I+)\. .+$/gm) || [];
 
-    const texts = [];
-    let currentIndex = 0;
+  //   const texts = [];
+  //   let currentIndex = 0;
 
-    titles.forEach((title, index) => {
-      const startIndex = content.indexOf(title) + title.length;
-      const endIndex =
-        index < titles.length - 1
-          ? content.indexOf(titles[index + 1])
-          : undefined;
-      const text = content.slice(startIndex, endIndex).trim();
-      texts.push(text);
-    });
+  //   titles.forEach((title, index) => {
+  //     const startIndex = content.indexOf(title) + title.length;
+  //     const endIndex =
+  //       index < titles.length - 1
+  //         ? content.indexOf(titles[index + 1])
+  //         : undefined;
+  //     const text = content.slice(startIndex, endIndex).trim();
+  //     texts.push(text);
+  //   });
 
-    return (
-      <div>
-        {titles.length > 0 ? (
-          titles.map((title, index) => (
-            <div key={index} style={{ marginBottom: "16px" }}>
-              <Title level={4}>{title}</Title>
-              <Text>{texts[index]}</Text>
-            </div>
-          ))
-        ) : (
-          <Typography>No content available.</Typography>
-        )}
-      </div>
-    );
-  };
+  //   return (
+  //     <div>
+  //       {titles.length > 0 ? (
+  //         titles.map((title, index) => (
+  //           <div key={index} style={{ marginBottom: "16px" }}>
+  //             <Title level={4}>{title}</Title>
+  //             <Text>{texts[index]}</Text>
+  //           </div>
+  //         ))
+  //       ) : (
+  //         <Typography>No content available.</Typography>
+  //       )}
+  //     </div>
+  //   );
+  // };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -95,7 +84,12 @@ const DocumentDetail = () => {
           <div className="header-content-document">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <FlagIcon code={countryCode} className="flag" />
+              <img
+                    src={selectedCountryImg}
+                    alt={selectedCountry}
+                    style={{ width: 50, borderRadius: 1 }}
+                    className="flag"
+                  />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>

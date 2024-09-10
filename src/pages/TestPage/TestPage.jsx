@@ -10,21 +10,11 @@ import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
 import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { FlagIcon } from "react-flag-kit";
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
-const countryCodeMap = {
-  Vietnam: "VN",
-  America: "US",
-  Russia: "RU",
-  France: "FR",
-  Germany: "DE",
-  Japan: "JP",
-  Korea: "KR",
-};
 const Test = () => {
   const [tests, setTests] = useState([]);
   const [playerTests, setPlayerTests] = useState([]);
@@ -33,8 +23,8 @@ const Test = () => {
   const selectedCountry = localStorage.getItem("selectedCountry") || {
     name: "America",
   };
+  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
   const accessToken = localStorage.getItem("accessToken");
-  const countryCode = countryCodeMap[selectedCountry] || "US";
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -130,7 +120,12 @@ const Test = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseCountry">
-                <FlagIcon code={countryCode} className="flag" />
+              <img
+                    src={selectedCountryImg}
+                    alt={selectedCountry}
+                    style={{ width: 50, borderRadius: 1 }}
+                    className="flag"
+                  />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>

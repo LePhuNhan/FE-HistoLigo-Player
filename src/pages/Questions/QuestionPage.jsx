@@ -24,12 +24,18 @@ const QuizPage = () => {
   const playerTestId = localStorage.getItem("playerTestId");
   const [aggregatedResults, setAggregatedResults] = useState([]);
   const highlightColors = [
-    "lightblue",
-    "lightgreen",
-    "lightcoral",
-    "lightgoldenrodyellow",
-    "blue",
-  ];
+    "lavender",
+    "palegreen",
+    "lightsalmon",
+    "lightsteelblue",
+    "peachpuff",
+    "thistle",
+    "lightcyan",
+    "mistyrose",
+    "powderblue",
+    "aquamarine",
+];
+
 
   const debouncedCheckAnswer = debounce((question) => {
     checkAnswer(question);

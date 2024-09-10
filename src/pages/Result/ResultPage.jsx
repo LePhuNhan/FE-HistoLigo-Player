@@ -24,7 +24,7 @@ const Result = () => {
   const accessToken = localStorage.getItem("accessToken");
   const fetchTestData = async () => {
     if (!playerTestId) {
-      message.error("Test Id not found. Redirecting...");
+      message.error("Test Id not found. Redirecting...",1);
       return;
     }
 
@@ -38,7 +38,7 @@ const Result = () => {
 
       await updatePlayerProcess(testId, score, time);
     } catch (error) {
-      message.error("Error fetching test data.");
+      message.error("Error fetching test data.",1);
     }
   };
   const updatePlayerProcess = async (testId, score, time) => {
@@ -72,7 +72,7 @@ const Result = () => {
       });
       console.log("Player process updated successfully!");
     } catch (error) {
-      message.error("Error updating player process.");
+      message.error("Error updating player process.",1);
     }
   };
   useEffect(() => {
@@ -109,14 +109,14 @@ const Result = () => {
           }
         );
 
-        message.success("Feedback submitted!");
+        message.success("Feedback submitted!",1);
         setFeedback("");
         setShowFeedback(false);
       } catch (error) {
-        message.error("Error submitting feedback.");
+        message.error("Error submitting feedback.",1);
       }
     } else {
-      message.error("Please enter your feedback.");
+      message.error("Please enter your feedback.",1);
     }
   };
 

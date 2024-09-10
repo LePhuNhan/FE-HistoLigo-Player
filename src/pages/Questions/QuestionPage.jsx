@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Card,
-  Radio,
-  Button,
-  Row,
-  Col,
-  Progress,
-  message,
-} from "antd";
+import { Card, Radio, Button, Row, Col, Progress, message } from "antd";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
@@ -36,7 +28,7 @@ const QuizPage = () => {
     "lightgreen",
     "lightcoral",
     "lightgoldenrodyellow",
-    "blue"
+    "blue",
   ];
 
   const debouncedCheckAnswer = debounce((question) => {
@@ -108,7 +100,7 @@ const QuizPage = () => {
   useEffect(() => {
     const fetchTestData = async () => {
       if (!testId) {
-        message.error("Test ID not found. Redirecting...");
+        message.error("Test ID not found. Redirecting...", 1);
         return;
       }
 
@@ -135,7 +127,7 @@ const QuizPage = () => {
         }
       } catch (error) {
         console.error("Error fetching test data:", error);
-        message.error("Error fetching test data.");
+        message.error("Error fetching test data.", 1);
       }
     };
     fetchTestData();
@@ -184,7 +176,8 @@ const QuizPage = () => {
       case 2: // Matching
         if (!areRightColumnColorsDistinct(rightColors)) {
           message.error(
-            "Please ensure there are exactly four distinct colors in the right column."
+            "Please ensure there are exactly four distinct colors in the right column.",
+            1
           );
           return;
         }
@@ -209,13 +202,17 @@ const QuizPage = () => {
     }
 
     try {
-      const response = await axios.post(`${DomainApi}/question/${testId}`, {
-        answer: answerPayload,
-      },{
-        headers: {
-          "Content-Language": `${locale}`,
+      const response = await axios.post(
+        `${DomainApi}/question/${testId}`,
+        {
+          answer: answerPayload,
         },
-      });
+        {
+          headers: {
+            "Content-Language": `${locale}`,
+          },
+        }
+      );
 
       const updatedQuestions = response.data.questions;
       const result = updatedQuestions.find(
@@ -223,9 +220,9 @@ const QuizPage = () => {
       );
 
       if (result.isCorrect) {
-        message.success("Correct!!!");
+        message.success("Correct!!!", 1);
       } else {
-        message.error("Incorrect!");
+        message.error("Incorrect!", 1);
       }
 
       setAggregatedResults((prevResults) => {
@@ -247,11 +244,10 @@ const QuizPage = () => {
         }
       }, 1000);
     } catch (error) {
-      message.error("Error checking answer. Please try again.");
+      message.error("Error checking answer. Please try again.", 1);
     }
   };
   useEffect(() => {
-    // bỏ vô check answer thì aggregatedResults ko nhận answer cuối
     if (isInitialRender.current) {
       isInitialRender.current = false;
       return;
@@ -260,17 +256,14 @@ const QuizPage = () => {
       isInitialRender2.current = false;
       return;
     }
-    if (
-      allQuestionsAnswered() ||
-      currentQuestionIndex === questions.length - 1
-    ) {
+    if (allQuestionsAnswered()) {
       handleSubmit(aggregatedResults);
     }
   }, [aggregatedResults]);
 
   const handleSubmit = async (results) => {
     if (!allQuestionsAnswered()) {
-      message.warning("Please answer all questions before submitting.");
+      message.warning("Please answer all questions before submitting.", 1);
       return;
     }
 
@@ -281,13 +274,13 @@ const QuizPage = () => {
           questions: results,
         }
       );
-      message.success("Quiz completed! Redirecting to results page...");
+      message.success("Quiz completed! Redirecting to results page...", 1);
       setTimeout(() => {
         navigate("/test/result");
       }, 1500);
     } catch (error) {
       console.error("Error submitting answers:", error);
-      message.error("Error submitting answers. Please try again.");
+      message.error("Error submitting answers. Please try again.", 1);
     }
   };
 
@@ -467,7 +460,8 @@ const QuizPage = () => {
               className="questionCard"
             >
               <p>{currentQuestion?.ask}</p>
-              {currentQuestion && renderQuestion(questions[currentQuestionIndex])}
+              {currentQuestion &&
+                renderQuestion(questions[currentQuestionIndex])}
             </Card>
           </div>
         )}

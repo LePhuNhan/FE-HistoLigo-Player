@@ -23,10 +23,10 @@ const LoginPage = () => {
         localStorage.removeItem('accessToken');
       }
       localStorage.setItem('accessToken', accessToken);
-      message.success("Login success!");
+      message.success("Login success!",1);
       navigate(`/chooseCountry`);
     } catch (error) {
-      message.error("Login failed!");
+      message.error("Login failed!",1);
       console.error("Login failed:", error);
     }
   };

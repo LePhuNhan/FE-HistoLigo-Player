@@ -1,8 +1,8 @@
 import React from "react";
 import "./SignUpPage.styles.css";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input,message  } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, Input,message  } from "antd";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUpPage = () => {

@@ -90,11 +90,11 @@ const ProfilePage = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    message.success("Profile updated successfully!", values);
+    message.success("Profile updated successfully!", 1);
   };
 
   const onFinishFailed = (errorInfo) => {
-    message.error("Profile updated failed!", errorInfo);
+    message.error("Profile updated failed!", 1);
     console.log("Failed:", errorInfo);
   };
 

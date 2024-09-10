@@ -29,7 +29,10 @@
 .antFormItem {
   margin-left: -10%;
 }
-.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper:focus{
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
 .ant-input-affix-wrapper-focused {
   border-color: #1890ff;
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);

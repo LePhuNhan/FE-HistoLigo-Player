@@ -6,7 +6,7 @@ import { FlagIcon } from "react-flag-kit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 const countryCodeMap = {
   Vietnam: "VN",
@@ -16,6 +16,9 @@ const countryCodeMap = {
   Germany: "DE",
   Japan: "JP",
   Korea: "KR",
+  Thailand: "TH",
+  Italia: "IT",
+  "Magical World":"MG"
 };
 
 const ChooseCountry = () => {

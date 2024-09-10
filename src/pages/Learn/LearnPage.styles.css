@@ -5,9 +5,9 @@
   border-radius: 5%;
 }
 .flag:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 .header-content {
   display: flex;
   justify-content: flex-end;
@@ -36,7 +36,7 @@
   }
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .header-content {
     width: 115%;
   }
@@ -49,7 +49,7 @@
     font-size: 16px;
   }
 }
-@media (max-width: 480px){
+@media (max-width: 480px) {
   .header-content {
     width: 100%;
   }
@@ -65,7 +65,7 @@
 .flex-container {
   margin-top: 5%;
 }
-:where(.css-dev-only-do-not-override-p8b6i).ant-layout-header {
+.ant-layout-header {
   color: rgba(255, 150, 0, 1);
 }
 .learn-card {
@@ -77,8 +77,8 @@
 }
 .learn-card .card-content {
   display: flex;
-  flex-direction: row; /* Mặc định là row */
-  align-items: center; /* Căn giữa theo chiều dọc */
+  flex-direction: row;
+  align-items: center;
 }
 .learn-card .card-text {
   flex: 1;
@@ -89,8 +89,9 @@
 .learn-card {
   background-color: rgba(28, 176, 246, 1) !important;
 }
-.ant-progress
-.ant-progress-success-bg,
+.ant-progress .ant-progress-success-bg {
+  background-color: rgba(255, 200, 0, 1);
+}
 .ant-progress .ant-progress-bg {
   background-color: rgba(255, 200, 0, 1);
 }
@@ -106,8 +107,7 @@
 .text {
   color: rgba(255, 255, 255);
 }
-.ant-progress
-.ant-progress-text.ant-progress-text-outer {
+.ant-progress .ant-progress-text.ant-progress-text-outer {
   color: rgba(255, 255, 255);
 }
 .ant-row {
@@ -116,8 +116,8 @@
 .gutter-row {
   margin-top: 15px;
 }
-.references:hover{
-    color: blue;
+.references:hover {
+  color: blue;
 }
 @media (min-width: 1201px) {
   .learn-card .card-image {

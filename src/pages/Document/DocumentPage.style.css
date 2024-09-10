@@ -42,7 +42,7 @@
 .cardDocument-text {
   margin-bottom: 3%;
 }
-.cardDocument-text :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+.cardDocument-text .ant-typography {
   color: white;
   font-weight: 600;
   font-size: 25px;
@@ -54,7 +54,7 @@
   width: 100%;
 }
 .cardDocument-record
-  :where(.css-dev-only-do-not-override-p8b6i).ant-typography {
+  .ant-typography {
   color: white;
   font-weight: 600;
   font-size: 20px;

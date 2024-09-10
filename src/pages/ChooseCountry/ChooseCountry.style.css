@@ -22,13 +22,11 @@
   font-size: 16px;
 }
 
-/* Content */
 .site-layout-background {
   background: #fff;
   border-radius: 8px;
 }
 
-/* Country Icons Section */
 .country-icons {
   display: flex;
   flex-wrap: wrap;

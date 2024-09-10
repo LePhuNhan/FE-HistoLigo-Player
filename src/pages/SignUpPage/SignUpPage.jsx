@@ -30,7 +30,7 @@ const SignUpPage = () => {
         }
         localStorage.setItem('accessToken', accessToken);
   
-        navigate(`/learn`);
+        navigate(`/chooseCountry`);
       } else {
         message.error("Sign up failed. Please try again.");
       }

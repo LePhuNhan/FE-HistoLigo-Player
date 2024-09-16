@@ -1,7 +1,7 @@
 .container {
   padding-inline: 100px;
   background-color: #fff;
-  margin: 0 5% 0 5%;
+  margin: 0 5% 0 18%;
 }
 .ant-layout.ant-layout-has-sider > .ant-layout {
   width: 200%;

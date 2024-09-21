@@ -53,11 +53,7 @@ const LoginPage = () => {
           name="password"
           rules={[{ required: true, whitespace: true, message: "Please input your Password!" }]}
         >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
+          <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" />
         </Form.Item>
         <Form.Item className="antFormItem">
           <Form.Item className="antFormItem" name="remember" valuePropName="checked" noStyle>

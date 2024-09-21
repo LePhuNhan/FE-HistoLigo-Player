@@ -352,7 +352,7 @@ const QuizPage = () => {
           <TextArea
             onChange={(e) => handleAnswerChange(question._id, e.target.value)}
             value={answers[question._id] || ""}
-            placeholder="Enter your answer"
+            placeholder="Enter your answer "
           />
         );
 

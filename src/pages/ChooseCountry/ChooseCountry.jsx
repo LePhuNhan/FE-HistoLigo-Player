@@ -57,7 +57,7 @@ const ChooseCountry = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Content style={{ margin: "0 16px" }}>
+        <Content style={{ margin: "0px 14px 0px 14%" }}>
           <div
             className="site-layout-background"
             style={{

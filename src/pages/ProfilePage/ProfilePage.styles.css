@@ -42,6 +42,10 @@
 .container .ant-row {
   margin-left: 0% !important;
 }
+
+/* .ant-layout-content{
+  margin: 0px 14px 0px 14% !important;
+} */
 @media (max-width: 578px) {
   .container {
     padding-inline: 0px;

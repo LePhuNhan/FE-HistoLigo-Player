@@ -4,9 +4,11 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 import debounce from "lodash.debounce";
-import TextArea from "antd/es/input/TextArea";
+import { ReloadOutlined } from '@ant-design/icons';
 
 const QuizPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [answer1, setAnswer1] = useState('');
   const [questions, setQuestions] = useState([]);
   const [testName, setTestName] = useState("");
   const [answers, setAnswers] = useState({});
@@ -31,18 +33,26 @@ const QuizPage = () => {
     "lightcoral",
     "lightgoldenrodyellow",
 ];
-
+  // Thêm biến trạng thái để kiểm soát việc đã chọn bên trái hay bên phải
+  const [canClickLeft, setCanClickLeft] = useState(true);
+  const [canClickRight, setCanClickRight] = useState(true);
+  // Mảng đánh dấu các ô bên phải đã được chọn hay chưa
+  const [rightSelected, setRightSelected] = useState([false, false, false, false]);
 
 
   const debouncedCheckAnswer = debounce((question) => {
     checkAnswer(question);
   }, 500);
 
+
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
     return distinctColors.size === 5;
   };
   const handleLeftClick = (index) => {
+     // Kiểm tra nếu không thể click cột bên trái (chỉ có thể click sau khi click cột bên phải)
+    if (!canClickLeft) return;
+
     const color = highlightColors[index % highlightColors.length];
 
     const newLeftColors = leftColors.map((currentColor, i) =>
@@ -51,6 +61,8 @@ const QuizPage = () => {
 
     setLeftColors(newLeftColors);
     setHighlightedLeft(index);
+    setCanClickLeft(false); // Sau khi click cột bên trái, disable cột bên trái
+    setCanClickRight(true); // Cho phép click cột bên phải
     const currentQuestion = questions[currentQuestionIndex];
     if (highlightedRight !== null && currentQuestion) {
       const updatedAnswer = {
@@ -68,7 +80,15 @@ const QuizPage = () => {
   };
 
   const handleRightClick = (index) => {
+    // Kiểm tra nếu không thể click cột bên phải (chỉ có thể click sau khi click cột bên trái)
+    if (!canClickRight) return;
+    // Kiểm tra nếu ô bên phải đã được chọn trước đó
+    if (rightSelected[index]) {
+      return; // Không cho phép nhấn vào ô đã được chọn
+    }
+    
     const currentQuestion = questions[currentQuestionIndex];
+
     if (highlightedLeft !== null && currentQuestion) {
       const color = leftColors[highlightedLeft];
 
@@ -94,7 +114,16 @@ const QuizPage = () => {
           [highlightedLeft]: updatedAnswer,
         },
       }));
+    
+      // Cập nhật trạng thái của ô đó thành true
+      const newRightSelected = [...rightSelected];
+      newRightSelected[index] = true;
+      setRightSelected(newRightSelected);
+      setCanClickLeft(true); // Cho phép click cột bên trái
+      setCanClickRight(false); // Disable cột bên phải
     }
+
+    
   };
 
   const navigate = useNavigate();
@@ -160,6 +189,27 @@ const QuizPage = () => {
       [questionId]: value,
     }));
   };
+ 
+  const handleInputChange = (index, value, question_id) => {
+   
+    setAnswers((prev) => {
+      // Lấy giá trị hiện tại của answer1 và answer2 để sử dụng ngay lập tức
+      const currentAnswer1 = index === 0 ? value : prev[question_id]?.split('\n')[0] || '';
+      const currentAnswer2 = index === 1 ? value : prev[question_id]?.split('\n')[1] || '';
+
+  
+      return {
+        ...prev,
+        [question_id]: currentAnswer1 + '\n' + currentAnswer2,
+      };
+    });
+  };
+  // const handleJoinAnswer = (questionId) => {
+  //   setAnswers((prev) => ({
+  //     ...prev,
+  //     [questionId]: answer1+'\n'+ answer2,
+  //   }));
+  // }
 
   const checkAnswer = async (question) => {
     const currentQuestion = questions[currentQuestionIndex];
@@ -287,7 +337,9 @@ const QuizPage = () => {
     }
   };
 
+
   const renderQuestion = (question) => {
+   
     // const localizedQuestion = question.localeData[locale] || question;
 
     switch (question.questionType) {
@@ -349,16 +401,47 @@ const QuizPage = () => {
 
       case 3: // Fill-in-the-Blank
         return (
-          <TextArea
+          <>
+          {/* <TextArea
             onChange={(e) => handleAnswerChange(question._id, e.target.value)}
-            value={answers[question._id] || ""}
-            placeholder="Enter your answer "
+             value={answers[question._id] || ""}
+            placeholder="Enter your answer"
+          /> */}
+       
+        {/* <TextArea
+            onChange={(e) =>{
+              setAnswer1(e.target.value)
+            }}
+         
+            placeholder="Enter your answer"
           />
+         
+           <TextArea
+            onChange={(e) =>{
+              handleJoinAnswer(question._id, e.target.value)
+            }}
+         
+            placeholder="Enter your answer"
+          /> */}
+          </>    
         );
 
       case 2: // Matching
         return (
           <div>
+            <button className="refreshSelected" onClick={() =>{
+               const leftLength = question.leftColumn.length; // Chiều dài của cột trái
+               const rightLength = question.rightColumn.length; // Chiều dài của cột p
+              setLeftColors(Array(leftLength).fill(null)); // Hoặc màu mặc định
+              setRightColors(Array(rightLength).fill(null)); // Hoặc màu mặc định
+
+              setHighlightedLeft(null);
+              setHighlightedRight(null);
+              setCanClickRight(true);
+              setCanClickLeft(true);
+              setRightSelected([false, false, false, false]);
+            }}><ReloadOutlined /></button>
+
             <Row gutter={[16, 16]} className="matchingQuestion">
               <Col span={12}>
                 <h3>Left Column</h3>
@@ -440,8 +523,11 @@ const QuizPage = () => {
     });
   };
   const currentQuestion = questions[currentQuestionIndex];
-  console.log(currentQuestion);
-
+ 
+  const [answer2, setAnswer2] = useState([]);
+   // Tách câu hỏi thành các phần
+   const parts = currentQuestion?.ask.split('________') || [];
+                                            
   return (
     <div>
       <div className="processbar">
@@ -462,9 +548,43 @@ const QuizPage = () => {
               title={`Question ${currentQuestionIndex + 1}`}
               className="questionCard"
             >
-              <p>{currentQuestion?.ask}</p>
+              {currentQuestion.questionType !== 3 && (
+                  <>
+              <p className="titleQuestion">{currentQuestion?.ask}</p>
               {currentQuestion &&
                 renderQuestion(questions[currentQuestionIndex])}
+              </>
+              )}
+
+              {currentQuestion.questionType === 3 && (
+                <>
+                 <p>
+                 
+                    {parts.map((part, index) => (
+                      <React.Fragment key={index}>
+                        {part}
+                        {index < parts.length - 1 && (
+                          <input
+                            type="text"
+                            value={index === 0 ? answer1 : answer2}
+                            onChange={(e) =>
+                            {
+                              if(index === 0)
+                              {
+                                setAnswer1(e.target.value);
+                              }
+                              else{
+                                setAnswer2(e.target.value);
+                              }
+                              handleInputChange(index, e.target.value, currentQuestion._id);
+                            }}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </p>
+                </>
+              )}  
             </Card>
           </div>
         )}
@@ -472,7 +592,14 @@ const QuizPage = () => {
       <div style={{ marginTop: "20px" }} className="btn">
         <Button
           type="primary"
-          onClick={() => setCurrentQuestionIndex((prev) => prev + 1)}
+          onClick={() =>{
+            setAnswer1('');
+            setAnswer2('');
+            setCanClickLeft(true);
+            setCanClickRight(true);
+            setRightSelected([false, false, false, false]);
+            setCurrentQuestionIndex((prev) => prev + 1)}
+          } 
           disabled={currentQuestionIndex >= questions.length - 1}
           className="button"
         >
@@ -481,7 +608,14 @@ const QuizPage = () => {
 
         <Button
           type="primary"
-          onClick={() => debouncedCheckAnswer(questions[currentQuestionIndex])}
+          onClick={() => {
+            setAnswer1('');
+            setAnswer2('');
+            setCanClickRight(true);
+            setCanClickLeft(true);
+            setRightSelected([false, false, false, false]);
+            debouncedCheckAnswer(questions[currentQuestionIndex])
+          }}
           disabled={
             !isAnswerSelected() ||
             answeredQuestions[questions[currentQuestionIndex]._id]
@@ -494,7 +628,14 @@ const QuizPage = () => {
 
         <Button
           type="primary"
-          onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
+          onClick={() => {
+            setAnswer1('');
+            setAnswer2('');
+            setCanClickRight(true);
+            setCanClickLeft(true);
+            setRightSelected([false, false, false, false]);
+            setCurrentQuestionIndex((prev) => prev - 1)
+          }}
           disabled={currentQuestionIndex <= 0}
           className="button"
         >

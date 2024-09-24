@@ -38,12 +38,9 @@ const QuizPage = () => {
   const [canClickRight, setCanClickRight] = useState(true);
   // Mảng đánh dấu các ô bên phải đã được chọn hay chưa
   const [rightSelected, setRightSelected] = useState([false, false, false, false]);
-
-
   const debouncedCheckAnswer = debounce((question) => {
     checkAnswer(question);
   }, 500);
-
 
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
@@ -123,7 +120,6 @@ const QuizPage = () => {
       setCanClickRight(false); // Disable cột bên phải
     }
 
-    
   };
 
   const navigate = useNavigate();

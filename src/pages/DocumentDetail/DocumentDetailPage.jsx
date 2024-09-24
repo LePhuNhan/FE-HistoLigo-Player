@@ -76,7 +76,7 @@ const DocumentDetail = () => {
             background: "#fff",
             padding: 0,
             position: "fixed",
-            width: "90%",
+            width: "98%",
             zIndex: "100",
           }}
           className="header"
@@ -95,7 +95,7 @@ const DocumentDetail = () => {
             <div className="fire-icon">🔥1</div>
           </div>
         </Header>
-        <Content style={{ margin: "8% 5% 0% 0%" }} className="main">
+        <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ margin: "0 10% 0 10%" }}>
               <div style={{ display: "grid", alignItems: "center" }}>

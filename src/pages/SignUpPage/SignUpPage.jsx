@@ -75,11 +75,7 @@ const SignUpPage = () => {
           rules={[{ required: true, whitespace: true, message: "Please input your Password!" }]}
           hasFeedback
         >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
+           <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" />
         </Form.Item>
         <Form.Item
           name="confirmPassword"
@@ -100,11 +96,8 @@ const SignUpPage = () => {
             }),
           ]}
         >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Confirm Password"
-          />
+           <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Confirm Password" />
+         
         </Form.Item>
 
         <Form.Item>

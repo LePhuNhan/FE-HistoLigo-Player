@@ -48,6 +48,11 @@
 /* Hide scroll bar */
 .ant-layout-sider {
   overflow: hidden;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
 }
 
 @media (max-width: 768px) and (min-width: 480px) {

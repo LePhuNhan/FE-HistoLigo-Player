@@ -4,6 +4,19 @@
   justify-content: center;
   display: flex;
 }
+.refreshSelected{
+  border-radius: 60%;
+  background-color: rgb(15, 148, 250);
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+  border: 1px solid;
+  font-size: 1.2rem;
+  border-color: #444;
+  transform: translate(880px, -36px);
+  
+}
+
 .processbar .ant-progress .ant-progress-inner {
   height: 15px;
 }

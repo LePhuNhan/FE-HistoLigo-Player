@@ -13,11 +13,11 @@ const { Title, Text } = Typography;
 const Learn = () => {
   const [topics, setTopics] = useState([]);
   const navigate = useNavigate();
-  const selectedCountry = localStorage.getItem("selectedCountry") || {
+  const selectedClass = localStorage.getItem("selectedClass") || {
     name: "America",
   };
-  const selectedCountryId = localStorage.getItem("selectedCountryId");
-  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
+  const selectedClassId = localStorage.getItem("selectedClassId");
+  const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
 
@@ -36,7 +36,7 @@ const Learn = () => {
               Authorization: `Bearer ${accessToken}`,
             },
             params:{
-              countryId:selectedCountryId
+              classId:selectedClassId
             }
           },
         );
@@ -47,7 +47,7 @@ const Learn = () => {
     };
 
     fetchTopics();
-  }, [selectedCountry.name]);
+  }, [selectedClass.name]);
 
   const handleTopicClick = (topicId) => {
     localStorage.setItem("selectedTopicId", topicId);
@@ -70,10 +70,10 @@ const Learn = () => {
         >
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
-              <Link to="/chooseCountry">
+              <Link to="/chooseClass">
               <img
-                    src={selectedCountryImg}
-                    alt={selectedCountry}
+                    src={selectedClassImg}
+                    alt={selectedClass}
                     style={{ width: 50, borderRadius: 1 }}
                     className="flag"
                   />

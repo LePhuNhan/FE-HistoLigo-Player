@@ -14,6 +14,7 @@ import Document from "./pages/Document/DocumentPage";
 import DocumentDetail from "./pages/DocumentDetail/DocumentDetailPage";
 import QuestionPage from "./pages/Questions/QuestionPage";
 import Result from "./pages/Result/ResultPage";
+import ChooseClass from "./pages/ChooseClass/ChooseClass";
 
 const App = () => (
   <Router>
@@ -27,6 +28,7 @@ const App = () => (
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/updatePassword" element={<UpdatePassword />} />
       <Route path="/chooseCountry" element={<ChooseCountry />} />
+      <Route path="/chooseClass" element={<ChooseClass />} />
       <Route path="/learn" element={<Learn />} />
       <Route path="/learn/test/:selectedTopicId" element={<Test />} />
       <Route path="/learn/document/:selectedTopicId" element={<Document />} />

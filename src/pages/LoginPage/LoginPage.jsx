@@ -14,7 +14,7 @@ const LoginPage = () => {
   }, 500);
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(`${DomainApi}/api/v1/login`, {
+      const response = await axios.post(`${DomainApi}/user/login`, {
         userName: values.username,
         password: values.password,
       });
@@ -24,7 +24,7 @@ const LoginPage = () => {
       }
       localStorage.setItem('accessToken', accessToken);
       message.success("Login success!",1);
-      navigate(`/chooseCountry`);
+      navigate(`/chooseClass`);
     } catch (error) {
       message.error("Login failed!",1);
       console.error("Login failed:", error);

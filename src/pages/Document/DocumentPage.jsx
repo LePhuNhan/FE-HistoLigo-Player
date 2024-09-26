@@ -17,11 +17,11 @@ const Document = () => {
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
-  const selectedCountry = localStorage.getItem("selectedCountry") || {
+  const selectedClass = localStorage.getItem("selectedClass") || {
     name: "America",
   };
-  const selectedCountryId = localStorage.getItem("selectedCountryId");
-  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
+  const selectedClassId = localStorage.getItem("selectedClassId");
+  const selectedClassImg = localStorage.getItem("selectedClassImg");
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -82,10 +82,10 @@ const Document = () => {
             </div>
 
             <div className="flag-container" role="img" aria-label="flag">
-              <Link to="/chooseCountry">
+              <Link to="/chooseClass">
               <img
-                    src={selectedCountryImg}
-                    alt={selectedCountry}
+                    src={selectedClassImg}
+                    alt={selectedClass}
                     style={{ width: 50, borderRadius: 1 }}
                     className="flag"
                   />

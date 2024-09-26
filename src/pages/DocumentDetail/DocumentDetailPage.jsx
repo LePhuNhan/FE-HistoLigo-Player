@@ -17,10 +17,10 @@ const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
   const selectedTopicId = localStorage.getItem("selectedTopicId");
   const { id } = useParams();
-  const selectedCountry = localStorage.getItem("selectedCountry") || {
+  const selectedClass = localStorage.getItem("selectedClass") || {
     name: "America",
   };
-  const selectedCountryImg = localStorage.getItem("selectedCountryImg");
+  const selectedClassImg = localStorage.getItem("selectedClassImg");
   useEffect(() => {
     const fetchDocuments = async () => {
       if (!id) return;
@@ -83,10 +83,10 @@ const DocumentDetail = () => {
         >
           <div className="header-content-document">
             <div className="flag-container" role="img" aria-label="flag">
-              <Link to="/chooseCountry">
+              <Link to="/chooseClass">
               <img
-                    src={selectedCountryImg}
-                    alt={selectedCountry}
+                    src={selectedClassImg}
+                    alt={selectedClass}
                     style={{ width: 50, borderRadius: 1 }}
                     className="flag"
                   />

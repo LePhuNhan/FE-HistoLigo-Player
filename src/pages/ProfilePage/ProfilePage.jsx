@@ -23,7 +23,7 @@ import debounce from "lodash.debounce";
 const { Option } = Select;
 
 const ProfilePage = () => {
-  const [id, setId] = useState(null);
+  //const [id, setId] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [avatarURL, setAvatarURL] = useState("");
   const [form] = Form.useForm();
@@ -62,7 +62,7 @@ const ProfilePage = () => {
             },
           });
           const data = response.data;
-          setId(data._id);
+          //setId(data._id);
           form.setFieldsValue({
             fullName: data.fullname,
             username: data.userName,
@@ -150,7 +150,7 @@ const ProfilePage = () => {
       console.log(getLocaleFromLabel(values.language));
       
       const response = await axios.put(
-        `${DomainApi}/player/${id}`,
+        `${DomainApi}/player`,
         updateData,
         {
           headers: {

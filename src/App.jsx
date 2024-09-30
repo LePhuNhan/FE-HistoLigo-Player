@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "antd/dist/reset.css";
@@ -15,12 +16,14 @@ import DocumentDetail from "./pages/DocumentDetail/DocumentDetailPage";
 import QuestionPage from "./pages/Questions/QuestionPage";
 import Result from "./pages/Result/ResultPage";
 import ChooseClass from "./pages/ChooseClass/ChooseClass";
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
 
 const App = () => (
   <Router>
     <Routes>
       <Route path="*" element={<LoginPage />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
       <Route path="/profile/:accessToken" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/404" element={<NotFound404 />} />

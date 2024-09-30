@@ -4,6 +4,7 @@ import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResultPage.style.css";
+import debounce from "lodash.debounce";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -20,6 +21,30 @@ const Result = () => {
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
+
+  const debouncedHandleUpdateProfile = debounce(() => {
+    handleUpdateRank();
+  }, 500);
+
+  const handleUpdateRank = async () => {
+    try {
+      const updateData = {
+       
+      };
+      const response = await axios.put(
+        `${DomainApi}/player`,
+        updateData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Failed to update player data:", error);
+    }
+  };
+
   const fetchTestData = async () => {
     if (!playerTestId) {
       message.error("Test Id not found. Redirecting...",1);
@@ -80,6 +105,11 @@ const Result = () => {
   const handleTopicClick = () => {
     navigate(`/learn/test/${topicId}`);
   };
+
+  const handleSaveAndReturn = () =>{
+    debouncedHandleUpdateProfile();
+    handleTopicClick();
+  }
 
   const handleFeedbackClick = () => {
     setShowFeedback(!showFeedback);
@@ -190,7 +220,7 @@ const Result = () => {
         </Button>
         <Button
           type="primary"
-          onClick={handleTopicClick}
+          onClick={handleSaveAndReturn}
           style={{ marginLeft: "10px" }}
           className="button"
         >

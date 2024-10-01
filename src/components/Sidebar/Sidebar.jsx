@@ -8,6 +8,7 @@ const Sidebar = () => {
   const [references, setReferences] = useState([]);
   const { Text } = Typography;
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
+  const [rankPlayers, setRankPlayers] = useState([]);
 
   useEffect(() => {
     const fetchReferences = async () => {
@@ -32,9 +33,32 @@ const Sidebar = () => {
     fetchReferences();
   }, []);
 
+  const fetchRankPlayers = async () => {
+    try {
+        await axios.get(`${DomainApi}/player/rank`).then((response) => {
+            setRankPlayers(response.data);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+useEffect(() => {
+    fetchRankPlayers();
+  }, []);
+
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
-      <Card title="Leaderboards!" style={{ marginBottom: "16px" }}></Card>
+      <Card title="Leaderboards!" style={{ marginBottom: "16px" }}>
+        <ul className="listRankPlayer">
+          {rankPlayers.length !== 0 && rankPlayers.map((item,index) =>{
+            return(
+              <li key={index} className="itemRankPlayer">#{index+1} 
+              <span className="fullname">{item.fullname}</span>
+              </li>
+            )
+          })}
+        </ul>
+      </Card>
       <Card title="The references you should read" className="listRef">
         <List
           size="small"

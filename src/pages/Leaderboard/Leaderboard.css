@@ -40,10 +40,19 @@
     margin-bottom: 15px;
     border-radius: 10px;
 }
+
+.listRank .itemRank.me{
+    animation: changeBrightness 1.5s infinite; 
+}
+
 .listRank .itemRank .wrapInfo{
     font-size: 13px;
-    padding: 0px 140px;
+    padding-left: 60px;
     color: #3c3c3c;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .listRank .itemRank .wrapInfo.bigSize{
@@ -51,7 +60,15 @@
 }
 
 .itemRank.border{
-    border: 1px solid;
+   
+    
+    border-width: 5px 3px 3px 5px;
+    border-radius:95% 2% 97% 2%/4% 94% 3% 95%;
+    transform: rotate(0.8deg);
+    background:#fff;
+    border: solid black;
+    border-color: black;
+   
 }
 .listRank .itemRank .wrapInfo h3{
     font-weight: 600 !important;
@@ -113,3 +130,32 @@
     width: 50px;
     height: 50px;
 }
+
+.circle{
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.circle img{
+    width: 60px;
+    height: 60px;
+}
+
+.score h4{
+    color: #777777;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+@keyframes changeBrightness {
+    0% {
+      filter: brightness(1.1);
+    }
+    50% {
+      filter: brightness(0.8);
+    }
+    100% {
+      filter: brightness(1.1);
+    }
+  }

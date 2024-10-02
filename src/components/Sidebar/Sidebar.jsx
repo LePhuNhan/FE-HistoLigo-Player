@@ -9,6 +9,8 @@ const Sidebar = () => {
   const { Text } = Typography;
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const [rankPlayers, setRankPlayers] = useState([]);
+  const [infoPlayer, setInfoPlayer] = useState([]);
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     const fetchReferences = async () => {
@@ -33,6 +35,25 @@ const Sidebar = () => {
     fetchReferences();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (accessToken) {
+        try {
+          const response = await axios.get(`${DomainApi}/player`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setInfoPlayer(response.data)
+        } catch (error) {
+          console.error("Failed to fetch player data:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [accessToken]);
+
   const fetchRankPlayers = async () => {
     try {
         await axios.get(`${DomainApi}/player/rank`).then((response) => {
@@ -52,8 +73,9 @@ useEffect(() => {
         <ul className="listRankPlayer">
           {rankPlayers.length !== 0 && rankPlayers.map((item,index) =>{
             return(
-              <li key={index} className="itemRankPlayer">#{index+1} 
+              <li key={index} className={item.email === infoPlayer.email ? 'itemRankPlayer active': 'itemRankPlayer'}>#{index+1} 
               <span className="fullname">{item.fullname}</span>
+              <span>{item.totalScore !== null ? item.totalScore : 0} pts</span>
               </li>
             )
           })}

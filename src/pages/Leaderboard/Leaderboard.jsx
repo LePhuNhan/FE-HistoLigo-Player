@@ -8,6 +8,7 @@ import Badge_Int from '../../assets/Badge_Silver.webp'
 import Badge_Adv from '../../assets/Badge_Gold.webp'
 import Badge_Exp from '../../assets/Badge_Sapphire.webp'
 import Badge_Mas from '../../assets/Badge_Ruby.webp'
+import NoAvtImg from '../../assets/noAvt.png'
 
 
 const Leaderboard = () =>{
@@ -78,16 +79,25 @@ const Leaderboard = () =>{
                         <ul className='listRank'>
                         {rankPlayers.length !== 0 && rankPlayers.map((item,index) =>{
                             return(
-                                <li key={index} className={index < 3 ? 'itemRank' : 'itemRank border'}  style={{ backgroundColor: colors[index] }}>
+                                <li key={index}  className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`}  style={{ backgroundColor: colors[index] }}>
                                     {index === 0 && (<img src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1'/>)}
                                     {index === 1 && (<img src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2'/>)}
                                     {index === 2 && (<img src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3'/>)}
                                     {index > 2 && (<span className='orderRank'>#{index+1}</span>)}
+                                   
                                <div className={index < 3 ? 'wrapInfo bigSize' : 'wrapInfo'}>
-                               <h3>Rank: {getRankName(item.rank)}</h3>
-                                <h3 className={item.email === infoPlayer.email ? 'fullname active': 'fullname'}>{item.fullname}  
-                                    {item.email === infoPlayer.email && (<img className='crownIcon' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/2439bac00452e99ba7bf6a7ed0b04196.svg' alt='me'/>)}
-                                </h3>
+                                <div className='circle'>
+                                  <img src={item.avatar !== null ? item.avatar : NoAvtImg} alt='avatar'/>
+                                </div>
+                                <div>
+                                <h3 className={item.email === infoPlayer.email ? 'fullname active': ''}>Rank: {getRankName(item.rank)}</h3>
+                                  <h3 className={item.email === infoPlayer.email ? 'fullname active': 'fullname'}>{item.fullname}  
+      
+                                  </h3>
+                                </div>
+                                <div className='score'>
+                                  <h4>{item.totalScore !== null ? item.totalScore : 0} points</h4>
+                                </div>
                                </div>
                             </li>
                             )

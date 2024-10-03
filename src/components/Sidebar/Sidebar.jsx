@@ -4,14 +4,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Sidebar.style.css";
 
+
+
 const Sidebar = () => {
   const [references, setReferences] = useState([]);
   const { Text } = Typography;
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const [rankPlayers, setRankPlayers] = useState([]);
+  const [rankPlayers, setRankPlayers] = useState([])
   const [infoPlayer, setInfoPlayer] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
 
+ 
   useEffect(() => {
     const fetchReferences = async () => {
       const topicId = localStorage.getItem("selectedTopicId");
@@ -65,7 +68,7 @@ const Sidebar = () => {
 };
 useEffect(() => {
     fetchRankPlayers();
-  }, []);
+  }, [rankPlayers]);
 
   return (
     <div style={{ width: "40%" }} className="responsive-hide">

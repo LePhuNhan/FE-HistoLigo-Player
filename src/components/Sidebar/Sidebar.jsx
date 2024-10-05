@@ -3,6 +3,7 @@ import { Card, List, Row, Col, Typography } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Sidebar.style.css";
+import { Skeleton } from "antd";
 
 const Sidebar = () => {
   const [references, setReferences] = useState([]);
@@ -60,19 +61,28 @@ const Sidebar = () => {
     try {
       await axios.get(`${DomainApi}/player/rank`).then((response) => {
         setRankPlayers(response.data);
+        
       });
     } catch (error) {
       console.log(error);
     }
   };
+  
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetchRankPlayers();
-  }, [rankPlayers]);
+    setTimeout(() => {
+      fetchRankPlayers();
+      setLoading(false);
+    }, 1200); 
+  }, []);
+
+ 
 
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
       <Card title="Leaderboards!" style={{ marginBottom: "16px" }}>
-        <ul className="listRankPlayer">
+        {loading ? <Skeleton/> : (
+          <ul className="listRankPlayer">
           {rankPlayers.length !== 0 &&
             rankPlayers.map((item, index) => {
               return (
@@ -93,6 +103,8 @@ const Sidebar = () => {
               );
             })}
         </ul>
+        )}
+        
       </Card>
       <Card title="The references you should read" className="listRef">
         {references && references.length > 0 ? (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu as AntMenu } from "antd";
-import { Link, useLocation } from "react-router-dom"; // Import Link và useLocation
+import { Link, useLocation } from "react-router-dom";
 import "./Menu.style.css";
 import {
   FaChalkboardTeacher,

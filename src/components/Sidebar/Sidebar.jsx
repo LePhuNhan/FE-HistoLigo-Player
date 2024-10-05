@@ -33,6 +33,9 @@ const Sidebar = () => {
           console.error("Error fetching references:", error);
         }
       }
+      else {
+        setReferences(null);
+      }
     };
 
     fetchReferences();

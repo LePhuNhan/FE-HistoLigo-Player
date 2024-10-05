@@ -39,19 +39,30 @@
     width: 96%;
     margin-bottom: 15px;
     border-radius: 10px;
+    position: relative;
+  
 }
+
+
 .listRank .itemRank .wrapInfo{
     font-size: 13px;
-    padding: 0px 140px;
+    padding-left: 60px;
     color: #3c3c3c;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: -10px;
 }
 
 .listRank .itemRank .wrapInfo.bigSize{
     font-size: 15px !important;
 }
 
-.itemRank.border{
-    border: 1px solid;
+.itemRank.border{ 
+    background:#e5e5e5;
+    border: 1px solid black;
+   
 }
 .listRank .itemRank .wrapInfo h3{
     font-weight: 600 !important;
@@ -85,18 +96,14 @@
 }
 
 .wrapInfo .fullname.active{
-    color: #72e919;
+    color: #7eee28;
 }
 
-.crownIcon{
-    margin-left: 5px;
-    width: 24px;
-    height: 24px;
-}
+
 .chooseRank{
     position: absolute;
     left: -40px;
-    top: 12%;
+    margin-top: 75px;
 }
 
 .chooseRank .listBadge{
@@ -112,4 +119,161 @@
 .chooseRank .iconBadge{
     width: 50px;
     height: 50px;
+}
+
+.circle{
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #333; 
+}
+
+.wrapCircle{
+    position: relative;
+}
+
+.wrapCircle .me{
+    position: absolute;
+    top: -7px;
+    right: -3px;
+    color: yellow;
+    font-size: 20px;
+    transform: rotate(45deg);
+}
+
+.circle img{
+    width: 60px;
+    height: 60px;
+}
+
+.score h4{
+    color: #777777;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+@media  (max-width: 480px) {
+    .mobile-none{
+        display: none !important;
+    }
+    .chooseRank{
+        left: 20px;
+    }
+    .col-5{
+        width: 100%;
+    }
+    .listRank {
+        margin-left: 20px;
+    }
+    .title{
+        margin-left: 70px;
+    }
+    .imgRank{
+        width: 30px;
+        height: 30px;
+    }
+    .listRank .itemRank .wrapInfo{
+        padding: 0;
+    }
+    .listRank .itemRank .wrapInfo.bigSize{
+        font-size: 13px !important;
+    }
+    .score h4{
+        font-size: 14px;
+    }
+    .circle img {
+        width: 40px;
+        height: 40px;
+    }
+    .wrapCircle .me{
+        font-size: 14px;
+    }
+    .wrapCircle{
+        margin-left: 10px;
+    }
+    .score{
+        flex-basis: 100%;
+    }
+    .score h4{
+        text-align: right;
+        margin-right: 65px;
+    }
+    .infoPlayer{
+        margin-left: -10px;
+    }
+    .listRank .itemRank{
+        height: 110px;
+    }
+    .itemRank.border .wrapInfo{
+        margin-top: -5px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+    .col-5{
+        width: 100%;
+    }
+    .listRank{
+        margin-left: 40px;
+    }
+    .chooseRank {
+        left: 40px;
+    }
+    .wrapListRank .title{
+        margin-left: 50px;
+    }
+}
+
+@media (min-width: 770px) and (max-width: 820px) 
+{
+.listRank{
+        padding-left: 290px;
+    }
+    .wrapListRank .title{
+        margin-left: 240px;
+    } 
+    .chooseRank {
+        left: 245px;
+    }
+    .listRank .itemRank .wrapInfo {
+        margin-top: -10px;
+    }
+}
+
+@media (min-width: 821px) and (max-width: 1023px){
+    .listRank{
+        padding-left:290px ;
+    }
+    .listRank .itemRank {
+        height: 110px;
+    }
+    .chooseRank {
+        left: 240px;
+    }
+    .listRank .itemRank .wrapInfo {
+        margin-top: -10px;
+    }
+    .wrapListRank .title {
+        margin-left: 245px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width:1205px){
+    .col-5{
+        width: 100%;
+    }
+    .listRank{
+        padding-left: 340px;
+    }
+    .chooseRank{
+        left: 240px;
+    }
+    .listRank .itemRank .wrapInfo {
+        margin-top: -10px;
+    }
+    .listRank .itemRank{
+        height: 110px;
+    }
+    .wrapListRank .title {
+        margin-left: 180px;
+    }
 }

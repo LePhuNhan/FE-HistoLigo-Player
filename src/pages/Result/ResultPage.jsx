@@ -104,6 +104,7 @@ const Result = () => {
 
   const handleTopicClick = () => {
     navigate(`/learn/test/${topicId}`);
+    
   };
 
   const handleSaveAndReturn = () =>{

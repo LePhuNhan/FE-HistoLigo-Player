@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Layout, Menu as AntMenu } from "antd";
+import { Link, useLocation } from "react-router-dom"; // Import Link và useLocation
 import "./Menu.style.css";
 import {
   FaChalkboardTeacher,
@@ -10,7 +11,6 @@ import {
   FaSignOutAlt,
   FaMobile,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -26,28 +26,24 @@ function getItem(label, key, icon, children) {
 
 const Menu = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const accessToken = localStorage.getItem("accessToken"); // Get the accessToken from localStorage
+  const location = useLocation(); // Get current location
+  const currentPath = location.pathname; // Get current path
 
   // Define menu items with new icons
   const items = [
-    getItem(<Link to={`/learn`}>Learn</Link>, "1", <FaChalkboardTeacher />),
-    getItem(<Link to={`/leaderboard`}>Leader Board</Link>, "2", <FaTrophy />),
-    getItem(<Link to={`/profile`}>Profile</Link>, "3", <FaUser />),
-    getItem(
-      "More",
-      "4",
-      <FaMobile />,
-      [
-        getItem(<Link to={`/settings`}>Setting</Link>, "5", <FaCog />),
-        getItem(<Link to={`/help`}>Help</Link>, "6", <FaQuestionCircle />),
-        getItem(<Link to={`/logout`}>Logout</Link>, "7", <FaSignOutAlt />),
-      ]
-    ),
+    getItem("Learn", "/learn", <FaChalkboardTeacher />),
+    getItem("Leader Board", "/leaderboard", <FaTrophy />),
+    getItem("Profile", "/profile", <FaUser />),
+    getItem("More", "sub1", <FaMobile />, [
+      getItem("Setting", "/settings", <FaCog />),
+      getItem("Help", "/help", <FaQuestionCircle />),
+      getItem("Logout", "/logout", <FaSignOutAlt />),
+    ]),
   ];
 
   return (
     <Sider
-    className="menu"
+      className="menu"
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
@@ -55,11 +51,26 @@ const Menu = () => {
       <div className="demo-logo-vertical" />
       <h1 className="title">HISTOLIGO</h1>
       <AntMenu
-        defaultSelectedKeys={["1"]}
+        selectedKeys={[currentPath]} // Set selectedKeys based on current path
         mode="inline"
-        items={items}
         className="ant-layout-sider-children"
-      />
+      >
+        {items.map((item) => 
+          item.children ? ( // Check if item has children to render as SubMenu
+            <AntMenu.SubMenu key={item.key} icon={item.icon} title={item.label}>
+              {item.children.map((child) => (
+                <AntMenu.Item key={child.key}>
+                  <Link to={child.key}>{child.label}</Link>
+                </AntMenu.Item>
+              ))}
+            </AntMenu.SubMenu>
+          ) : (
+            <AntMenu.Item key={item.key} icon={item.icon}>
+              <Link to={item.key}>{item.label}</Link>
+            </AntMenu.Item>
+          )
+        )}
+      </AntMenu>
     </Sider>
   );
 };

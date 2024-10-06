@@ -28,8 +28,8 @@ const Result = () => {
 
   const handleUpdateRank = async () => {
     try {
+      
       const updateData = {
-       
       };
       const response = await axios.put(
         `${DomainApi}/player`,
@@ -40,6 +40,7 @@ const Result = () => {
           },
         }
       );
+      console.log("updated")
     } catch (error) {
       console.error("Failed to update player data:", error);
     }
@@ -104,7 +105,6 @@ const Result = () => {
 
   const handleTopicClick = () => {
     navigate(`/learn/test/${topicId}`);
-    
   };
 
   const handleSaveAndReturn = () =>{

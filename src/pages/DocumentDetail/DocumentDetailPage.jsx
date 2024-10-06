@@ -132,11 +132,27 @@ const DocumentDetail = () => {
               )} */}
               {documents.content ? (
                 <Typography style={{ marginTop: "16px" }}>
-                  <Link to={documents.source}>
+                  <h2 className="titleDoc">1. Lịch Sử là gì?</h2>
+                  <p className="desDoc"> - Lịch Sử là tất cả những gì đã xảy ra. Lịch Sử còn được hiểu là một khoa học nghiên cứu và phục dựng lại quá khứ <br/>
+                      - Môn Lịch Sử là môn học tìm hiểu quá trình hình thành và phát triển của xã hội loài người từ khi con người xuất hiện trên Trái Đất cho đến ngày nay.
+                  </p>
+                  <h2 className="titleDoc">2. Vì sao phải học lịch sử?</h2>
+                  <p className="desDoc">
+                  - Giúp ta tìm hiểu về quá khứ, tìm về cội nguồn của chính bản thân, gia đình, dòng họ,... và rộng hơn là của cả dân tộc, nhân loại. <br/>
+                  <div className="wrapImg">
+                    <img className="imgDoc" src="https://vietjack.com/lich-su-6-ket-noi/images/ly-thuyet-bai-1-lich-su-va-cuoc-song.png" alt="pic"/> <br/>
+                  </div>
+                  - Đúc kết những bài học kinh nghiệm của quá khứ để phục vụ hiện tại và tương lai. <br/>
+                  <div className="wrapImg"> 
+                    <img className='imgDoc' src="https://vietjack.com/lich-su-6-ket-noi/images/ly-thuyet-bai-1-lich-su-va-cuoc-song-1.png" alt="pic"/>
+                  </div>
+                  </p>
+
+                  {/* <Link to={documents.source}>
                     <span
                       dangerouslySetInnerHTML={{ __html: documents.content }}
                     />
-                  </Link>
+                  </Link> */}
                 </Typography>
               ) : (
                 <Typography style={{ marginTop: "16px" }}>

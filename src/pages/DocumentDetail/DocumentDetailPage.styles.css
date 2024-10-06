@@ -10,6 +10,21 @@
 .btnBack:hover {
   color: #1677ff !important;
 }
+
+.titleDoc{
+  font-size: 18px !important;
+}
+
+.desDoc{
+  font-size: 16px !important;
+}
+
+.wrapImg{
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
 @media (max-width: 1000px) and (min-width: 768px) {
     .btnBack {
         margin: 5% 8px 0 0;

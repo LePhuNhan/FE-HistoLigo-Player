@@ -28,11 +28,8 @@ const DocumentDetail = () => {
       if (!id) return;
 
       try {
-        const response = await axios.get(`${DomainApi}/documentation/${id}`, {
-          headers: {
-            "Content-Language": `${locale}`,
-          },
-        });
+        const response = await axios.get(`${DomainApi}/documentation/${id}`
+        );
 
         setDocuments(response.data);
         
@@ -124,6 +121,7 @@ const DocumentDetail = () => {
                   <img style={{ margin: "0 5% 0 0" }} src={imgRead} />
                   <Title level={4} className="documentTitle">
                     {documents.name || "Document Title"}
+                    <a target="_blank" className="linkSource" href={documents.source}>Source: [{documents.name}]</a>
                   </Title>
                 </div>
                 <Divider

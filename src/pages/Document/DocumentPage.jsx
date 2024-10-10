@@ -22,6 +22,7 @@ const Document = () => {
   };
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
+  const locale = "vi-VN";
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -110,6 +111,7 @@ const Document = () => {
                       <div className="cardDocument">
                         <div className="cardDocument-text">
                           <Text>{document.name}</Text>
+                          {console.log(document)}
                         </div>
 
                         {titles?.map((title, idx) => (

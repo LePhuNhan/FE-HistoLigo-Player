@@ -21,7 +21,6 @@ const Learn = () => {
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const locale = "vi-VN";
-
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);
@@ -35,7 +34,7 @@ const Learn = () => {
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
-              
+              "Content-Language": `${locale}`,
             },
             params:{
               classId:selectedClassId

@@ -54,6 +54,11 @@ p{
   margin: 20px 0;
 }
 
+.linkSource{
+  display: block;
+  font-size: 17px
+}
+
 @media (max-width: 1000px) and (min-width: 768px) {
     .btnBack {
         margin: 5% 8px 0 0;

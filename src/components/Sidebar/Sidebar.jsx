@@ -94,11 +94,13 @@ const Sidebar = () => {
                       : "itemRankPlayer"
                   }
                 >
-                  #{index + 1}
+                  <span>#{index + 1}</span>
                   <span className="fullname">{item.fullname}</span>
+                  <div className="wrapScore">
                   <span>
                     {item.totalScore !== null ? item.totalScore : 0} pts
                   </span>
+                  </div>
                 </li>
               );
             })}

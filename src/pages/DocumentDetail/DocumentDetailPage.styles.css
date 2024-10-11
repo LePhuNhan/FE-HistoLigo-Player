@@ -36,16 +36,17 @@
 .bolderText{
   font-weight: bold;
   font-weight: 600;
-  display: block !important;
+  /* display: block !important; */
 }
 
 h3.smallTitle{
   font-size: 18px !important;
+  margin: 0 0 5px 0 !important;
 }
 
 p{
   font-size: 16px !important;
-  margin-bottom: 0 !important;
+  margin-bottom: 5px !important;
 }
 
 .wrapImg{

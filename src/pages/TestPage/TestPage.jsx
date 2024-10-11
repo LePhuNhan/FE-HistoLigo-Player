@@ -87,7 +87,7 @@ const Test = () => {
             background: "#fff",
             padding: 0,
             position: "fixed",
-            width: "98%",
+            width: "100%",
             zIndex: "100",
           }}
           className="header"

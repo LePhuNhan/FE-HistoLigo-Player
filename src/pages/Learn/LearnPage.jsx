@@ -20,7 +20,7 @@ const Learn = () => {
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const locale = "vi-VN";
+  const locale = "en-US";
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);

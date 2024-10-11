@@ -143,7 +143,6 @@ const DocumentDetail = () => {
                   <div
                     dangerouslySetInnerHTML={{ __html: documents.content }}
                   />
-                  {console.log(documents.content)}
                 </Typography>
               ) : (
                 <Typography style={{ marginTop: "16px" }}>

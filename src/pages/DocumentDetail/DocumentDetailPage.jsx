@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const locale = "vi-VN";
+const locale = "en-US";
 
 const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
@@ -81,7 +81,7 @@ const DocumentDetail = () => {
             background: "#fff",
             padding: 0,
             position: "fixed",
-            width: "98%",
+            width: "100%",
             zIndex: "100",
           }}
           className="header"
@@ -121,7 +121,7 @@ const DocumentDetail = () => {
                   <img style={{ margin: "0 5% 0 0" }} src={imgRead} />
                   <Title level={4} className="documentTitle">
                     {documents.name || "Document Title"}
-                    <a target="_blank" className="linkSource" href={documents.source}>Source: [{documents.name}]</a>
+                    <a target="_blank" className="linkSource" href={documents.source}>{locale === 'vi-VN' ? 'Nguồn': 'Source'}: [{documents.name}]</a>
                   </Title>
                 </div>
                 <Divider

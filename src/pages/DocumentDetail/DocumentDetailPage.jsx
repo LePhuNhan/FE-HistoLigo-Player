@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const locale = "en-US";
+const locale = "vi-VN";
 
 const DocumentDetail = () => {
   const [documents, setDocuments] = useState([]);
@@ -22,17 +22,18 @@ const DocumentDetail = () => {
   };
   const selectedClassImg = localStorage.getItem("selectedClassImg");
 
-
   useEffect(() => {
     const fetchDocuments = async () => {
       if (!id) return;
 
       try {
-        const response = await axios.get(`${DomainApi}/documentation/${id}`
-        );
+        const response = await axios.get(`${DomainApi}/documentation/${id}`, {
+          headers: {
+            "Content-Language": `${locale}`,
+          },
+        });
 
         setDocuments(response.data);
-        
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
@@ -89,12 +90,12 @@ const DocumentDetail = () => {
           <div className="header-content-document">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
-              <img
-                    src={selectedClassImg}
-                    alt={selectedClass}
-                    style={{ width: 50, borderRadius: 1 }}
-                    className="flag"
-                  />
+                <img
+                  src={selectedClassImg}
+                  alt={selectedClass}
+                  style={{ width: 50, borderRadius: 1 }}
+                  className="flag"
+                />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
@@ -121,7 +122,14 @@ const DocumentDetail = () => {
                   <img style={{ margin: "0 5% 0 0" }} src={imgRead} />
                   <Title level={4} className="documentTitle">
                     {documents.name || "Document Title"}
-                    <a target="_blank" className="linkSource" href={documents.source}>{locale === 'vi-VN' ? 'Nguồn': 'Source'}: [{documents.name}]</a>
+                    <a
+                      target="_blank"
+                      className="linkSource"
+                      href={documents.source}
+                    >
+                      {locale === "vi-VN" ? "Nguồn" : "Source"}: [
+                      {documents.name}]
+                    </a>
                   </Title>
                 </div>
                 <Divider
@@ -129,21 +137,13 @@ const DocumentDetail = () => {
                 />
               </div>
 
-              {/* {documents.content ? (
-                renderContent(documents.content)
-              ) : (
-                <Typography style={{ marginTop: "16px" }}>
-                  <Text>No content available.</Text>
-                </Typography>
-              )} */}
+              
               {documents.content ? (
                 <Typography style={{ marginTop: "16px" }}>
-
-                <div
-                  dangerouslySetInnerHTML={{ __html: documents.content }} // Render HTML từ chuỗi
-                />
-                {console.log(documents.content)}
-   
+                  <div
+                    dangerouslySetInnerHTML={{ __html: documents.content }}
+                  />
+                  {console.log(documents.content)}
                 </Typography>
               ) : (
                 <Typography style={{ marginTop: "16px" }}>

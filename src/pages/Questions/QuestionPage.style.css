@@ -68,6 +68,18 @@
   background-color: #fff;
 }
 
+.columnItem{
+  min-height: 95px;
+}
+
+.inputQuestion{
+  border-radius: 10px;
+  display: inline-block;
+  margin: 5px;
+  padding-left: 8px;
+  min-width: 160px;
+}
+
 /* .true-false-container {
   display: flex;
   justify-content: center;

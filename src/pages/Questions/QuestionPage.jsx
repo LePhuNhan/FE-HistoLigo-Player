@@ -367,6 +367,7 @@ const QuizPage = () => {
             </Radio.Group>
           </div>
         );
+        break;
 
       case 0: // Multiple Choice
         return (
@@ -394,7 +395,7 @@ const QuizPage = () => {
             </Radio.Group>
           </div>
         );
-
+        break;
       case 3: // Fill-in-the-Blank
         return (
           <>
@@ -421,7 +422,7 @@ const QuizPage = () => {
           /> */}
           </>    
         );
-
+        break;
       case 2: // Matching
         return (
           <div>
@@ -561,6 +562,7 @@ const QuizPage = () => {
                         {part}
                         {index < parts.length - 1 && (
                           <input
+                          className="inputQuestion"
                             type="text"
                             value={index === 0 ? answer1 : answer2}
                             onChange={(e) =>

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 import debounce from "lodash.debounce";
 import { ReloadOutlined } from '@ant-design/icons';
+import ResetIcon from '../../assets/reset.png'
 
 const QuizPage = () => {
   const [loading, setLoading] = useState(true);
@@ -354,7 +355,7 @@ const QuizPage = () => {
                   answers[question._id] === true ? "selected" : ""
                 }`}
               >
-                True
+                {locale === "en-US" ? 'True': 'Đúng'}
               </Radio.Button>
               <Radio.Button
                 value={false}
@@ -362,7 +363,7 @@ const QuizPage = () => {
                   answers[question._id] === false ? "selected" : ""
                 }`}
               >
-                False
+                 {locale === "en-US" ? 'False': 'Sai'}
               </Radio.Button>
             </Radio.Group>
           </div>
@@ -384,7 +385,7 @@ const QuizPage = () => {
                   className="multiple-choice-option"
                 >
                   <div className="multiple-choice-option-radio">
-                    <strong>{String.fromCharCode(65 + index)}. </strong>
+                    <strong >{String.fromCharCode(65 + index)}. </strong>
                     <span
                       dangerouslySetInnerHTML={{ __html: option }}
                       className="multiple-choice-option-span"
@@ -437,7 +438,7 @@ const QuizPage = () => {
               setCanClickRight(true);
               setCanClickLeft(true);
               setRightSelected([false, false, false, false]);
-            }}><ReloadOutlined /></button>
+            }}><img className="imgReset" src={ResetIcon}/></button>
 
             <Row gutter={[16, 16]} className="matchingQuestion">
               <Col span={12}>

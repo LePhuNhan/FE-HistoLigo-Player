@@ -15,7 +15,7 @@ import {
 
 
 const Leaderboard = () =>{
-    const colors = ["#FF4B4B", '#ce82ff', '#ffc800'];
+    const colors = ["#FF4B4B", '#ce82ff', '#FFEBCD'];
     const DomainApi = process.env.REACT_APP_DOMAIN_API;
     const [rankPlayers, setRankPlayers] = useState([]);
     const accessToken = localStorage.getItem("accessToken");

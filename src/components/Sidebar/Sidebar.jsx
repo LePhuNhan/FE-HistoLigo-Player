@@ -73,7 +73,7 @@ const Sidebar = () => {
     setTimeout(() => {
       fetchRankPlayers();
       setLoading(false);
-    }, 1200); 
+    }, 1800); 
   }, []);
 
  

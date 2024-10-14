@@ -6,15 +6,18 @@
 }
 .refreshSelected{
   border-radius: 60%;
-  background-color: rgb(15, 148, 250);
   cursor: pointer;
-  color: #fff;
+  background-color: transparent;
   outline: none;
-  border: 1px solid;
-  font-size: 1.2rem;
-  border-color: #444;
-  transform: translate(880px, -36px);
-  
+  border:none;
+  position: absolute;
+  top: 33px;
+  left: 140px;
+}
+
+.imgReset{
+  width: 32px;
+  height: 32px;
 }
 
 .processbar .ant-progress .ant-progress-inner {
@@ -78,6 +81,16 @@
   margin: 5px;
   padding-left: 8px;
   min-width: 160px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.multiple-choice-container{
+  min-height: 32px !important;
+}
+
+.inputQuestion:focus{
+  border-color: #1890ff;
 }
 
 /* .true-false-container {
@@ -127,6 +140,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-height: 32px;
 }
 
 .multiple-choice-option {
@@ -153,6 +167,11 @@
   background-color: #c6e8f8;
   border-color: #0684f9;
   color: #1890ff;
+}
+
+.multiple-choice-option{
+  min-height: 32px !important;
+  height: unset;
 }
 .multiple-choice-option-radio {
   display: flex;

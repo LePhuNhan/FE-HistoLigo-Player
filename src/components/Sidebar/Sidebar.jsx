@@ -57,6 +57,7 @@ const Sidebar = () => {
     fetchData();
   }, [accessToken]);
 
+
   const fetchRankPlayers = async () => {
     try {
       await axios.get(`${DomainApi}/player/rank`).then((response) => {
@@ -73,7 +74,7 @@ const Sidebar = () => {
     setTimeout(() => {
       fetchRankPlayers();
       setLoading(false);
-    }, 1800); 
+    }, 500); 
   }, []);
 
  

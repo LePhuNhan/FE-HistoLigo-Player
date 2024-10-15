@@ -95,6 +95,7 @@ const Result = () => {
         ],
       });
       console.log("Player process updated successfully!");
+      debouncedHandleUpdateProfile();
     } catch (error) {
       message.error("Error updating player process.",1);
     }
@@ -108,7 +109,7 @@ const Result = () => {
   };
 
   const handleSaveAndReturn = () =>{
-    debouncedHandleUpdateProfile();
+    // debouncedHandleUpdateProfile();
     handleTopicClick();
   }
 

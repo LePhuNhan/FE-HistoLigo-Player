@@ -45,7 +45,8 @@ const QuizPage = () => {
 
   const areRightColumnColorsDistinct = (colors) => {
     const distinctColors = new Set(colors);
-    return distinctColors.size === 5;
+    // return distinctColors.size === 5;
+    return distinctColors.size === colors.length;
   };
   const handleLeftClick = (index) => {
      // Kiểm tra nếu không thể click cột bên trái (chỉ có thể click sau khi click cột bên phải)
@@ -172,6 +173,7 @@ const QuizPage = () => {
         setRightColors(
           new Array(currentQuestion.rightColumn.length).fill("white")
         );
+        setRightSelected(new Array(currentQuestion.rightColumn.length).fill(false)); // Khởi tạo linh hoạt
         setAnswers((prevAnswers) => ({
           ...prevAnswers,
           [currentQuestion._id]: {},
@@ -226,7 +228,7 @@ const QuizPage = () => {
       case 2: // Matching
         if (!areRightColumnColorsDistinct(rightColors)) {
           message.error(
-            "Please ensure there are exactly four distinct colors in the right column.",
+            `Please ensure there are exactly ${currentQuestion.rightColumn.length} distinct colors in the right column.`,
             1
           );
           return;
@@ -437,7 +439,8 @@ const QuizPage = () => {
               setHighlightedRight(null);
               setCanClickRight(true);
               setCanClickLeft(true);
-              setRightSelected([false, false, false, false]);
+              // setRightSelected([false, false, false, false]);
+              setRightSelected(new Array(rightLength).fill(false)); // Reset linh hoạt
             }}><img className="imgReset" src={ResetIcon}/></button>
 
             <Row gutter={[16, 16]} className="matchingQuestion">

@@ -109,6 +109,17 @@ const SignUpPage = () => {
             >
               Sign Up
             </Button>
+
+            <div style={{width: '110%', marginLeft:'-10%'}} className="sepa">
+              <p>Or</p>
+            </div>
+
+            <button
+              className="btnGoogle-signUp"
+            >
+              <img className="iconGoogle" src="https://thanhdanh27.github.io/Nest-Shopping/static/media/google.e12914ad8afda3f6f2e8.png" alt="google"/>
+              Sign Up With Google
+            </button>
           {/* </Link> */}
         </Form.Item>
       </Form>

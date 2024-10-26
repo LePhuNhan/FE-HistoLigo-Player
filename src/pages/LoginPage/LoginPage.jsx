@@ -1,10 +1,11 @@
 import React from "react";
-import "./LoginPage.styles.css";
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash.debounce";
+import "./LoginPage.styles.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -82,6 +83,16 @@ const LoginPage = () => {
               Sign Up
             </Button>
           </Link>
+          <div className="sepa">
+           <p>Or</p>
+          </div>
+          <button
+              
+              className="btnGoogle-login"
+            >
+              <img className="iconGoogle" src="https://thanhdanh27.github.io/Nest-Shopping/static/media/google.e12914ad8afda3f6f2e8.png" alt="google"/>
+              Sign Up With Google
+            </button>
         </Form.Item>
       </Form>
     </div>

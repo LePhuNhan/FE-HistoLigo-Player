@@ -5,6 +5,7 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import debounce from "lodash.debounce";
+import BtnGoogleLogin from "../../components/BtnGoogleLogin/GoogleLogin.jsx";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
+          <BtnGoogleLogin></BtnGoogleLogin>
           <Link to="/signUp">
             <Button
               type="primary"

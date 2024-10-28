@@ -41,6 +41,7 @@ const LoginPage = () => {
         onFinish={debouncedOnFinish}
       >
         <h1 className="login_heading">Login</h1>
+        <BtnGoogleLogin></BtnGoogleLogin>
         <Form.Item className="antFormItem"
           name="username"
           rules={[{ required: true, whitespace: true, message: "Please input your Username!" }]}
@@ -74,7 +75,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
-          <BtnGoogleLogin></BtnGoogleLogin>
+          
           <Link to="/signUp">
             <Button
               type="primary"

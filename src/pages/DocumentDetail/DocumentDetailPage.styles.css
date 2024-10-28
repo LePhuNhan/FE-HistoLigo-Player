@@ -28,6 +28,10 @@
 
  */
 
+ .imgDoc{
+  width: 700px;
+  height: 450px;
+ }
 .titleDoc{
   font-size: 18px !important;
 }

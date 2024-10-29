@@ -1,13 +1,12 @@
 import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function BtnGoogleLogin() {
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-
+  const navigate = useNavigate();
   const handleLoginSuccess = async (credentialResponse) => {
-    console.log('Login Success:', credentialResponse);
-    // Send the token to the backend for verification
     try {
       const response = await axios.post(`${DomainApi}/user/auth/google`, {
         token: credentialResponse.credential,
@@ -16,13 +15,14 @@ function BtnGoogleLogin() {
           'Content-Type': 'application/json',
         },
       });
-
-      console.log('Backend response:', response.data); // No need to call res.json()
-      // Store JWT in local storage
-      localStorage.setItem('token', response.data.token);
+      console.log(response.data.data);
+      localStorage.setItem('accessToken', response.data.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.data.refreshToken);
+      navigate(`/chooseClass`);
     } catch (error) {
       console.error('Login Failed:', error);
     }
+    
   };
 
   const handleLoginError = (error) => {

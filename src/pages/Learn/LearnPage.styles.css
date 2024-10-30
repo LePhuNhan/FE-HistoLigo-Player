@@ -21,7 +21,7 @@
 }
 
 .fire-icon {
-  margin-right: 15%;
+  margin-right: 5%;
   font-size: 18px;
   color: rgb(255, 150, 0);
 }
@@ -96,7 +96,7 @@
   background-color: rgba(255, 200, 0, 1);
 }
 .ant-progress .ant-progress-inner {
-  background-color: rgba(132, 216, 255, 1);
+  background-color: #fff;
 }
 .learnTitle {
   color: rgba(255, 255, 255) !important;
@@ -116,8 +116,11 @@
 .gutter-row {
   margin-top: 15px;
 }
+.references{
+  transition: all linear 0.1s;
+}
 .references:hover {
-  color: blue;
+  color: #49c0f8;
 }
 @media (min-width: 1201px) {
   .learn-card .card-image {
@@ -177,4 +180,17 @@
   .responsive-hide {
     display: none;
   }
+}
+
+.toggleDarkMode{
+  margin-right: 7%;
+  cursor: pointer;
+}
+
+.toggleDarkMode span{
+  font-size: 19px;
+}
+
+span.anticon.anticon-moon {
+ color: #49c0f8;
 }

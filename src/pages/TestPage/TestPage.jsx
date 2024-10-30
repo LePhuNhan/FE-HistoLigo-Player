@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext} from "react";
 import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -10,13 +10,20 @@ import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
 import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { DarkModeContext } from "../../DarkModeContext";
+import {
+  MoonOutlined,
+  SunOutlined
+} from '@ant-design/icons';
+
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
 const Test = () => {
-
+  const theme = localStorage.getItem('theme') === 'true';
+  const context = useContext(DarkModeContext);
   const [tests, setTests] = useState([]);
   const [playerTests, setPlayerTests] = useState([]);
   const navigate = useNavigate();
@@ -130,6 +137,9 @@ const Test = () => {
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
+            <div onClick={context.toggleTheme} className="toggleDarkMode">
+              {theme ? <MoonOutlined />:  <SunOutlined />}
+            </div>
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
@@ -196,6 +206,7 @@ const Test = () => {
                             <img src={imgStartTest} alt="Start Test" />
                             <div>
                               <Button
+                            
                                 type="primary"
                                 onClick={() => handleStartClick(test._id)}
                               >

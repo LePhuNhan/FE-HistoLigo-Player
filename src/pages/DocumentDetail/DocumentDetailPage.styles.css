@@ -5,7 +5,7 @@
   padding: 0;
   margin: 0% 8px 0 0;
   justify-content: flex-start;
-  color: black !important;
+  color: black ;
 }
 .btnBack:hover {
   color: #1677ff !important;
@@ -74,3 +74,17 @@ p{
         margin: 8% 8px 0 0;
       }
   }
+
+  /* Dark mode */
+  /* .btnBack{
+    color: #fff !important;
+  }
+  .titleDoc, .smallTitle,p{
+    color: #fff !important;
+  }
+  .documentTitle{
+    color: #fff !important;
+  }
+  .ant-divider.css-dev-only-do-not-override-p8b6i.ant-divider-horizontal{
+    border: 1px solid var(--border-color);
+  } */

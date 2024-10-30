@@ -92,3 +92,18 @@
   font-size: 30px;
   font-weight: bold;
 }
+
+/* Dark mode */
+
+/* .site-layout-background{
+  background-color: var(--dark-color) !important;
+  color: var(--text-color) !important;
+}
+
+.ant-layout.css-dev-only-do-not-override-p8b6i{
+  background-color: var(--dark-color) !important;
+}
+
+.footer{
+  background-color: var(--dark-color) !important;
+} */

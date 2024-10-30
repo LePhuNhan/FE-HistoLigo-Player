@@ -1,5 +1,4 @@
 import React from "react";
-
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -87,15 +86,14 @@ const LoginPage = () => {
             </Button>
           </Link>
           <div className="sepa">
-           <p>Or</p>
+           <p>OR</p>
           </div>
-          <button
-              
+          {/* <button   
               className="btnGoogle-login"
             >
               <img className="iconGoogle" src="https://thanhdanh27.github.io/Nest-Shopping/static/media/google.e12914ad8afda3f6f2e8.png" alt="google"/>
               Sign Up With Google
-            </button>
+            </button> */}
         </Form.Item>
       </Form>
     </div>

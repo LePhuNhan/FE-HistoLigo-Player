@@ -26,6 +26,7 @@
     color: #333;
     font-size: 35px;
     font-weight: 700;
+    text-align: center !important;
 }
 .listRank {
    list-style: none;
@@ -43,6 +44,9 @@
   
 }
 
+/* .ant-card-head-title{
+    text-align: center;
+} */
 
 .listRank .itemRank .wrapInfo{
     font-size: 13px;
@@ -277,3 +281,40 @@
         margin-left: 180px;
     }
 }
+
+/* Dark mode */
+/* .ant-card{
+    background-color: var(--dark-color) !important;
+    border: 1px solid var(--border-color);
+    color: var(--text-color) !important;
+}
+
+.ant-card-head{
+    color: #fff !important ;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+.itemRankPlayer{
+    color: #fff;
+}
+span.ant-typography{
+    color: #fff;
+}
+.wrapLeaderboard{
+    background-color: var(--dark-color);    
+}
+.wrapListRank .title{
+    color: #fff !important;
+}
+.infoPlayer{
+    color: #fff;
+}
+.itemRank.border{
+    background-color: transparent;
+    border: 1px solid #37464f;
+}
+li.itemRank{
+    border: 2px solid #fff;
+}
+.circle{
+    border: 2px solid #fff;
+} */

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Layout, Typography, Button, Divider } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Menu from "../../components/Menu/Menu";
@@ -7,6 +7,12 @@ import axios from "axios";
 import "./DocumentDetailPage.styles.css";
 import imgRead from "../../assets/imageRead.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import {
+  MoonOutlined,
+  SunOutlined
+} from '@ant-design/icons';
+import { DarkModeContext } from "../../DarkModeContext";
+
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
@@ -14,6 +20,8 @@ const { Title, Text } = Typography;
 const locale = "vi-VN";
 
 const DocumentDetail = () => {
+  const theme = localStorage.getItem('theme') === 'true';
+  const context = useContext(DarkModeContext);
   const [documents, setDocuments] = useState([]);
   const selectedTopicId = localStorage.getItem("selectedTopicId");
   const { id } = useParams();
@@ -98,12 +106,17 @@ const DocumentDetail = () => {
                 />
               </Link>
             </div>
+
             <div className="fire-icon">🔥1</div>
+            <div onClick={context.toggleTheme} className="toggleDarkMode">
+              {theme ? <MoonOutlined />:  <SunOutlined />}
+            </div>
+
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ margin: "0 10% 0 10%" }}>
+            <div className="wrapDoccument" style={{ margin: "0 10% 0 10%" }}>
               <div style={{ display: "grid", alignItems: "center" }}>
                 <Link to={`/learn/document/${selectedTopicId}`}>
                   <Button
@@ -118,7 +131,7 @@ const DocumentDetail = () => {
                 <Divider
                   style={{ borderBlockStart: "2px solid rgba(5, 5, 5, 0.5)" }}
                 />
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div  style={{ display: "flex", alignItems: "center" }}>
                   <img style={{ margin: "0 5% 0 0" }} src={imgRead} />
                   <Title level={4} className="documentTitle">
                     {documents.name || "Document Title"}

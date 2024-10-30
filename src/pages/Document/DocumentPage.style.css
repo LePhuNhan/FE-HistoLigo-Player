@@ -151,3 +151,11 @@
     border: 2px solid;
   }
 }
+
+/* Dark mode */
+/* .header-content-document{
+  background-color: var(--dark-color);
+}
+.cardDocument-img button{
+  color: #3c4dff !important;
+} */

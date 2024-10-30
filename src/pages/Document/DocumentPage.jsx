@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext} from "react";
 import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -8,12 +8,20 @@ import imgTest from "../../assets/imageBtn-test.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartDocument from "../../assets/imageDocument.png";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { DarkModeContext } from "../../DarkModeContext";
+import {
+  MoonOutlined,
+  SunOutlined
+} from '@ant-design/icons';
+
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
 const Document = () => {
+  const theme = localStorage.getItem('theme') === 'true';
+  const context = useContext(DarkModeContext);
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
   const { selectedTopicId } = useParams();
@@ -93,6 +101,9 @@ const Document = () => {
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
+            <div onClick={context.toggleTheme} className="toggleDarkMode">
+              {theme ? <MoonOutlined />:  <SunOutlined />}
+            </div>
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">

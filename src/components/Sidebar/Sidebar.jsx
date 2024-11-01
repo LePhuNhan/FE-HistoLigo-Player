@@ -174,12 +174,12 @@ const Sidebar = () => {
             <h4>{translations[locale].introduce}</h4>
           </Col>
         </Link>
-        <Link to="/effectiveness">
+        <Link to="/job">
           <Col className="flex-item">
             <h4>{translations[locale].job}</h4>
           </Col>
         </Link>
-        <Link to="/job">
+        <Link to="/effectiveness">
           <Col className="flex-item">
             <h4>{translations[locale].effectiveness}</h4>
           </Col>

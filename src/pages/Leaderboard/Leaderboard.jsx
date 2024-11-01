@@ -49,6 +49,7 @@ const translations = {
 const Leaderboard = () => {
   const colors = ["#FF4B4B", '#ce82ff', '#FFEBCD'];
   const darkColors = ['#01a299', '#cf6679', '#3700b3'];
+  const theme = localStorage.getItem('theme') === 'true';
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const [rankPlayers, setRankPlayers] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
@@ -86,21 +87,20 @@ const Leaderboard = () => {
 
   const getDataByRank = async () => {
     try {
-      const response = await axios.get(`${DomainApi}/player`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+      const response = await axios.get(`${DomainApi}/player/byRank`, {
+        params: {
+          rank: selectRank,
         },
       });
-      setInfoPlayer(response.data)
+      setRankPlayers(response.data);
     } catch (error) {
-      console.error("Failed to fetch player data:", error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
     getDataByRank();
   }, [selectRank]);
-  const theme = localStorage.getItem('theme') === 'true';
   return (
     <div className='wrapLeaderboard'>
       <div className='row'>
@@ -132,7 +132,7 @@ const Leaderboard = () => {
             <ul className='listRank'>
               {rankPlayers.length !== 0 && rankPlayers.map((item, index) => {
                 return (
-                  <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: colors[index] }}>
+                  <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index] }}>
                     {index === 0 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1' />)}
                     {index === 1 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2' />)}
                     {index === 2 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3' />)}

@@ -39,7 +39,7 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = "en-US";
+  const locale = "vi-VN";
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);
@@ -55,7 +55,7 @@ const QuizPage = () => {
     "lightgreen",
     "lightcoral",
     "lightgoldenrodyellow",
-];
+  ];
   // Thêm biến trạng thái để kiểm soát việc đã chọn bên trái hay bên phải
   const [canClickLeft, setCanClickLeft] = useState(true);
   const [canClickRight, setCanClickRight] = useState(true);
@@ -71,7 +71,7 @@ const QuizPage = () => {
     return distinctColors.size === colors.length;
   };
   const handleLeftClick = (index) => {
-     // Kiểm tra nếu không thể click cột bên trái (chỉ có thể click sau khi click cột bên phải)
+    // Kiểm tra nếu không thể click cột bên trái (chỉ có thể click sau khi click cột bên phải)
     if (!canClickLeft) return;
 
     const color = highlightColors[index % highlightColors.length];
@@ -107,7 +107,7 @@ const QuizPage = () => {
     if (rightSelected[index]) {
       return; // Không cho phép nhấn vào ô đã được chọn
     }
-    
+
     const currentQuestion = questions[currentQuestionIndex];
 
     if (highlightedLeft !== null && currentQuestion) {
@@ -117,8 +117,8 @@ const QuizPage = () => {
         i === index
           ? color
           : i === previouslySelectedRight && highlightedLeft === null
-          ? "white"
-          : currentColor
+            ? "white"
+            : currentColor
       );
 
       setRightColors(newRightColors);
@@ -135,7 +135,7 @@ const QuizPage = () => {
           [highlightedLeft]: updatedAnswer,
         },
       }));
-    
+
       // Cập nhật trạng thái của ô đó thành true
       const newRightSelected = [...rightSelected];
       newRightSelected[index] = true;
@@ -210,15 +210,15 @@ const QuizPage = () => {
       [questionId]: value,
     }));
   };
- 
+
   const handleInputChange = (index, value, question_id) => {
-   
+
     setAnswers((prev) => {
       // Lấy giá trị hiện tại của answer1 và answer2 để sử dụng ngay lập tức
       const currentAnswer1 = index === 0 ? value : prev[question_id]?.split('\n')[0] || '';
       const currentAnswer2 = index === 1 ? value : prev[question_id]?.split('\n')[1] || '';
 
-  
+
       return {
         ...prev,
         [question_id]: currentAnswer1 + '\n' + currentAnswer2,
@@ -360,7 +360,7 @@ const QuizPage = () => {
 
 
   const renderQuestion = (question) => {
-   
+
     // const localizedQuestion = question.localeData[locale] || question;
 
     switch (question.questionType) {
@@ -375,19 +375,17 @@ const QuizPage = () => {
             >
               <Radio.Button
                 value={true}
-                className={`multiple-choice-option ${
-                  answers[question._id] === true ? "selected" : ""
-                }`}
+                className={`multiple-choice-option ${answers[question._id] === true ? "selected" : ""
+                  }`}
               >
-                {locale === "en-US" ? 'True': 'Đúng'}
+                {locale === "en-US" ? 'True' : 'Đúng'}
               </Radio.Button>
               <Radio.Button
                 value={false}
-                className={`multiple-choice-option ${
-                  answers[question._id] === false ? "selected" : ""
-                }`}
+                className={`multiple-choice-option ${answers[question._id] === false ? "selected" : ""
+                  }`}
               >
-                 {locale === "en-US" ? 'False': 'Sai'}
+                {locale === "en-US" ? 'False' : 'Sai'}
               </Radio.Button>
             </Radio.Group>
           </div>
@@ -424,13 +422,13 @@ const QuizPage = () => {
       case 3: // Fill-in-the-Blank
         return (
           <>
-          {/* <TextArea
+            {/* <TextArea
             onChange={(e) => handleAnswerChange(question._id, e.target.value)}
              value={answers[question._id] || ""}
             placeholder="Enter your answer"
           /> */}
-       
-        {/* <TextArea
+
+            {/* <TextArea
             onChange={(e) =>{
               setAnswer1(e.target.value)
             }}
@@ -445,15 +443,15 @@ const QuizPage = () => {
          
             placeholder="Enter your answer"
           /> */}
-          </>    
+          </>
         );
         break;
       case 2: // Matching
         return (
           <div>
-            <button className="refreshSelected" onClick={() =>{
-               const leftLength = question.leftColumn.length; // Chiều dài của cột trái
-               const rightLength = question.rightColumn.length; // Chiều dài của cột p
+            <button className="refreshSelected" onClick={() => {
+              const leftLength = question.leftColumn.length; // Chiều dài của cột trái
+              const rightLength = question.rightColumn.length; // Chiều dài của cột p
               setLeftColors(Array(leftLength).fill(null)); // Hoặc màu mặc định
               setRightColors(Array(rightLength).fill(null)); // Hoặc màu mặc định
 
@@ -463,7 +461,7 @@ const QuizPage = () => {
               setCanClickLeft(true);
               // setRightSelected([false, false, false, false]);
               setRightSelected(new Array(rightLength).fill(false)); // Reset linh hoạt
-            }}><img className="imgReset" src={ResetIcon}/></button>
+            }}><img className="imgReset" src={ResetIcon} /></button>
 
             <Row gutter={[16, 16]} className="matchingQuestion">
               <Col span={12}>
@@ -546,11 +544,11 @@ const QuizPage = () => {
     });
   };
   const currentQuestion = questions[currentQuestionIndex];
- 
+
   const [answer2, setAnswer2] = useState([]);
-   // Tách câu hỏi thành các phần
-   const parts = currentQuestion?.ask.split('________') || [];
-                                            
+  // Tách câu hỏi thành các phần
+  const parts = currentQuestion?.ask.split('________') || [];
+
   return (
     <div>
       <div className="processbar">
@@ -572,32 +570,30 @@ const QuizPage = () => {
               className="questionCard"
             >
               {currentQuestion.questionType !== 3 && (
-                  <>
-              <p className="titleQuestion">{currentQuestion?.ask}</p>
-              {currentQuestion &&
-                renderQuestion(questions[currentQuestionIndex])}
-              </>
+                <>
+                  <p className="titleQuestion">{currentQuestion?.ask}</p>
+                  {currentQuestion &&
+                    renderQuestion(questions[currentQuestionIndex])}
+                </>
               )}
 
               {currentQuestion.questionType === 3 && (
                 <>
-                 <p>
-                 
+                  <p>
+
                     {parts.map((part, index) => (
                       <React.Fragment key={index}>
                         {part}
                         {index < parts.length - 1 && (
                           <input
-                          className="inputQuestion"
+                            className="inputQuestion"
                             type="text"
                             value={index === 0 ? answer1 : answer2}
-                            onChange={(e) =>
-                            {
-                              if(index === 0)
-                              {
+                            onChange={(e) => {
+                              if (index === 0) {
                                 setAnswer1(e.target.value);
                               }
-                              else{
+                              else {
                                 setAnswer2(e.target.value);
                               }
                               handleInputChange(index, e.target.value, currentQuestion._id);
@@ -608,7 +604,7 @@ const QuizPage = () => {
                     ))}
                   </p>
                 </>
-              )}  
+              )}
             </Card>
           </div>
         )}
@@ -616,14 +612,15 @@ const QuizPage = () => {
       <div style={{ marginTop: "20px" }} className="btn">
         <Button
           type="primary"
-          onClick={() =>{
+          onClick={() => {
             setAnswer1('');
             setAnswer2('');
             setCanClickLeft(true);
             setCanClickRight(true);
             setRightSelected([false, false, false, false]);
-            setCurrentQuestionIndex((prev) => prev + 1)}
-          } 
+            setCurrentQuestionIndex((prev) => prev + 1)
+          }
+          }
           disabled={currentQuestionIndex >= questions.length - 1}
           className="button"
         >

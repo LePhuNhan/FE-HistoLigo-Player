@@ -125,7 +125,7 @@ const DocumentDetail = () => {
 
             <div className="fire-icon">🔥1</div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">
-              {theme ? <MoonOutlined />:  <SunOutlined />}
+              {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
 
           </div>
@@ -147,7 +147,7 @@ const DocumentDetail = () => {
                 <Divider
                   style={{ borderBlockStart: "2px solid rgba(5, 5, 5, 0.5)" }}
                 />
-                <div  style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <img style={{ margin: "0 5% 0 0" }} src={imgRead} />
                   <Title level={4} className="documentTitle">
                     {documents.name || "Document Title"}
@@ -166,7 +166,7 @@ const DocumentDetail = () => {
                 />
               </div>
 
-              
+
               {documents.content ? (
                 <Typography style={{ marginTop: "16px" }}>
                   <div

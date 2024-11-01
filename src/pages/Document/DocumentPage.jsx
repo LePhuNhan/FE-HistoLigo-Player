@@ -19,6 +19,24 @@ const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
+const translations = {
+  'en-US': {
+    tests: "TESTS",
+    documents: "DOCUMENTS",
+    start: "START",
+  },
+  'vi-VN': {
+    tests: "BÀI KIỂM TRA",
+    documents: "TÀI LIỆU",
+    start: "BẮT ĐẦU",
+  },
+  'ru-RU': {
+    tests: "ТЕСТЫ",
+    documents: "ДОКУМЕНТЫ",
+    start: "НАЧАТЬ",
+  },
+};
+
 const Document = () => {
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
@@ -30,7 +48,7 @@ const Document = () => {
   };
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
-  const locale = "vi-VN";
+  const locale = localStorage.getItem('locale') || 'en-US';
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -38,7 +56,11 @@ const Document = () => {
 
       try {
         const response = await axios.get(
-          `${DomainApi}/documentation/topic/${selectedTopicId}`
+          `${DomainApi}/documentation/topic/${selectedTopicId}`,{
+            headers: {
+              "Content-Language": `${locale}`,
+            },
+          }
         );
         setDocuments(response.data);
       } catch (error) {
@@ -77,7 +99,7 @@ const Document = () => {
                   }}
                 >
                   <img className="test" src={imgTest} />
-                  TESTS
+                  {translations[locale].tests}
                 </Button>
               </Link>
             </div>
@@ -85,7 +107,7 @@ const Document = () => {
               <Link to={`/learn/document/${selectedTopicId}`}>
                 <Button className="button-document">
                   <img className="document" src={imgDocument} />
-                  DOCUMENTS
+                  {translations[locale].documents}
                 </Button>
               </Link>
             </div>
@@ -95,7 +117,7 @@ const Document = () => {
               <img
                     src={selectedClassImg}
                     alt={selectedClass}
-                    style={{ width: 50, borderRadius: 1 }}
+                    style={{ width: 40, borderRadius: 1 }}
                     className="flag"
                   />
               </Link>
@@ -137,7 +159,7 @@ const Document = () => {
                             type="primary"
                             onClick={() => handleStartClick(document._id)}
                           >
-                            START
+                            {translations[locale].start}
                           </Button>
                         </div>
                       </div>

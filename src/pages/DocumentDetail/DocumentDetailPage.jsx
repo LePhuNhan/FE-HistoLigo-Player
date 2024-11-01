@@ -17,7 +17,22 @@ import { DarkModeContext } from "../../DarkModeContext";
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const locale = "vi-VN";
+const locale = localStorage.getItem('locale') || 'en-US';
+
+const translations = {
+  'en-US': {
+    back: "Back",
+    noContent: "No content available.",
+  },
+  'vi-VN': {
+    back: "Quay lại",
+    noContent: "Không có nội dung nào.",
+  },
+  'ru-RU': {
+    back: "Назад",
+    noContent: "Нет доступного контента.",
+  },
+};
 
 const DocumentDetail = () => {
   const theme = localStorage.getItem('theme') === 'true';
@@ -29,6 +44,7 @@ const DocumentDetail = () => {
     name: "America",
   };
   const selectedClassImg = localStorage.getItem("selectedClassImg");
+  const lang = translations[locale] || translations['en-US'];
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -101,7 +117,7 @@ const DocumentDetail = () => {
                 <img
                   src={selectedClassImg}
                   alt={selectedClass}
-                  style={{ width: 50, borderRadius: 1 }}
+                  style={{ width: 40, borderRadius: 1 }}
                   className="flag"
                 />
               </Link>
@@ -124,7 +140,7 @@ const DocumentDetail = () => {
                     icon={<ArrowLeftOutlined />}
                     className="btnBack"
                   >
-                    Back
+                    {lang.back}
                   </Button>
                 </Link>
 
@@ -159,7 +175,7 @@ const DocumentDetail = () => {
                 </Typography>
               ) : (
                 <Typography style={{ marginTop: "16px" }}>
-                  <Text>No content available.</Text>
+                  <Text>{lang.noContent}</Text>
                 </Typography>
               )}
             </div>

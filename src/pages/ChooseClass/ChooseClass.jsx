@@ -7,15 +7,36 @@ import axios from "axios";
 
 const { Content, Footer } = Layout;
 
+const translations = {
+  'en-US': {
+    selectClass: "Select a classroom:",
+    learn: "Learn",
+  },
+  'vi-VN': {
+    selectClass: "Chọn một lớp học:",
+    learn: "Học",
+  },
+  'ru-RU': {
+    selectClass: "Выберите класс:",
+    learn: "Учить",
+  },
+};
+
 const ChooseClass = () => {
   const [classes, setClasses] = useState([]);
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
+  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   const fetchClasses = async () => {
     try {
-      const response = await axios.get(`${DomainApi}/class`);
+      const response = await axios.get(`${DomainApi}/class`, {
+        headers: {
+          'Content-Language': locale, // Thêm header Content-Language
+        },
+      });
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching class data:", error);
@@ -67,7 +88,7 @@ const ChooseClass = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <h3 className="Select_country">Select a classroom:</h3>
+            <h3 className="Select_country">{lang.selectClass}</h3>
             <div className="country-icons">
               {classes.map((classroom) => (
                 <Card

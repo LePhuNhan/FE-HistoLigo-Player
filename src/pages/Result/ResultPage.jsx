@@ -10,6 +10,36 @@ const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
+const translations = {
+  'en-US': {
+    testCompleted: "Test Completed!",
+    totalScore: "Total Score:",
+    time: "Time:",
+    submit: "Submit",
+    feedback: "Feedback",
+    return: "Return",
+    placeholderFeedback: "Write your feedback here...",
+  },
+  'vi-VN': {
+    testCompleted: "Hoàn Thành Bài Kiểm Tra!",
+    totalScore: "Tổng Điểm:",
+    time: "Thời Gian:",
+    submit: "Gửi",
+    feedback: "Phản Hồi",
+    return: "Quay Lại",
+    placeholderFeedback: "Viết phản hồi của bạn ở đây...",
+  },
+  'ru-RU': {
+    testCompleted: "Тест Завершен!",
+    totalScore: "Общая Оценка:",
+    time: "Время:",
+    submit: "Отправить",
+    feedback: "Обратная Связь",
+    return: "Вернуться",
+    placeholderFeedback: "Напишите свой отзыв здесь...",
+  },
+};
+
 const Result = () => {
   const [score, setScore] = useState(0);
   const [time, setTime] = useState(0);
@@ -21,6 +51,8 @@ const Result = () => {
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
+  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   const debouncedHandleUpdateProfile = debounce(() => {
     handleUpdateRank();
@@ -154,12 +186,12 @@ const Result = () => {
     <Layout style={{ background: "#fff" }}>
       <Header className="header" style={{ marginTop: "8%" }}>
         <Title level={2} className="header-title">
-          Test Completed!
+          {lang.testCompleted}
         </Title>
       </Header>
       <Content className="content">
         <div className="result-cards">
-          <Card className="result-card" style={{ backgroundColor: "#FFD700" }}>
+          <Card className="result-card" style={{ backgroundColor: "#003366" }}>
             <Title
               level={5}
               style={{
@@ -168,7 +200,7 @@ const Result = () => {
                 justifyContent: "center",
               }}
             >
-              Total Score:
+              {lang.totalScore}
             </Title>
             <ThunderboltOutlined
               style={{ fontSize: "2rem", color: "#fff", marginRight: "5px" }}
@@ -177,7 +209,7 @@ const Result = () => {
               {score.toFixed(2)}
             </Text>
           </Card>
-          <Card className="result-card" style={{ backgroundColor: "#32CD32" }}>
+          <Card className="result-card" style={{ backgroundColor: "#2E7D32" }}>
             <Title
               level={5}
               style={{
@@ -186,7 +218,7 @@ const Result = () => {
                 justifyContent: "center",
               }}
             >
-              Time:
+              {lang.time}
             </Title>
             <ClockCircleOutlined
               style={{ fontSize: "2rem", color: "#fff", marginRight: "5px" }}
@@ -203,7 +235,7 @@ const Result = () => {
               value={feedback}
               onChange={handleFeedbackChange}
               style={{ minWidth: "600px" }}
-              placeholder="Write your feedback here..."
+              placeholder={lang.placeholderFeedback}
             />
             <Button
               type="primary"
@@ -211,14 +243,14 @@ const Result = () => {
               className="button"
               style={{ margin: "10px 0 0 83%", display: "flex" }}
             >
-              Submit
+              {lang.submit}
             </Button>
           </div>
         )}
       </Content>
       <div style={{ marginTop: "20px" }} className="btn">
         <Button type="primary" onClick={handleFeedbackClick} className="button">
-          Feedback
+          {lang.feedback}
         </Button>
         <Button
           type="primary"
@@ -226,7 +258,7 @@ const Result = () => {
           style={{ marginLeft: "10px" }}
           className="button"
         >
-          Return
+          {lang.return}
         </Button>
       </div>
     </Layout>

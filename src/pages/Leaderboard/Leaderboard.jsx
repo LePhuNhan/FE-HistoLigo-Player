@@ -13,6 +13,38 @@ import {
   CrownFilled
 } from '@ant-design/icons';
 
+const translations = {
+  'en-US': {
+    leaderboard: "Leaderboard",
+    rank: "Rank: ",
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+    expert: "Expert",
+    master: "Master",
+    points: "points",
+  },
+  'vi-VN': {
+    leaderboard: "Bảng Xếp Hạng",
+    rank: "Hạng: ",
+    beginner: "Người Mới",
+    intermediate: "Trung Cấp",
+    advanced: "Nâng Cao",
+    expert: "Chuyên Gia",
+    master: "Bậc Thầy",
+    points: "điểm",
+  },
+  'ru-RU': {
+    leaderboard: "Таблица Лидеров",
+    rank: "Ранг: ",
+    beginner: "Начинающий",
+    intermediate: "Промежуточный",
+    advanced: "Продвинутый",
+    expert: "Эксперт",
+    master: "Мастер",
+    points: "очков",
+  },
+};
 
 const Leaderboard = () => {
   const colors = ["#FF4B4B", '#ce82ff', '#FFEBCD'];
@@ -22,13 +54,15 @@ const Leaderboard = () => {
   const accessToken = localStorage.getItem("accessToken");
   const [infoPlayer, setInfoPlayer] = useState([]);
   const [selectRank, setSelectRank] = useState(0);
+  const locale = localStorage.getItem('locale') || 'en-US';
+  const lang = translations[locale] || translations['en-US'];
 
   const getRankName = (rank) => {
-    if (rank === 0) return "Beginner";
-    if (rank === 1) return "Intermediate";
-    if (rank === 2) return "Advanced";
-    if (rank === 3) return "Expert";
-    if (rank === 4) return "Master";
+    if (rank === 0) return lang.beginner;
+    if (rank === 1) return lang.intermediate;
+    if (rank === 2) return lang.advanced;
+    if (rank === 3) return lang.expert;
+    if (rank === 4) return lang.master;
     return "Unknown Rank";
   }
   useEffect(() => {
@@ -52,21 +86,20 @@ const Leaderboard = () => {
 
   const getDataByRank = async () => {
     try {
-      const response = await axios.get(`${DomainApi}/player/byRank`, {
-        params: {
-          rank: selectRank,
+      const response = await axios.get(`${DomainApi}/player`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-      setRankPlayers(response.data);
+      setInfoPlayer(response.data)
     } catch (error) {
-      console.error(error);
+      console.error("Failed to fetch player data:", error);
     }
   };
 
   useEffect(() => {
     getDataByRank();
   }, [selectRank]);
-
   const theme = localStorage.getItem('theme') === 'true';
   return (
     <div className='wrapLeaderboard'>
@@ -95,11 +128,11 @@ const Leaderboard = () => {
             </ul>
           </div>
           <div className='wrapListRank'>
-            <h1 className='title'>Leaderboard</h1>
+            <h1 className='title'>{lang.leaderboard}</h1>
             <ul className='listRank'>
               {rankPlayers.length !== 0 && rankPlayers.map((item, index) => {
                 return (
-                  <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index] }}>
+                  <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: colors[index] }}>
                     {index === 0 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1' />)}
                     {index === 1 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2' />)}
                     {index === 2 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3' />)}
@@ -115,12 +148,12 @@ const Leaderboard = () => {
                         </div>
                       </div>
                       <div className='infoPlayer'>
-                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : ''}>Rank: {getRankName(item.rank)}</h3>
+                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : ''}>{lang.rank} {getRankName(item.rank)}</h3>
                         <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{item.fullname}
                         </h3>
                       </div>
                       <div className='score'>
-                        <h4>{item.totalScore !== null ? item.totalScore : 0} points</h4>
+                        <h4>{item.totalScore !== null ? item.totalScore : 0} {lang.points}</h4>
                       </div>
                     </div>
                   </li>

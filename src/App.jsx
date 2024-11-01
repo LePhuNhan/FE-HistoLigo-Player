@@ -1,5 +1,4 @@
 import React from "react";
-import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "antd/dist/reset.css";
@@ -17,9 +16,12 @@ import QuestionPage from "./pages/Questions/QuestionPage";
 import Result from "./pages/Result/ResultPage";
 import ChooseClass from "./pages/ChooseClass/ChooseClass";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
+import './App.css'
+import { DarkModeProvider } from "./DarkModeContext";
 
 const App = () => (
-  <Router>
+ <DarkModeProvider>
+   <Router>
     <Routes>
       <Route path="*" element={<LoginPage />} />
       <Route path="/profile" element={<ProfilePage />} />
@@ -40,6 +42,7 @@ const App = () => (
       <Route path="/test/result" element={<Result />} />
     </Routes>
   </Router>
+ </DarkModeProvider>
 );
 
 export default App;

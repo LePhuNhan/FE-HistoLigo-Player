@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Layout, Card, Typography, Progress} from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LearnPage.styles.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { DarkModeContext } from "../../DarkModeContext";
+import {
+  MoonOutlined,
+  SunOutlined
+} from '@ant-design/icons';
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
 
+
 const Learn = () => {
+  const theme = localStorage.getItem('theme') === 'true';
+  const context = useContext(DarkModeContext);
   const [topics, setTopics] = useState([]);
   const navigate = useNavigate();
   const selectedClass = localStorage.getItem("selectedClass") || {
@@ -80,7 +88,12 @@ const Learn = () => {
                   />
               </Link>
             </div>
+           
             <div className="fire-icon">🔥1</div>
+            <div onClick={context.toggleTheme} className="toggleDarkMode">
+              {theme ? <MoonOutlined />:  <SunOutlined />}
+            </div>
+            
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">

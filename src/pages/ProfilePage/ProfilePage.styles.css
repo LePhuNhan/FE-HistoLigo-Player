@@ -57,3 +57,37 @@
     padding-inline: 50px;
   }
 }
+
+/* Dark mode */
+/* .ant-layout{
+  color: #fff;
+}
+#profileUpdate label{
+  color: #fff !important;
+}
+input.ant-input.css-dev-only-do-not-override-p8b6i.ant-input-outlined{
+  background-color: #202f36;
+  color: #fff;
+  border-color: var(--border-color);
+}
+input.ant-input.css-dev-only-do-not-override-p8b6i.ant-input-outlined::placeholder{
+  color: #52656D !important;
+}
+.ant-select-selector{
+  background-color: #202f36 !important;
+  color: #fff !important;
+  border-color: var(--border-color) !important;
+}
+span.ant-select-selection-item{
+  color: #fff !important;
+}
+.ant-picker.ant-picker-outlined.ant-picker-status-success.css-dev-only-do-not-override-p8b6i{
+  background-color: #202f36 !important;
+  color: #fff;
+}
+input#profileUpdate_birthDay::placeholder{
+  color: #52656D !important;
+}
+span.ant-select-arrow, span.ant-picker-suffix{
+  color: #fff !important;
+} */

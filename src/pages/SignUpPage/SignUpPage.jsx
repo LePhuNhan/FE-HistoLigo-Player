@@ -4,7 +4,7 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input,message  } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import BtnGoogleLogin from "../../components/BtnGoogleLogin/GoogleLogin.jsx";
 const SignUpPage = () => {
   const navigate = useNavigate();
   const onFinish = async (values) => {
@@ -49,6 +49,7 @@ const SignUpPage = () => {
         onFinish={onFinish}
       >
         <h1 className="signUp_heading">Sign up</h1>
+        <BtnGoogleLogin></BtnGoogleLogin>
         <Form.Item
           name="username"
           className="antFormItem"
@@ -111,15 +112,15 @@ const SignUpPage = () => {
             </Button>
 
             <div style={{width: '110%', marginLeft:'-10%'}} className="sepa">
-              <p>Or</p>
+              <p>OR</p>
             </div>
 
-            <button
+            {/* <button
               className="btnGoogle-signUp"
             >
               <img className="iconGoogle" src="https://thanhdanh27.github.io/Nest-Shopping/static/media/google.e12914ad8afda3f6f2e8.png" alt="google"/>
               Sign Up With Google
-            </button>
+            </button> */}
           {/* </Link> */}
         </Form.Item>
       </Form>

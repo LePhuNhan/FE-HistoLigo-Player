@@ -2,6 +2,7 @@ import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import './GoogleLogin.css'
 
 function BtnGoogleLogin() {
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
@@ -31,7 +32,7 @@ function BtnGoogleLogin() {
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <div>
+      <div className='wrapBtnGG'>
         <GoogleLogin
           onSuccess={handleLoginSuccess}
           onError={handleLoginError}

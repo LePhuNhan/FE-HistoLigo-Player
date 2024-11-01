@@ -30,3 +30,17 @@
   align-items: center;
   border-radius: 10px;
 }
+
+/* Dark mode */
+
+/* header.ant-layout-header.header.css-dev-only-do-not-override-p8b6i {
+  background-color: var(--dark-color);
+
+}
+h2.ant-typography.header-title.css-dev-only-do-not-override-p8b6i{
+  color: #fff;
+}
+textarea.ant-input.css-dev-only-do-not-override-p8b6i.ant-input-outlined{
+  background-color: #202f36;
+  color: #fff;
+} */

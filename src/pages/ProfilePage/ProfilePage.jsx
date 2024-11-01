@@ -201,7 +201,7 @@ const ProfilePage = () => {
               {avatar ? (
                 <Avatar size={120} src={avatar} />
               ) : (
-                <Avatar size={120} icon={<UserOutlined />} />
+                <Avatar size={120} src='https://d35aaqx5ub95lt.cloudfront.net/images/05147135350f5234cbf147813eee4db8.svg' />
               )}
               
             </Upload>

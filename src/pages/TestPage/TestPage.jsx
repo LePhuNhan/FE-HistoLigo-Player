@@ -131,7 +131,7 @@ const Test = () => {
               <img
                     src={selectedClassImg}
                     alt={selectedClass}
-                    style={{ width: 50, borderRadius: 1 }}
+                    style={{ width: 40, borderRadius: 1 }}
                     className="flag"
                   />
               </Link>

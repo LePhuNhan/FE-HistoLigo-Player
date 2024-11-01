@@ -62,52 +62,52 @@ const Sidebar = () => {
     try {
       await axios.get(`${DomainApi}/player/rank`).then((response) => {
         setRankPlayers(response.data);
-        
+
       });
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       fetchRankPlayers();
       setLoading(false);
-    }, 500); 
+    }, 500);
   }, []);
 
- 
+
 
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
       <Card title="Leaderboards!" style={{ marginBottom: "16px" }}>
-        {loading ? <Skeleton/> : (
+        {loading ? <Skeleton /> : (
           <ul className="listRankPlayer">
-          {rankPlayers.length !== 0 &&
-            rankPlayers.map((item, index) => {
-              return (
-                <li
-                  key={index}
-                  className={
-                    item.email === infoPlayer.email
-                      ? "itemRankPlayer active"
-                      : "itemRankPlayer"
-                  }
-                >
-                  <span>#{index + 1}</span>
-                  <span className="fullname">{item.fullname}</span>
-                  <div className="wrapScore">
-                  <span>
-                    {item.totalScore !== null ? item.totalScore : 0} pts
-                  </span>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
+            {rankPlayers.length !== 0 &&
+              rankPlayers.slice(0, 10).map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={
+                      item.email === infoPlayer.email
+                        ? "itemRankPlayer active"
+                        : "itemRankPlayer"
+                    }
+                  >
+                    <span>#{index + 1}</span>
+                    <span className="fullname">{item.fullname}</span>
+                    <div className="wrapScore">
+                      <span>
+                        {item.totalScore !== null ? item.totalScore : 0} pts
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
         )}
-        
+
       </Card>
       <Card title="The references you should read" className="listRef">
         {references && references.length > 0 ? (
@@ -128,32 +128,32 @@ const Sidebar = () => {
       </Card>
 
       <Row gutter={[16, 16]} className="flex-container">
-        <Link to="/">
+        <Link to="/introduce">
           <Col className="flex-item">
             <h4>INTRODUCE</h4>
           </Col>
         </Link>
-        <Link to="/">
+        <Link to="/effectiveness">
           <Col className="flex-item">
             <h4>EFFECTIVENESS</h4>
           </Col>
         </Link>
-        <Link to="/">
+        <Link to="/job">
           <Col className="flex-item">
             <h4>JOB</h4>
           </Col>
         </Link>
-        <Link to="/">
+        <Link to="/investors">
           <Col className="flex-item">
             <h4>INVESTORS</h4>
           </Col>
         </Link>
-        <Link to="/">
+        <Link to="/rules">
           <Col className="flex-item">
             <h4>RULES</h4>
           </Col>
         </Link>
-        <Link to="/">
+        <Link to="/privacy">
           <Col className="flex-item">
             <h4>PRIVACY</h4>
           </Col>

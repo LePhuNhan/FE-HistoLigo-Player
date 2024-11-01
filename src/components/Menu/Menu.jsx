@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Menu as AntMenu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 
@@ -29,7 +29,6 @@ function getItem(label, key, icon, children) {
 
 const Menu = () => {
   const theme = localStorage.getItem('theme') === 'true';
-  console.log(theme);
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation(); // Get current location
   const currentPath = location.pathname; // Get current path
@@ -74,13 +73,14 @@ const Menu = () => {
       onCollapse={(value) => setCollapsed(value)}
     >
       {/* <div className="demo-logo-vertical" /> */}
-      <h1 className="title">HISTOLIGO</h1>
+      <Link to='/chooseClass'>
+        <h1 className="title">HISTOLIGO</h1></Link>
       <AntMenu
         selectedKeys={[currentPath]} // Set selectedKeys based on current path
         mode="inline"
         className='ant-layout-sider-children'
       >
-        {items.map((item) => 
+        {items.map((item) =>
           item.children ? ( // Check if item has children to render as SubMenu
             <AntMenu.SubMenu key={item.key} icon={item.icon} title={item.label}>
               {item.children.map((child) => (

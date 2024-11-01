@@ -89,7 +89,7 @@ const ChooseClass = () => {
           </div>
         </Content>
         <Footer className="footer">
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          Histoligo ©{new Date().getFullYear()}
         </Footer>
       </Layout>
     </Layout>

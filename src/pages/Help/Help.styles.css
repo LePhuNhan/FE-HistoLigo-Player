@@ -1,0 +1,148 @@
+.wrapHelp .title{
+    border-bottom: 2px solid rgb(229, 229, 229);
+    padding-bottom: 15px;
+}
+
+
+.breadCrumb
+{
+    margin-left: 15%;
+    margin-top: 45px;
+    color: #1cb0f6;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.breadCrumb .anticon-right{
+    color: #888;
+    font-size: 12px;
+    margin: 0 8px;
+}
+
+.wrapBoxHelp{
+    text-align: center;
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+}
+.boxHelp{
+    width: 60%;
+}
+
+.boxHelp h1{
+    font-weight: 600;
+    color: #3c3c3c;
+}
+
+.boxHelp p{
+    margin: 0 !important;
+    padding: 20px 32px;
+}
+
+.headTable{
+    border-top: 2px solid rgb(229, 229, 229);
+    border-left:  2px solid rgb(229, 229, 229);
+    border-right:  2px solid rgb(229, 229, 229);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    text-align: left;
+}
+
+
+.headTable .heading{
+    font-weight: 600;
+    font-size: 18px !important;
+    color: #1fb0f6 !important;
+}
+
+.itemTable{
+    border-left:  2px solid rgb(229, 229, 229);
+    border-right:  2px solid rgb(229, 229, 229);
+    border-top:  2px solid rgb(229, 229, 229);
+    text-align: left;
+    cursor: pointer;
+}
+
+.itemTable .titleItem{
+    color: #3c3c3c;
+    display: inline-block;
+    width: 95%;
+    /* padding: 20px 32px 0px 32px !important; */
+}
+
+.itemTable .titleItem.active{
+    font-weight: 700;
+}
+
+.active{
+    font-weight: 700;
+    color: #3c3c3c;
+}
+
+.endTable{
+    border: 2px solid rgb(229, 229, 229);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.endTable .titleItem{
+    color: #3c3c3c;
+    display: inline-block;
+    width: 95%;
+}
+
+.endTable .titleItem.active{
+    font-weight: 700;
+}
+
+.anticon-down, .anticon-up{
+    padding: 4px;
+    font-size: 13px;
+}
+
+.itemTable .descItem{
+    cursor:text;
+    padding: 0px 32px 20px 32px!important;
+    line-height: 25px;
+}
+
+p.descItem{
+    padding: 0px 32px 20px 32px!important;
+}
+
+.none{
+    display: none !important;;
+}
+
+.ticketQuestion{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.ticketQuestion span{
+    color: #3c3c3c;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.ticketQuestion button{
+    padding: 12px 10px;
+    outline: none;
+    border-radius: 14px;
+    color: #fff;
+    border: none;
+    background-color: #1cb0f6;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-bottom: 60px;
+    font-size: 15px;
+    transition: all ease-in 0.1s;
+}
+
+.ticketQuestion button:hover{
+    filter: brightness(1.1);
+}
+

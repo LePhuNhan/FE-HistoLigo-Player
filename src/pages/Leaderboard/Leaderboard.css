@@ -100,7 +100,7 @@
 }
 
 .wrapInfo .fullname.active{
-    color: #7eee28;
+    color: #7eee28 !important;
 }
 
 
@@ -282,39 +282,3 @@
     }
 }
 
-/* Dark mode */
-/* .ant-card{
-    background-color: var(--dark-color) !important;
-    border: 1px solid var(--border-color);
-    color: var(--text-color) !important;
-}
-
-.ant-card-head{
-    color: #fff !important ;
-    border-bottom: 1px solid var(--border-color) !important;
-}
-.itemRankPlayer{
-    color: #fff;
-}
-span.ant-typography{
-    color: #fff;
-}
-.wrapLeaderboard{
-    background-color: var(--dark-color);    
-}
-.wrapListRank .title{
-    color: #fff !important;
-}
-.infoPlayer{
-    color: #fff;
-}
-.itemRank.border{
-    background-color: transparent;
-    border: 1px solid #37464f;
-}
-li.itemRank{
-    border: 2px solid #fff;
-}
-.circle{
-    border: 2px solid #fff;
-} */

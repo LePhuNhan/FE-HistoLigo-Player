@@ -21,6 +21,33 @@ const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Text } = Typography;
 
+const translations = {
+  'en-US': {
+    documents: "DOCUMENTS",
+    tests: "TESTS",
+    tryAgain: "TRY AGAIN",
+    start: "START",
+    time: "Time",
+    score: "Score",
+  },
+  'vi-VN': {
+    documents: "TÀI LIỆU",
+    tests: "BÀI KIỂM TRA",
+    tryAgain: "THỬ LẠI",
+    start: "BẮT ĐẦU",
+    time: "Thời gian",
+    score: "Điểm",
+  },
+  'ru-RU': {
+    documents: "ДОКУМЕНТЫ",
+    tests: "ТЕСТЫ",
+    tryAgain: "ПОВТОРИТЬ",
+    start: "НАЧАТЬ",
+    time: "Время",
+    score: "Очки",
+  },
+};
+
 const Test = () => {
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
@@ -33,6 +60,8 @@ const Test = () => {
   };
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
+  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -40,7 +69,11 @@ const Test = () => {
 
       try {
         const response = await axios.get(
-          `${DomainApi}/test/topic/${selectedTopicId}`
+          `${DomainApi}/test/topic/${selectedTopicId}`,{
+            headers: {
+              "Content-Language": `${locale}`,
+            },
+          }
         );
         setTests(response.data);
       } catch (error) {
@@ -52,6 +85,7 @@ const Test = () => {
         const response = await axios.get(`${DomainApi}/playerTest`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            "Content-Language": `${locale}`,
           },
         });
         setPlayerTests(response.data);
@@ -104,7 +138,7 @@ const Test = () => {
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-test">
                   <img className="test" src={imgTest} alt="imgTest" />
-                  TESTS
+                  {lang.tests}
                 </Button>
               </Link>
             </div>
@@ -121,7 +155,7 @@ const Test = () => {
                     src={imgDocument}
                     alt="imgDocument"
                   />
-                  DOCUMENTS
+                  {lang.documents}
                 </Button>
               </Link>
             </div>
@@ -171,7 +205,7 @@ const Test = () => {
                               }}
                             />
                             <Text>
-                              Score: {(playerTest?.score || 0).toFixed(2)}
+                              {lang.score}: {(playerTest?.score || 0).toFixed(2)}
                             </Text>
                           </div>
                           <div>
@@ -183,7 +217,7 @@ const Test = () => {
                               }}
                             />
                             <Text>
-                              Time: {(playerTest?.time || 0).toFixed(0)}s
+                              {lang.time}: {(playerTest?.time || 0).toFixed(0)}s
                             </Text>
                           </div>
                         </div>
@@ -197,7 +231,7 @@ const Test = () => {
                                 type="primary"
                                 onClick={() => handleStartClick(test._id)}
                               >
-                                TRY AGAIN
+                                {lang.tryAgain}
                               </Button>
                             </div>
                           </>
@@ -210,7 +244,7 @@ const Test = () => {
                                 type="primary"
                                 onClick={() => handleStartClick(test._id)}
                               >
-                                START
+                                {lang.start}
                               </Button>
                             </div>
                           </>

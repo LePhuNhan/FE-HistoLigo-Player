@@ -26,6 +26,35 @@ function getItem(label, key, icon, children) {
   };
 }
 
+const translations = {
+  'en-US': {
+    learn: "Learn",
+    leaderboard: "Leader Board",
+    profile: "Profile",
+    more: "More",
+    setting: "Setting",
+    help: "Help",
+    logout: "Logout",
+  },
+  'vi-VN': {
+    learn: "Học",
+    leaderboard: "Bảng Xếp Hạng",
+    profile: "Hồ Sơ",
+    more: "Thêm",
+    setting: "Cài Đặt",
+    help: "Trợ Giúp",
+    logout: "Đăng Xuất",
+  },
+  'ru-RU': {
+    learn: "Учить",
+    leaderboard: "Таблица Лидеров",
+    profile: "Профиль",
+    more: "Больше",
+    setting: "Настройки",
+    help: "Помощь",
+    logout: "Выйти",
+  },
+};
 
 const Menu = () => {
   const theme = localStorage.getItem('theme') === 'true';
@@ -33,6 +62,8 @@ const Menu = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation(); // Get current location
   const currentPath = location.pathname; // Get current path
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
+  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   useEffect(() => {
     const darkThemeLink = document.getElementById('dark-theme-style');
@@ -56,13 +87,13 @@ const Menu = () => {
 
   // Define menu items with new icons
   const items = [
-    getItem("Learn", "/learn", <FaChalkboardTeacher />),
-    getItem("Leader Board", "/leaderboard", <FaTrophy />),
-    getItem("Profile", "/profile", <FaUser />),
-    getItem("More", "sub1", <FaMobile />, [
-      getItem("Setting", "/settings", <FaCog />),
-      getItem("Help", "/help", <FaQuestionCircle />),
-      getItem("Logout", "/logout", <FaSignOutAlt />),
+    getItem(lang.learn, "/learn", <FaChalkboardTeacher />),
+    getItem(lang.leaderboard, "/leaderboard", <FaTrophy />),
+    getItem(lang.profile, "/profile", <FaUser />),
+    getItem(lang.more, "sub1", <FaMobile />, [
+      getItem(lang.setting, "/settings", <FaCog />),
+      getItem(lang.help, "/help", <FaQuestionCircle />),
+      getItem(lang.logout, "/logout", <FaSignOutAlt />),
     ]),
   ];
 
@@ -84,7 +115,7 @@ const Menu = () => {
           item.children ? ( // Check if item has children to render as SubMenu
             <AntMenu.SubMenu key={item.key} icon={item.icon} title={item.label}>
               {item.children.map((child) => (
-                <AntMenu.Item key={child.key}>
+                <AntMenu.Item key={child.key} icon={child.icon}>
                   <Link to={child.key}>{child.label}</Link>
                 </AntMenu.Item>
               ))}

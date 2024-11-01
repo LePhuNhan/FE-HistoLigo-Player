@@ -23,7 +23,6 @@ import debounce from "lodash.debounce";
 const { Option } = Select;
 
 const ProfilePage = () => {
-  //const [id, setId] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [avatarURL, setAvatarURL] = useState("");
   const [form] = Form.useForm();
@@ -32,6 +31,7 @@ const ProfilePage = () => {
   }, 500);
   
   const accessToken = localStorage.getItem("accessToken");
+
   const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const localeToLabel = {
     "vi-VN": "vietNam",
@@ -45,12 +45,110 @@ const ProfilePage = () => {
   };
 
   const getLocaleFromLabel = (label) => {
-    return labelToLocale[label] || "unknown";
+    return labelToLocale[label] || "";
   };
 
   const getLanguageLabel = (locale) => {
-    return localeToLabel[locale] || "Unknown";
+    return localeToLabel[locale] || "";
   };
+
+  const translations = {
+    'en-US': {
+      updateProfile: "Update Profile",
+      fullName: "Full name",
+      sex: "Sex",
+      language: "Language",
+      email: "Email",
+      phoneNumber: "Phone number",
+      birthDay: "Birth day",
+      selectSex: "Select your sex",
+      selectLanguage: "Select your language",
+      enterFullName: "Please enter your full name",
+      enterEmail: "Please enter your email",
+      enterPhoneNumber: "Please enter your phone number",
+      selectBirthDate: "Select your birth date",
+      updateProfileButton: "Update Profile",
+      resetButton: "Reset",
+      profileUpdated: "Profile updated successfully!",
+      profileUpdateFailed: "Profile updated failed!",
+      avatar: "Your Profile Picture",
+      editAvatar: "Edit Avatar:",
+      enterImageURL: "Enter image URL",
+      male: "Male",
+      female: "Female",
+      other: "Other",
+      english: "English",
+      vietNam: "VietNam",
+      spanish: "Spanish",
+      french: "French",
+      german: "German",
+      chinese: "Chinese",
+    },
+    'vi-VN': {
+      updateProfile: "Cập Nhật Hồ Sơ",
+      fullName: "Họ và Tên",
+      sex: "Giới Tính",
+      language: "Ngôn Ngữ",
+      email: "Email",
+      phoneNumber: "Số Điện Thoại",
+      birthDay: "Ngày Sinh",
+      selectSex: "Chọn giới tính của bạn",
+      selectLanguage: "Chọn ngôn ngữ của bạn",
+      enterFullName: "Vui lòng nhập họ và tên của bạn",
+      enterEmail: "Vui lòng nhập email của bạn",
+      enterPhoneNumber: "Vui lòng nhập số điện thoại của bạn",
+      selectBirthDate: "Chọn ngày sinh của bạn",
+      updateProfileButton: "Cập Nhật Hồ Sơ",
+      resetButton: "Đặt Lại",
+      profileUpdated: "Cập nhật hồ sơ thành công!",
+      profileUpdateFailed: "Cập nhật hồ sơ thất bại!",
+      avatar: "Ảnh Đại Diện",
+      editAvatar: "Chỉnh Sửa Ảnh Đại Diện:",
+      enterImageURL: "Nhập URL hình ảnh",
+      male: "Nam",
+      female: "Nữ",
+      other: "Khác",
+      english: "Tiếng Anh",
+      vietNam: "Tiếng Việt",
+      spanish: "Tiếng Tây Ban Nha",
+      french: "Tiếng Pháp",
+      german: "Tiếng Đức",
+      chinese: "Tiếng Trung",
+    },
+    'ru-RU': {
+      updateProfile: "Обновить Профиль",
+      fullName: "Полное имя",
+      sex: "Пол",
+      language: "Язык",
+      email: "Электронная почта",
+      phoneNumber: "Номер телефона",
+      birthDay: "Дата рождения",
+      selectSex: "Выберите ваш пол",
+      selectLanguage: "Выберите ваш язык",
+      enterFullName: "Пожалуйста, введите ваше полное имя",
+      enterEmail: "Пожалуйста, введите вашу электронную почту",
+      enterPhoneNumber: "Пожалуйста, введите ваш номер телефона",
+      selectBirthDate: "Выберите вашу дату рождения",
+      updateProfileButton: "Обновить Профиль",
+      resetButton: "Сбросить",
+      profileUpdated: "Профиль успешно обновлен!",
+      profileUpdateFailed: "Не удалось обновить профиль!",
+      avatar: "Ваше Изображение Профиля",
+      editAvatar: "Редактировать Изображение:",
+      enterImageURL: "Введите URL изображения",
+      male: "Мужчина",
+      female: "Женщина",
+      other: "Другой",
+      english: "Английский",
+      vietNam: "Вьетнамский",
+      spanish: "Испанский",
+      french: "Французский",
+      german: "Немецкий",
+      chinese: "Китайский",
+    },
+  };
+
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +160,6 @@ const ProfilePage = () => {
             },
           });
           const data = response.data;
-          //setId(data._id);
           form.setFieldsValue({
             fullName: data.fullname,
             username: data.userName,
@@ -90,11 +187,11 @@ const ProfilePage = () => {
 
   const onFinish = (values) => {
     console.log("Success:", values);
-    message.success("Profile updated successfully!", 1);
+    message.success(translations[locale].profileUpdated, 1); // Sử dụng chuỗi từ translations
   };
 
   const onFinishFailed = (errorInfo) => {
-    message.error("Profile updated failed!", 1);
+    message.error(translations[locale].profileUpdateFailed, 1); // Sử dụng chuỗi từ translations
     console.log("Failed:", errorInfo);
   };
 
@@ -136,7 +233,7 @@ const ProfilePage = () => {
     try {
       await form.validateFields();
       const values = form.getFieldsValue();
-
+  
       const updateData = {
         fullname: values.fullName,
         dateOfBirth: values.birthDay ? values.birthDay.format("YYYY-MM-DD") : null,
@@ -147,7 +244,6 @@ const ProfilePage = () => {
         avatar: avatar,
         locale: getLocaleFromLabel(values.language),
       };
-      console.log(getLocaleFromLabel(values.language));
       
       const response = await axios.put(
         `${DomainApi}/player`,
@@ -180,7 +276,7 @@ const ProfilePage = () => {
             fontSize: "40px",
           }}
         >
-          Update Profile
+          {translations[locale].updateProfile}
         </h1>
         <Form
           form={form}
@@ -189,7 +285,7 @@ const ProfilePage = () => {
           onFinishFailed={onFinishFailed}
           layout="vertical"
         >
-          <Form.Item name="avatar" label="Your Profile Picture">
+          <Form.Item name="avatar" label={translations[locale].avatar}>
             <Upload
               name="avatar"
               listType="picture-card"
@@ -203,109 +299,89 @@ const ProfilePage = () => {
               ) : (
                 <Avatar size={120} src='https://d35aaqx5ub95lt.cloudfront.net/images/05147135350f5234cbf147813eee4db8.svg' />
               )}
-              
             </Upload>
-            <Form.Item label="Edit Avatar:">
+            <Form.Item label={translations[locale].editAvatar}>
               <Input
                 value={avatarURL}
                 onChange={handleURLChange}
-                placeholder="Enter image URL"
+                placeholder={translations[locale].enterImageURL}
               />
             </Form.Item>
           </Form.Item>
           <Row gutter={16}>
             <Col xs={24} sm={24} md={12}>
               <Form.Item
-                label="Full name"
+                label={translations[locale].fullName}
                 name="fullName"
-                rules={[
-                  { required: true, message: "Please enter your full name!" },
-                ]}
+                rules={[{ required: true, message: translations[locale].enterFullName }]}
               >
                 <Input
                   className={styles.inputOutlined}
-                  placeholder="Please enter your full name"
+                  placeholder={translations[locale].enterFullName}
                 />
               </Form.Item>
               <Form.Item
-                label="Sex"
+                label={translations[locale].sex}
                 name="sex"
-                rules={[
-                  { required: false, message: "Please select your sex!" },
-                ]}
+                rules={[{ required: false, message: translations[locale].selectSex }]}
               >
                 <Select
                   className={styles.selectOutlined}
-                  placeholder="Select your sex"
+                  placeholder={translations[locale].selectSex}
                 >
-                  <Option value="male">Male</Option>
-                  <Option value="female">Female</Option>
-                  <Option value="other">Other</Option>
+                  <Option value="male">{translations[locale].male}</Option>
+                  <Option value="female">{translations[locale].female}</Option>
+                  <Option value="other">{translations[locale].other}</Option>
                 </Select>
               </Form.Item>
               <Form.Item
-                label="Language"
+                label={translations[locale].language}
                 name="language"
-                rules={[
-                  { required: true, message: "Please select your language!" },
-                ]}
+                rules={[{ required: true, message: translations[locale].selectLanguage }]}
               >
                 <Select
                   className={styles.selectOutlined}
-                  placeholder="Select your language"
+                  placeholder={translations[locale].selectLanguage}
                 >
-                  <Option value="english">English</Option>
-                  <Option value="vietNam">VietNam</Option>
-                  <Option value="spanish">Spanish</Option>
-                  <Option value="french">French</Option>
-                  <Option value="german">German</Option>
-                  <Option value="chinese">Chinese</Option>
+                  <Option value="english">{translations[locale].english}</Option>
+                  <Option value="vietNam">{translations[locale].vietNam}</Option>
+                  <Option value="spanish">{translations[locale].spanish}</Option>
+                  <Option value="french">{translations[locale].french}</Option>
+                  <Option value="german">{translations[locale].german}</Option>
+                  <Option value="chinese">{translations[locale].chinese}</Option>
                 </Select>
               </Form.Item>
             </Col>
             <Col xs={24} sm={24} md={12}>
               <Form.Item
-                label="Email"
+                label={translations[locale].email}
                 name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your email!",
-                    type: "email",
-                  },
-                ]}
+                rules={[{ required: true, message: translations[locale].enterEmail, type: "email" }]}
               >
                 <Input
                   className={styles.inputOutlined}
-                  placeholder="Please enter your email"
+                  placeholder={translations[locale].enterEmail}
                 />
               </Form.Item>
               <Form.Item
-                label="Phone number"
+                label={translations[locale].phoneNumber}
                 name="phoneNumber"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your phone number!",
-                  },
-                ]}
+                rules={[{ required: true, message: translations[locale].enterPhoneNumber }]}
               >
                 <Input
                   className={styles.inputOutlined}
-                  placeholder="Please enter your phone number"
+                  placeholder={translations[locale].enterPhoneNumber}
                 />
               </Form.Item>
               <Form.Item
-                label="Birth day"
+                label={translations[locale].birthDay}
                 name="birthDay"
-                rules={[
-                  { required: false, message: "Please enter your birth date!" },
-                ]}
+                rules={[{ required: false, message: translations[locale].selectBirthDate }]}
               >
                 <DatePicker
                   className={styles.pickerOutlined}
                   style={{ width: "100%" }}
-                  placeholder="Select your birth date"
+                  placeholder={translations[locale].selectBirthDate}
                 />
               </Form.Item>
             </Col>
@@ -317,14 +393,14 @@ const ProfilePage = () => {
               style={{ background: "#D74632" }}
               onClick={debouncedHandleUpdateProfile}
             >
-              Update Profile
+              {translations[locale].updateProfileButton}
             </Button>
             <Button
               style={{ marginLeft: 8 }}
               htmlType="button"
               onClick={handleReset}
             >
-              Reset
+              {translations[locale].resetButton}
             </Button>
           </Form.Item>
         </Form>

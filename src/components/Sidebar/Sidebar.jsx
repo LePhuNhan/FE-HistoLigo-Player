@@ -12,6 +12,42 @@ const Sidebar = () => {
   const [rankPlayers, setRankPlayers] = useState([]);
   const [infoPlayer, setInfoPlayer] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
+  const locale = localStorage.getItem('locale') || 'en-US';
+  const translations = {
+    'en-US': {
+      leaderboards: "Leaderboards!",
+      references: "The references you should read",
+      introduce: "INTRODUCE",
+      job: "JOB",
+      effectiveness: "EFFECTIVENESS",
+      investors: "INVESTORS",
+      rules: "RULES",
+      privacy: "PRIVACY",
+      points: "pts",
+    },
+    'vi-VN': {
+      leaderboards: "Bảng Xếp Hạng",
+      references: "Các tài liệu bạn nên đọc",
+      introduce: "GIỚI THIỆU",
+      job: "CÔNG VIỆC",
+      effectiveness: "HIỆU QUẢ",
+      investors: "NHÀ ĐẦU TƯ",
+      rules: "QUY TẮC",
+      privacy: "RIÊNG TƯ",
+      points: "điểm",
+    },
+    'ru-RU': {
+      leaderboards: "Таблица Лидеров",
+      references: "Ссылки, которые вам следует прочитать",
+      introduce: "ВВЕДЕНИЕ",
+      job: "РАБОТА",
+      effectiveness: "ЭФФЕКТИВНОСТЬ",
+      investors: "ИНВЕСТОРЫ",
+      rules: "ПРАВИЛА",
+      privacy: "КОНФИДЕНЦИАЛЬНОСТЬ",
+      points: "очков",
+    },
+  };
 
   useEffect(() => {
     const fetchReferences = async () => {
@@ -19,13 +55,18 @@ const Sidebar = () => {
       if (topicId) {
         try {
           const response = await axios.get(
-            `${DomainApi}/documentation/topic/${topicId}`
+            `${DomainApi}/documentation/topic/${topicId}`,
+            {
+              headers: {
+                'Content-Language': locale,
+              },
+            }
           );
           const referencesData = response.data;
 
           const shuffled = referencesData.sort(() => 0.5 - Math.random());
           const fiveRandomReferences = shuffled.slice(0, 5);
-
+          console.log(fiveRandomReferences);
           setReferences(fiveRandomReferences);
         } catch (error) {
           console.error("Error fetching references:", error);
@@ -81,7 +122,7 @@ const Sidebar = () => {
 
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
-      <Card title="Leaderboards!" style={{ marginBottom: "16px" }}>
+      <Card title={translations[locale].leaderboards} style={{ marginBottom: "16px" }}>
         {loading ? <Skeleton/> : (
           <ul className="listRankPlayer">
           {rankPlayers.length !== 0 &&
@@ -99,7 +140,7 @@ const Sidebar = () => {
                   <span className="fullname">{item.fullname}</span>
                   <div className="wrapScore">
                   <span>
-                    {item.totalScore !== null ? item.totalScore : 0} pts
+                    {item.totalScore !== null ? item.totalScore : 0} {translations[locale].points}
                   </span>
                   </div>
                 </li>
@@ -109,7 +150,7 @@ const Sidebar = () => {
         )}
         
       </Card>
-      <Card title="The references you should read" className="listRef">
+      <Card title={translations[locale].references} className="listRef">
         {references && references.length > 0 ? (
           <List
             size="small"
@@ -130,32 +171,32 @@ const Sidebar = () => {
       <Row gutter={[16, 16]} className="flex-container">
         <Link to="/">
           <Col className="flex-item">
-            <h4>INTRODUCE</h4>
+            <h4>{translations[locale].introduce}</h4>
           </Col>
         </Link>
         <Link to="/">
           <Col className="flex-item">
-            <h4>EFFECTIVENESS</h4>
+            <h4>{translations[locale].job}</h4>
           </Col>
         </Link>
         <Link to="/">
           <Col className="flex-item">
-            <h4>JOB</h4>
+            <h4>{translations[locale].effectiveness}</h4>
           </Col>
         </Link>
         <Link to="/">
           <Col className="flex-item">
-            <h4>INVESTORS</h4>
+            <h4>{translations[locale].investors}</h4>
           </Col>
         </Link>
         <Link to="/">
           <Col className="flex-item">
-            <h4>RULES</h4>
+            <h4>{translations[locale].rules}</h4>
           </Col>
         </Link>
         <Link to="/">
           <Col className="flex-item">
-            <h4>PRIVACY</h4>
+            <h4>{translations[locale].privacy}</h4>
           </Col>
         </Link>
       </Row>

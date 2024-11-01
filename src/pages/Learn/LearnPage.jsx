@@ -28,7 +28,7 @@ const Learn = () => {
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const locale = "en-US";
+  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
   const calculateProgress = (doneTest, totalTest) => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);

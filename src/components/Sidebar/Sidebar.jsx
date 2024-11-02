@@ -66,7 +66,7 @@ const Sidebar = () => {
 
           const shuffled = referencesData.sort(() => 0.5 - Math.random());
           const fiveRandomReferences = shuffled.slice(0, 5);
-          console.log(fiveRandomReferences);
+          // console.log(fiveRandomReferences);
           setReferences(fiveRandomReferences);
         } catch (error) {
           console.error("Error fetching references:", error);
@@ -126,26 +126,29 @@ const Sidebar = () => {
         {loading ? <Skeleton /> : (
           <ul className="listRankPlayer">
             {rankPlayers.length !== 0 &&
-              rankPlayers.slice(0, 10).map((item, index) => {
-                return (
-                  <li
-                    key={index}
-                    className={
-                      item.email === infoPlayer.email
-                        ? "itemRankPlayer active"
-                        : "itemRankPlayer"
-                    }
-                  >
-                    <span>#{index + 1}</span>
-                    <span className="fullname">{item.fullname}</span>
-                    <div className="wrapScore">
-                      <span>
-                        {item.totalScore !== null ? item.totalScore : 0} {translations[locale].points}
-                      </span>
-                    </div>
-                  </li>
-                );
-              })}
+              rankPlayers
+                .filter((item) => item.totalScore !== null) // Lọc bỏ các phần tử có totalScore = 0
+                .slice(0, Math.min(10, rankPlayers.filter((item) => item.totalScore !== 0).length)) // Lấy tối đa 10 phần tử hoặc số phần tử hiện có nếu ít hơn 10
+                .map((item, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className={
+                        item.email === infoPlayer.email
+                          ? "itemRankPlayer active"
+                          : "itemRankPlayer"
+                      }
+                    >
+                      <span>#{index + 1}</span>
+                      <span className="fullname">{item.fullname}</span>
+                      <div className="wrapScore">
+                        <span>
+                          {item.totalScore !== null ? item.totalScore : 0} {translations[locale].points}
+                        </span>
+                      </div>
+                    </li>
+                  );
+                })}
           </ul>
         )}
 

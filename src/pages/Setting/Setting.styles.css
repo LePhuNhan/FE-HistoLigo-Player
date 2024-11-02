@@ -29,14 +29,16 @@
 .optionLang{
     width: 100%;
     padding: 10px 8px;
-    border-radius: 12px;
-    border-color: rgb(229, 229, 229);
-    color: #777;
+    border-top: 2px solid rgb(229, 229, 229);
+    border-right: 2px solid rgb(229, 229, 229);
+    border-left: 2px solid rgb(229, 229, 229);
+    border-bottom: 4px solid rgb(229, 229, 229);
+    border-radius: 12px;             
     font-weight: 600;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    outline: none;
-}
+    color: #777;
+    outline: none;   
+}              
 
 .wrapFun{
-    margin-bottom: 50px;
+    margin-bottom: 70px;
 }

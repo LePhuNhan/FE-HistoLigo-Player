@@ -1,9 +1,25 @@
 import { RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import '../Help/Help.styles.css';
+import Menu from "../../components/Menu/Menu";
+
 
 const Privacy = () => {
+  window.scrollTo(0, 0);
   const theme = localStorage.getItem("theme") === "true";
+  const translations = {
+    'en-US': {
+      title: "PRIVACY",
+      home: "HOME"
+    },
+    'vi-VN': {
+      title: "RIÊNG TƯ",
+      home: "TRANG CHỦ"
+    },
+  };
+  const locale = localStorage.getItem('locale') || 'en-US';
+  const lang = translations[locale] || translations['en-US'];
   useEffect(() => {
     const darkThemeLink = document.getElementById("dark-theme-style");
 
@@ -25,14 +41,17 @@ const Privacy = () => {
   }, [theme]);
   return (
     <div className="wrapHelp">
-      <Link to="/chooseClass">
+      <Menu />
+      {/* <Link to="/learn">
         <h1 className="title">HISTOLIGO</h1>
-      </Link>
+      </Link> */}
 
       <div className="breadCrumb">
-        <span>TRANG CHỦ</span>
+        <Link to="/learn">
+          <span style={{ color: '#1cb0f6' }}>{lang.home}</span>
+        </Link>
         <RightOutlined />
-        <span>PRIVACY</span>
+        <span>{lang.title}</span>
       </div>
     </div>
   );

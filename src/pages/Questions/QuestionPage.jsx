@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 import debounce from "lodash.debounce";
-import { ReloadOutlined } from '@ant-design/icons';
 import ResetIcon from '../../assets/reset.png'
 
 const QuizPage = () => {
@@ -39,7 +38,7 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = "vi-VN";
+  const locale = "en-US";
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);

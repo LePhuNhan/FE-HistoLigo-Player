@@ -104,7 +104,7 @@ const Menu = () => {
       onCollapse={(value) => setCollapsed(value)}
     >
       {/* <div className="demo-logo-vertical" /> */}
-      <Link to='/chooseClass'>
+      <Link to='/learn'>
         <h1 className="title">HISTOLIGO</h1></Link>
       <AntMenu
         selectedKeys={[currentPath]} // Set selectedKeys based on current path

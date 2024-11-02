@@ -153,14 +153,16 @@ const Help = () => {
 
     return (
         <div className='wrapHelp'>
-            <Link to='/chooseClass'>
+            <Link to='/learn'>
                 <h1 className="title">{lang.title}</h1>
             </Link>
 
             <div className='breadCrumb'>
-                <span>{lang.helpCenter}</span>
+                <Link to='/learn'>
+                    <span style={{ color: '#1cb0f6' }}>{lang.home}</span></Link>
+
                 <RightOutlined />
-                <span>{lang.home}</span>
+                <span>{lang.helpCenter}</span>
             </div>
 
             <div className='wrapBoxHelp'>

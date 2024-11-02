@@ -268,8 +268,10 @@ p.descItem{
 
 .settingTitle, .titleFun, .smTitle, .optionLang{
   color: #fff !important;
+  border-color: #37464f !important;
 }
 
 .optionLang{
   background-color: var(--dark-color) !important;
+  border-color: #37464f !important;
 }

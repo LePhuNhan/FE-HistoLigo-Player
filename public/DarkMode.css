@@ -207,3 +207,69 @@ body{
 .multiple-choice-option-span p{
   color: #333 !important;
 }
+
+/* body{
+  background-color: var(--dark-color) !important;
+ 
+} */
+
+.anticon-down, .anticon-up{
+  color: #fff !important;
+}
+
+.itemTable .titleItem{
+  color: #fff !important;
+}
+
+p.descItem{
+  color: #fff !important;
+}
+
+.endTable .titleItem{
+  color: #fff !important;
+}
+
+.headTable{
+  border-color: var(--border-color) !important;
+}
+
+.endTable
+{
+  border-color: var(--border-color) !important;
+}
+
+.itemTable{
+  border-color: var(--border-color) !important;
+}
+
+.active{
+  color: #fff !important;
+}
+
+.boxHelp h1{
+  color: #fff !important;
+}
+
+.wrapHelp .title{
+  border-bottom: 2px solid var(--border-color) !important;
+}
+
+.ticketQuestion span{
+  color: #fff;  
+}
+
+.ticketQuestion button{
+  color: #131f24 !important;
+}
+
+.score h4{
+  color: #49c0f8 !important;
+}
+
+.settingTitle, .titleFun, .smTitle, .optionLang{
+  color: #fff !important;
+}
+
+.optionLang{
+  background-color: var(--dark-color) !important;
+}

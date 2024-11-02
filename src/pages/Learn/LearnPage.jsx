@@ -1,5 +1,5 @@
-import React, { useState, useEffect,useContext } from "react";
-import { Layout, Card, Typography, Progress} from "antd";
+import React, { useState, useEffect, useContext } from "react";
+import { Layout, Card, Typography, Progress } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -44,8 +44,8 @@ const Learn = () => {
               Authorization: `Bearer ${accessToken}`,
               "Content-Language": `${locale}`,
             },
-            params:{
-              classId:selectedClassId
+            params: {
+              classId: selectedClassId
             }
           },
         );
@@ -62,7 +62,7 @@ const Learn = () => {
     localStorage.setItem("selectedTopicId", topicId);
     navigate(`/learn/test/${topicId}`);
   };
-  
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
@@ -80,20 +80,20 @@ const Learn = () => {
           <div className="header-content">
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
-              <img
-                    src={selectedClassImg}
-                    alt={selectedClass}
-                    style={{ width: 40, borderRadius: 1 }}
-                    className="flag"
-                  />
+                <img
+                  src={selectedClassImg}
+                  alt={selectedClass}
+                  style={{ width: 40, borderRadius: 1 }}
+                  className="flag"
+                />
               </Link>
             </div>
-           
+
             <div className="fire-icon">🔥1</div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">
-              {theme ? <MoonOutlined />:  <SunOutlined />}
+              {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
-            
+
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">

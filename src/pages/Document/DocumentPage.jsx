@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -56,11 +56,11 @@ const Document = () => {
 
       try {
         const response = await axios.get(
-          `${DomainApi}/documentation/topic/${selectedTopicId}`,{
-            headers: {
-              "Content-Language": `${locale}`,
-            },
-          }
+          `${DomainApi}/documentation/topic/${selectedTopicId}`, {
+          headers: {
+            "Content-Language": `${locale}`,
+          },
+        }
         );
         setDocuments(response.data);
       } catch (error) {
@@ -114,17 +114,17 @@ const Document = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
-              <img
-                    src={selectedClassImg}
-                    alt={selectedClass}
-                    style={{ width: 40, borderRadius: 1 }}
-                    className="flag"
-                  />
+                <img
+                  src={selectedClassImg}
+                  alt={selectedClass}
+                  style={{ width: 40, borderRadius: 1 }}
+                  className="flag"
+                />
               </Link>
             </div>
             <div className="fire-icon">🔥1</div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">
-              {theme ? <MoonOutlined />:  <SunOutlined />}
+              {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
           </div>
         </Header>

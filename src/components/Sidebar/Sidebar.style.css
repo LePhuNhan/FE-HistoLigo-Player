@@ -16,7 +16,7 @@
 }
 
 .itemRankPlayer.active{
-    color: #72e919;
+    color: #72e919 !important;
 }
 .itemRankPlayer .fullname{
     margin-left: 10%;

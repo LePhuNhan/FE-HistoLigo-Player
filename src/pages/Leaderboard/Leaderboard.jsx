@@ -47,7 +47,7 @@ const translations = {
 };
 
 const Leaderboard = () => {
-  const colors = ["#FF4B4B", '#ce82ff', '#FFEBCD'];
+  const colors = ["#ADD8E6", '#FFB6C1', '#90EE90'];
   const darkColors = ['#01a299', '#cf6679', '#3700b3'];
   const theme = localStorage.getItem('theme') === 'true';
   const DomainApi = process.env.REACT_APP_DOMAIN_API;

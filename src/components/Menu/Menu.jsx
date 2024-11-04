@@ -105,7 +105,7 @@ const Menu = () => {
     >
       {/* <div className="demo-logo-vertical" /> */}
       <Link to='/learn'>
-        <h1 className="title">HISTOLIGO</h1></Link>
+        <h1 className="title">HISTOLINGO</h1></Link>
       <AntMenu
         selectedKeys={[currentPath]} // Set selectedKeys based on current path
         mode="inline"

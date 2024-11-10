@@ -1,0 +1,44 @@
+.boxSettings{
+    margin-left: 25%;
+    margin-top: 1%;
+    width: 590px;
+}
+
+.settingTitle{
+    color: #4b4b4b;
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.titleFun{
+    color: #777;
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 2px solid rgb(229, 229, 229);
+    padding-bottom: 12px;
+}
+
+.smTitle{
+    color: #4b4b4b;
+    font-size: 18px;
+     font-weight: 600;
+     margin-top: 30px;
+}
+
+.optionLang{
+    width: 100%;
+    padding: 10px 8px;
+    border-top: 2px solid rgb(229, 229, 229);
+    border-right: 2px solid rgb(229, 229, 229);
+    border-left: 2px solid rgb(229, 229, 229);
+    border-bottom: 4px solid rgb(229, 229, 229);
+    border-radius: 12px;             
+    font-weight: 600;
+    color: #777;
+    outline: none;   
+}              
+
+.wrapFun{
+    margin-bottom: 70px;
+}

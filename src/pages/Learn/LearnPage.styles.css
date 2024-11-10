@@ -1,0 +1,196 @@
+.flag {
+  width: 50px;
+  height: auto;
+  border: 2px rgb(193, 190, 190) solid;
+  border-radius: 5%;
+}
+.flag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.header-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+}
+
+.flag-container {
+  margin-right: 5%;
+}
+
+.fire-icon {
+  margin-right: 5%;
+  font-size: 18px;
+  color: rgb(255, 150, 0);
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  .flag-container {
+    margin-right: 3%;
+  }
+
+  .fire-icon {
+    margin-right: 18%;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    width: 115%;
+  }
+  .flag-container {
+    margin-right: 5%;
+  }
+
+  .fire-icon {
+    margin-right: 10%;
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .header-content {
+    width: 100%;
+  }
+  .flag-container {
+    margin-right: 3%;
+  }
+
+  .fire-icon {
+    margin-right: 1%;
+    font-size: 16px;
+  }
+}
+.flex-container {
+  margin-top: 5%;
+}
+.ant-layout-header {
+  color: rgba(255, 150, 0, 1);
+}
+.learn-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.learn-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.learn-card .card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.learn-card .card-text {
+  flex: 1;
+  padding-right: 16px;
+  color: #ffffff;
+}
+
+.learn-card {
+  background-color: rgba(28, 176, 246, 1) !important;
+}
+.ant-progress .ant-progress-success-bg {
+  background-color: rgba(255, 200, 0, 1);
+}
+.ant-progress .ant-progress-bg {
+  background-color: rgba(255, 200, 0, 1);
+}
+.ant-progress .ant-progress-inner {
+  background-color: #fff;
+}
+.learnTitle {
+  color: rgba(255, 255, 255) !important;
+}
+.ant-progress .ant-progress-outer {
+  margin-bottom: 15px;
+}
+.text {
+  color: rgba(255, 255, 255);
+}
+.ant-progress .ant-progress-text.ant-progress-text-outer {
+  color: rgba(255, 255, 255);
+}
+.ant-row {
+  margin-left: 10% !important;
+}
+.gutter-row {
+  margin-top: 15px;
+}
+.references{
+  transition: all linear 0.1s;
+}
+.references:hover {
+  color: #49c0f8;
+}
+@media (min-width: 1201px) {
+  .learn-card .card-image {
+    width: 200px;
+    height: 140px;
+    margin: -5px -10px -5px 0px;
+    border-radius: 8px;
+  }
+  .card {
+    width: 100% !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
+}
+@media (max-width: 1200px) and (min-width: 579px) {
+  .card {
+    width: 100% !important;
+    margin-left: 5% !important;
+    margin-right: 5%;
+    margin-top: 5%;
+  }
+  .learn-card .card-image {
+    width: 180px;
+    height: 140px;
+    margin: -10px -10px -10px 10px;
+    border-radius: 8px;
+  }
+
+  .learn-card .card-text {
+    width: 100%;
+    padding-right: 0px;
+  }
+  .responsive-hide {
+    display: none;
+  }
+}
+@media (max-width: 578px) {
+  .card {
+    width: 100% !important;
+    margin-right: 5%;
+    margin-top: 15%;
+  }
+  .learn-card .card-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .learn-card .card-image {
+    width: 90%;
+    height: 50%;
+    margin: 10px 10% -10px 5%;
+    border-radius: 8px;
+  }
+  .learn-card .card-text {
+    width: 100%;
+    padding-right: 0px;
+  }
+  .responsive-hide {
+    display: none;
+  }
+}
+
+.toggleDarkMode{
+  margin-right: 7%;
+  cursor: pointer;
+}
+
+.toggleDarkMode span{
+  font-size: 19px;
+}
+
+span.anticon.anticon-moon {
+ color: #49c0f8;
+}

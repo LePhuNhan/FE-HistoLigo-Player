@@ -1,0 +1,106 @@
+.demo-logo-vertical {
+  height: 32px;
+  margin: 16px;
+}
+.title {
+  color: rgb(88, 204, 2);
+  text-align: center;
+  margin: 16px 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.ant-layout-sider-children {
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+}
+.ant-menu-title-content {
+  font-size: 16px;
+  font-weight: 700;
+}
+/* Menu.style.css */
+.demo-logo-vertical {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ant-menu-item-icon {
+  color: #1890ff;
+}
+
+.ant-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.ant-menu-item span {
+  margin-left: 10px;
+}
+
+/* Dark mode */
+/* li.ant-menu-item {
+  color: #fff !important;
+}
+.ant-menu-root{
+  background-color: var(--dark-color);
+  
+}
+.ant-menu-submenu-title{
+  color: #fff !important;
+}
+.ant-layout-sider-children{
+  background-color: var(--dark-color) !important;
+  border-right: 1px solid var(--border-color);
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-p8b6i).ant-menu-light>.ant-menu .ant-menu-item-selected{
+  background-color: #202f36 !important;
+  border: 1px solid #3f85a7 !important;
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-p8b6i).ant-menu-light>.ant-menu .ant-menu-item-selected{
+  color: #49c0f8 !important;
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):active, :where(.css-dev-only-do-not-override-p8b6i).ant-menu-light>.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):active{
+  background-color: transparent !important;
+}
+:where(.css-dev-only-do-not-override-p8b6i).ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover, :where(.css-dev-only-do-not-override-p8b6i).ant-menu-light>.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover{
+  background-color: #202f36 !important;
+} */
+
+/* Hide scroll bar */
+.ant-layout-sider {
+  overflow: hidden;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.ant-layout-sider-trigger{
+  background-color: var(--dark-color) !important;
+  border-top: 1px solid #37464f;
+  border-right: 1px solid #37464f;
+}
+.ant-layout-footer{
+  border-top: 1px solid #37464f !important;
+}
+
+@media (max-width: 768px) and (min-width: 480px) {
+  .menu {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .menu {
+    display: none;
+  }
+}
+

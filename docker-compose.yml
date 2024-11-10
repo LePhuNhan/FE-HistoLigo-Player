@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  frontend:
+    build: .
+    image: histolingo-player-fe
+    container_name: histolingo-player-fe
+    ports:
+      - "3002:80"

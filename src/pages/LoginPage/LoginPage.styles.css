@@ -1,0 +1,104 @@
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.login-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 320px;
+  width: 400px;
+  position: relative;
+}
+
+.login_heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #1890ff;
+}
+
+.ant-input-affix-wrapper .anticon {
+  color: rgba(0, 0, 0, 0.25);
+}
+.antFormItem {
+  margin-left: -10%;
+}
+.ant-input-affix-wrapper:focus{
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+.ant-input-affix-wrapper-focused {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.login-form-button {
+  width: 100%;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.btnGoogle-login{
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+  margin-top: 18px;
+  border: 1px solid #1890ff ;
+  padding: 4px 15px;
+  border-radius: 6px;
+  display: flex;
+  height: 32px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all ease-in 0.1s;
+}
+
+.iconGoogle{
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+}
+
+.btnGoogle-login:hover{
+  filter: brightness(0.96);
+} 
+
+.login-form-forgot {
+  float: right;
+}
+
+.sepa{
+  width: 100%;
+  height: 1px !important;
+  background-color: #dbdbdb;
+  margin-top: 20px;
+  position: relative;
+}
+
+.sepa p {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 10px;
+  background-color: #fff;
+}
+
+@media (max-width: 576px) {
+  .login-form {
+    padding: 20px;
+  }
+}
+.login-signUp {
+  display: block;
+  margin-top: 10px;
+}

@@ -1,6 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import 'antd/dist/reset.css'; // Import Ant Design styles
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "antd/dist/reset.css"; // Import Ant Design styles
+import GlobalStyle from "./components/GlobalStyle";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <GlobalStyle>
+    <App />
+  </GlobalStyle>
+);

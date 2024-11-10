@@ -1,0 +1,90 @@
+.documentTitle {
+  color: black;
+}
+.btnBack {
+  padding: 0;
+  margin: 0% 8px 0 0;
+  justify-content: flex-start;
+  color: black ;
+}
+.btnBack:hover {
+  color: #1677ff !important;
+}
+
+
+/* 
+
+<h2 className="titleDoc">I. Các giai đoạn phát triển...</h2>
+
+<p>Nội dung</p>
+
+<h3 className="smallTitle">a. Bầy người nguyên thủy...</h3>
+
+<p> <span className="bolderText"> -Tổ chức xã hội:</span> Sống thành bầy,... </p>
+
+<div className="wrapImg">
+  <img className="imgDoc" src="" alt="pic"/>
+</div>
+
+ */
+
+ .imgDoc{
+  width: 700px;
+  height: 450px;
+ }
+.titleDoc{
+  font-size: 18px !important;
+}
+
+
+.bolderText{
+  font-weight: bold;
+  font-weight: 600;
+  /* display: block !important; */
+}
+
+h3.smallTitle{
+  font-size: 18px !important;
+  margin: 0 0 5px 0 !important;
+}
+
+p{
+  font-size: 16px !important;
+  margin-bottom: 5px !important;
+}
+
+.wrapImg{
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.linkSource{
+  display: block;
+  font-size: 17px
+}
+
+@media (max-width: 1000px) and (min-width: 768px) {
+    .btnBack {
+        margin: 5% 8px 0 0;
+      }
+  }
+  @media (max-width: 768px){
+    .btnBack {
+        margin: 8% 8px 0 0;
+      }
+  }
+
+  /* Dark mode */
+  /* .btnBack{
+    color: #fff !important;
+  }
+  .titleDoc, .smallTitle,p{
+    color: #fff !important;
+  }
+  .documentTitle{
+    color: #fff !important;
+  }
+  .ant-divider.css-dev-only-do-not-override-p8b6i.ant-divider-horizontal{
+    border: 1px solid var(--border-color);
+  } */

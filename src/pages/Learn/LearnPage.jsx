@@ -10,7 +10,7 @@ import {
   MoonOutlined,
   SunOutlined
 } from '@ant-design/icons';
-
+import CoverBookImg from '../../assets/cover_book.webp';
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
@@ -81,7 +81,7 @@ const Learn = () => {
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
                 <img
-                  src={selectedClassImg}
+                  src={selectedClassImg !== null ? selectedClassImg : CoverBookImg}
                   alt={selectedClass}
                   style={{ width: 40, borderRadius: 1 }}
                   className="flag"

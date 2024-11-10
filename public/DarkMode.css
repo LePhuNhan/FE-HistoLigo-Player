@@ -6,7 +6,6 @@ li.ant-menu-item:hover{
 }
 .ant-menu-root{
   background-color: var(--dark-color);
-  
 }
 .ant-menu-submenu-title{
   color: #fff !important;
@@ -114,7 +113,7 @@ background-color: var(--dark-color) !important;
 color: #fff !important;
 }
 
-input.ant-input.css-dev-only-do-not-override-p8b6i.ant-input-outlined,input.ant-input.css-p8b6i.ant-input-outlined{
+input.ant-input.css-dev-only-do-not-override-p8b6i.ant-input-outlined,input.ant-input.css-p8b6i.ant-input-outlined, input.ant-input{
 background-color: #202f36;
 color: #fff;
 border-color: var(--border-color);
@@ -130,11 +129,11 @@ border-color: var(--border-color) !important;
 span.ant-select-selection-item{
 color: #fff !important;
 }
-.ant-picker.ant-picker-outlined.ant-picker-status-success.css-dev-only-do-not-override-p8b6i, .ant-picker.ant-picker-outlined.ant-picker-status-success.css-p8b6i{
+.ant-picker.ant-picker-outlined.ant-picker-status-success.css-dev-only-do-not-override-p8b6i, .ant-picker.ant-picker-outlined{
 background-color: #202f36 !important;
 color: #fff;
 }
-input#profileUpdate_birthDay::placeholder{
+input#profileUpdate_birthDay::placeholder, input#profileUpdate_language::placeholder, input#profileUpdate_sex::placeholder, .ant-select-selection-search-input::placeholder{
 color: #52656D !important;
 }
 span.ant-select-arrow, span.ant-picker-suffix{

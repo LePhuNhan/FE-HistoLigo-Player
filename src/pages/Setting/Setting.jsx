@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Menu from "../../components/Menu/Menu";
 import "./Setting.styles.css";
+import { DarkModeContext } from "../../DarkModeContext";
 
 // Định nghĩa đối tượng translations
 const translations = {
@@ -27,10 +28,18 @@ const translations = {
 };
 
 const Setting = () => {
+  const theme = localStorage.getItem('theme') === 'true';
+  const [themeRender, seThemeRender] = useState(theme)
+  const context = useContext(DarkModeContext);
   const [language, setLanguage] = useState();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const locale = localStorage.getItem('locale') || 'en-US';
   const lang = translations[locale] || translations['en-US'];
+
+  useEffect(() => {
+    seThemeRender(theme);
+
+  }, []);
 
   // Danh sách ngôn ngữ
   const languageOptions = [
@@ -59,6 +68,7 @@ const Setting = () => {
     window.location.reload(); // Làm mới trang để áp dụng ngôn ngữ mới
   };
 
+
   return (
     <div className="wrapSettings">
       <Menu />
@@ -69,7 +79,7 @@ const Setting = () => {
           <h4 className="smTitle">{lang.changeLanguage}</h4>
           <select className="optionLang" onChange={handleLanguageChange} value={locale}>
             {languageOptions.map((item, index) => {
-              return <option key={index} value={item.value}>{item.label}</option>;  
+              return <option key={index} value={item.value}>{item.label}</option>;
             })}
           </select>
         </div>
@@ -77,10 +87,11 @@ const Setting = () => {
         <div className="wrapFun">
           <h3 className="titleFun">{lang.interface}</h3>
           <h4 className="smTitle">{lang.darkMode}</h4>
-          <select className="optionLang">
-            <option>{lang.enable}</option>
-            <option>{lang.disable}</option>
+          <select onChange={() => { context.toggleTheme(); }} className="optionLang">
+            <option >{themeRender ? lang.enable : lang.disable}</option>
+            <option >{themeRender ? lang.disable : lang.enable}</option>
           </select>
+
         </div>
       </div>
     </div>

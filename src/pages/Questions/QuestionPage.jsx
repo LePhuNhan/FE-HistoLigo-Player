@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./QuestionPage.style.css";
 import debounce from "lodash.debounce";
-import { ReloadOutlined } from '@ant-design/icons';
 import ResetIcon from '../../assets/reset.png'
 
 const QuizPage = () => {

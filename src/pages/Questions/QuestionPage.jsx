@@ -39,7 +39,7 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = "vi-VN";
+  const locale = localStorage.getItem('locale') || 'en-US';
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);

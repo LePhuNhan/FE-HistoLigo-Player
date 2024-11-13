@@ -7,11 +7,12 @@ import axios from "axios";
 import BtnGoogleLogin from "../../components/BtnGoogleLogin/GoogleLogin.jsx";
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const DomainApi=process.env.REACT_APP_DOMAIN_API;
   const onFinish = async (values) => {
     const { username, email, password, confirmPassword } = values;
 
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/users", {
+      const response = await axios.post(`${DomainApi}/user/register`, {
         userName: username,
         email: email,
         password: password,
@@ -20,7 +21,7 @@ const SignUpPage = () => {
       
       if (response.data.message === "Tạo tài khoản thành công") {
         message.success("Sign up successful!");
-        const responseLogin = await axios.post("http://localhost:8000/api/v1/login", {
+        const responseLogin = await axios.post(`${DomainApi}/user/login`, {
           userName: username,
           password: password,
         });

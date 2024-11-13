@@ -4,6 +4,7 @@
   align-items: center;
   height: 100vh;
   background-color: #f0f2f5;
+  position: relative;
 }
 
 .signUp_heading {
@@ -79,4 +80,26 @@
   .ant-form {
     padding: 20px;
   }
+}
+
+.changeLogin{
+  background-color: #f0f2f5;
+  position: absolute;
+  top: 4%;
+  right: 5%;
+  border: 3px solid #fff; 
+  border-bottom: 4px solid #fff;  
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all linear 0.2s;
+}
+.changeLogin a{
+  color: #1cb0f6;
+  display: block;
+  padding: 10px 26px;
+}
+
+.changeLogin:hover{
+  filter: brightness(0.9);
 }

@@ -102,8 +102,8 @@ const translations = {
 
 const Help = () => {
     const theme = localStorage.getItem('theme') === 'true';
-    const locale = localStorage.getItem('locale') || 'en-US';
-    const lang = translations[locale] || translations['en-US'];
+    const locale = localStorage.getItem('locale') || 'vi-VN';
+    const lang = translations[locale] || translations['vi-VN'];
 
     const [openStates, setOpenStates] = useState([false, false, false, false]);
     const [openStates1, setOpenStates1] = useState([false, false, false, false, false, false]);

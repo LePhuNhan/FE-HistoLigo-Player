@@ -22,9 +22,31 @@
 
 .fire-icon {
   margin-right: 5%;
-  font-size: 18px;
-  color: rgb(255, 150, 0);
+  cursor: pointer;
+  position: relative;
 }
+
+.ok{
+  position: absolute;
+  top: 60%;
+}
+
+.wrapChangeFlag{
+  display: flex;
+  align-items: center;
+}
+
+
+.titleFlag{
+  color: #333 !important;
+  font-weight: 600;
+}
+
+.mainFlag{
+  margin-left: 8px;
+}
+
+
 @media (max-width: 1024px) and (min-width: 768px) {
   .flag-container {
     margin-right: 3%;

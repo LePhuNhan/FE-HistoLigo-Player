@@ -47,7 +47,7 @@ const translations = {
 };
 
 const Leaderboard = () => {
-  const colors = ["#ADD8E6", '#FFB6C1', '#90EE90'];
+  const colors = ["#ADD8E6", '#FFB6C1', '#998675'];
   const darkColors = ['#01a299', '#cf6679', '#3700b3'];
   const theme = localStorage.getItem('theme') === 'true';
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
@@ -55,8 +55,8 @@ const Leaderboard = () => {
   const accessToken = localStorage.getItem("accessToken");
   const [infoPlayer, setInfoPlayer] = useState([]);
   const [selectRank, setSelectRank] = useState(0);
-  const locale = localStorage.getItem('locale') || 'en-US';
-  const lang = translations[locale] || translations['en-US'];
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const lang = translations[locale] || translations['vi-VN'];
 
   const getRankName = (rank) => {
     if (rank === 0) return lang.beginner;
@@ -148,11 +148,11 @@ const Leaderboard = () => {
                         </div>
                       </div>
                       <div className='infoPlayer'>
-                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : ''}>{lang.rank} {getRankName(item.rank)}</h3>
+                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{lang.rank} {getRankName(item.rank)}</h3>
                         <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{item.fullname}
                         </h3>
                       </div>
-                      <div className='score'>
+                      <div className={item.email === infoPlayer.email ? 'score active' : 'score'}>
                         <h4>{item.totalScore !== null ? item.totalScore : 0} {lang.points}</h4>
                       </div>
                     </div>

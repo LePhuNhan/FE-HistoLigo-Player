@@ -41,12 +41,8 @@
     margin-bottom: 15px;
     border-radius: 10px;
     position: relative;
-  
 }
 
-/* .ant-card-head-title{
-    text-align: center;
-} */
 
 .listRank .itemRank .wrapInfo{
     font-size: 13px;
@@ -55,8 +51,18 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
     margin-top: -10px;
+    position: relative;
+}
+
+.listRank .itemRank .wrapInfo .score{
+    position: absolute;
+    right: 4%;
+}
+
+.listRank .itemRank .wrapInfo .infoPlayer{
+    position: absolute;
+    left: 37%;
 }
 
 .listRank .itemRank .wrapInfo.bigSize{
@@ -100,6 +106,10 @@
 }
 
 .wrapInfo .fullname.active{
+    color: #7eee28 !important;
+}
+
+.wrapInfo .score.active h4{
     color: #7eee28 !important;
 }
 

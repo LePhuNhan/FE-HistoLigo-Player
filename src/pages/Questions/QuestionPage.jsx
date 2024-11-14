@@ -38,7 +38,7 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const isInitialRender = useRef(true);
   const isInitialRender2 = useRef(true);
-  const locale = localStorage.getItem('locale') || 'en-US';
+  const locale = localStorage.getItem('locale') || 'vi-VN';
   const { testId } = useParams();
   const [highlightedLeft, setHighlightedLeft] = useState(null);
   const [highlightedRight, setHighlightedRight] = useState(null);
@@ -464,7 +464,7 @@ const QuizPage = () => {
 
             <Row gutter={[16, 16]} className="matchingQuestion">
               <Col span={12}>
-                <h3>Left Column</h3>
+                <h3>{locale !== 'vi-VN' ? 'Left Column' : 'Cột trái'}</h3>
                 {question.leftColumn.map((item, index) => (
                   <div
                     key={index}
@@ -484,7 +484,7 @@ const QuizPage = () => {
                 ))}
               </Col>
               <Col span={12}>
-                <h3>Right Column</h3>
+                <h3>{locale !== 'vi-VN' ? 'Right Column' : 'Cột phải'}</h3>
                 {question.rightColumn.map((item, index) => (
                   <div
                     key={index}
@@ -565,7 +565,8 @@ const QuizPage = () => {
         {questions.length > 0 && (
           <div className="questionContainer">
             <Card
-              title={`Question ${currentQuestionIndex + 1}`}
+
+              title={`${locale !== 'vi-VN' ? 'Question' : 'Câu hỏi'} ${currentQuestionIndex + 1}`}
               className="questionCard"
             >
               {currentQuestion.questionType !== 3 && (
@@ -623,7 +624,7 @@ const QuizPage = () => {
           disabled={currentQuestionIndex >= questions.length - 1}
           className="button"
         >
-          Skip
+          {locale !== 'vi-VN' ? 'Skip' : 'Bỏ qua'}
         </Button>
 
         <Button
@@ -643,7 +644,8 @@ const QuizPage = () => {
           style={{ marginLeft: "10px" }}
           className="button"
         >
-          Answer
+          {locale !== 'vi-VN' ? 'Answer' : 'Trả lời'}
+
         </Button>
 
         <Button
@@ -659,7 +661,8 @@ const QuizPage = () => {
           disabled={currentQuestionIndex <= 0}
           className="button"
         >
-          Previous
+          {locale !== 'vi-VN' ? 'Previous' : 'Lùi lại'}
+
         </Button>
       </div>
     </div>

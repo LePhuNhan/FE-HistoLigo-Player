@@ -29,10 +29,10 @@ const ProfilePage = () => {
   const debouncedHandleUpdateProfile = debounce(() => {
     handleUpdateProfile();
   }, 500);
-  
+
   const accessToken = localStorage.getItem("accessToken");
 
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const localeToLabel = {
     "vi-VN": "vietNam",
     "en-US": "english",
@@ -148,7 +148,7 @@ const ProfilePage = () => {
     },
   };
 
-  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
+  const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'vi-VN' nếu không có giá trị
 
   useEffect(() => {
     const fetchData = async () => {
@@ -169,7 +169,7 @@ const ProfilePage = () => {
             language: getLanguageLabel(data.locale),
             birthDay: data.dateOfBirth ? dayjs(data.dateOfBirth) : null,
           });
-          
+
           setAvatar(data.avatar);
           setAvatarURL(data.avatar);
         } catch (error) {
@@ -204,7 +204,7 @@ const ProfilePage = () => {
           maxWidthOrHeight: 1024,
         };
         const compressedFile = await imageCompression(file, options);
-        
+
         const reader = new FileReader();
         reader.onload = () => {
           setAvatar(reader.result);
@@ -233,7 +233,7 @@ const ProfilePage = () => {
     try {
       await form.validateFields();
       const values = form.getFieldsValue();
-  
+
       const updateData = {
         fullname: values.fullName,
         dateOfBirth: values.birthDay ? values.birthDay.format("YYYY-MM-DD") : null,
@@ -244,7 +244,7 @@ const ProfilePage = () => {
         avatar: avatar,
         locale: getLocaleFromLabel(values.language),
       };
-      
+
       const response = await axios.put(
         `${DomainApi}/player`,
         updateData,
@@ -254,7 +254,7 @@ const ProfilePage = () => {
           },
         }
       );
-      
+
       console.log("Success:", response.data);
       onFinish(response.data);
 

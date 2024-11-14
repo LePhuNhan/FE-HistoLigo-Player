@@ -17,8 +17,8 @@ const Rules = () => {
       home: "TRANG CHỦ"
     },
   };
-  const locale = localStorage.getItem('locale') || 'en-US';
-  const lang = translations[locale] || translations['en-US'];
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const lang = translations[locale] || translations['vi-VN'];
   const theme = localStorage.getItem("theme") === "true";
   useEffect(() => {
     const darkThemeLink = document.getElementById("dark-theme-style");

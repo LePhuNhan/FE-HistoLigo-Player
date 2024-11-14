@@ -17,8 +17,8 @@ const Introduce = () => {
     },
   };
   const theme = localStorage.getItem("theme") === "true";
-  const locale = localStorage.getItem('locale') || 'en-US';
-  const lang = translations[locale] || translations['en-US'];
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const lang = translations[locale] || translations['vi-VN'];
   useEffect(() => {
     const darkThemeLink = document.getElementById("dark-theme-style");
 

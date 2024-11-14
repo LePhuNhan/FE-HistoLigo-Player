@@ -33,8 +33,8 @@ const Setting = () => {
   const context = useContext(DarkModeContext);
   const [language, setLanguage] = useState();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
-  const locale = localStorage.getItem('locale') || 'en-US';
-  const lang = translations[locale] || translations['en-US'];
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const lang = translations[locale] || translations['vi-VN'];
 
   useEffect(() => {
     seThemeRender(theme);
@@ -63,7 +63,9 @@ const Setting = () => {
   }, []);
 
   const handleLanguageChange = (event) => {
+    const flag = localStorage.getItem("flag") === "true";
     const selectedLanguage = event.target.value;
+    localStorage.setItem("flag", !flag);
     localStorage.setItem('locale', selectedLanguage); // Cập nhật locale trong localStorage
     window.location.reload(); // Làm mới trang để áp dụng ngôn ngữ mới
   };

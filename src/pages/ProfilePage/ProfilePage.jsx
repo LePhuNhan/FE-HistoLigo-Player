@@ -19,11 +19,13 @@ import dayjs from "dayjs";
 import styles from "./ProfilePage.styles.css";
 import imageCompression from 'browser-image-compression';
 import debounce from "lodash.debounce";
+import { Spin } from 'antd';
 
 const { Option } = Select;
 
 const ProfilePage = () => {
   const [avatar, setAvatar] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [avatarURL, setAvatarURL] = useState("");
   const [form] = Form.useForm();
   const debouncedHandleUpdateProfile = debounce(() => {
@@ -175,11 +177,15 @@ const ProfilePage = () => {
         } catch (error) {
           console.error("Failed to fetch player data:", error);
         }
+        finally {
+          setLoading(false); // Dừng loading sau khi fetch xong
+        }
       } else {
         form.resetFields();
         setAvatar(null);
         setAvatarURL("");
       }
+
     };
 
     fetchData();
@@ -278,13 +284,14 @@ const ProfilePage = () => {
         >
           {translations[locale].updateProfile}
         </h1>
-        <Form
+        <Form style={{ position: 'relative' }}
           form={form}
           name="profileUpdate"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           layout="vertical"
         >
+          {loading ? <Spin /> : null}
           <Form.Item name="avatar" label={translations[locale].avatar}>
             <Upload
               name="avatar"

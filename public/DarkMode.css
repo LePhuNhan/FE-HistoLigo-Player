@@ -356,3 +356,23 @@ p.descItem {
 button.ant-btn span{
   font-weight: 600;
 }
+
+
+.ant-spin-spinning{
+  background-color: var(--dark-color) !important;
+}
+
+.boxContents h2{
+  color: #fff;
+}
+
+.titleJob h1, .titleJob h3, .wrapEffe h4, .wrapEffe span, .videoItem span{
+  color: #fff !important;
+}
+.titleJob p{
+  color: #dce6ec !important;
+}
+
+.wrapRule h2, .wrapRule span, .wrapRule p{
+  color: #fff !important;
+}

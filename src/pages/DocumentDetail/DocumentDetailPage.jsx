@@ -16,6 +16,7 @@ import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
 
 
+
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -37,6 +38,7 @@ const translations = {
 };
 
 const DocumentDetail = () => {
+
   const flag = localStorage.getItem("flag") === "true";
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
@@ -64,6 +66,7 @@ const DocumentDetail = () => {
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
+
     };
     fetchDocuments();
   }, [id]);
@@ -161,7 +164,8 @@ const DocumentDetail = () => {
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div className="wrapDoccument" style={{ margin: "0 10% 0 10%" }}>
+            <div className="wrapDoccument" style={{ margin: "0 10% 0 10%", position: 'relative' }}>
+
               <div style={{ display: "grid", alignItems: "center" }}>
                 <Link to={`/learn/document/${selectedTopicId}`}>
                   <Button

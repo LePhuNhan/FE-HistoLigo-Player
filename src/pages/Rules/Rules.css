@@ -1,0 +1,26 @@
+.itemRule{
+    width: 70%;
+}
+
+.itemRule{
+    display: flex;
+    margin-top: 15px;
+}
+
+.itemRule p {
+    margin-left: 5px;
+    color: #999;
+    font-weight: 400;
+}
+
+.wrapRule h2{
+    color: #3c3c3c;
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.wrapRule{
+    margin-top: 60px;
+    cursor: default;
+}

@@ -216,3 +216,7 @@
 span.anticon.anticon-moon {
  color: #49c0f8;
 }
+
+.ant-spin-spinning.darkSpin{
+  background-color: #f5f5f5 !important;
+}

@@ -4,6 +4,7 @@ import Menu from "../../components/Menu/Menu";
 import { Layout, theme, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Spin } from 'antd';
 
 const { Content, Footer } = Layout;
 
@@ -24,6 +25,7 @@ const translations = {
 
 const ChooseClass = () => {
   const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
@@ -40,6 +42,9 @@ const ChooseClass = () => {
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching class data:", error);
+    }
+    finally {
+      setLoading(false); // Dừng loading sau khi fetch xong
     }
   };
 
@@ -78,7 +83,8 @@ const ChooseClass = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
-        <Content style={{ margin: "0px 14px 0px 14%" }}>
+        <Content style={{ margin: "0px 14px 0px 14%", position: 'relative' }}>
+          {loading ? (<Spin />) : null}
           <div
             className="site-layout-background"
             style={{

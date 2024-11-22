@@ -15,6 +15,7 @@ import {
 } from '@ant-design/icons';
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
+import { Spin } from 'antd';
 
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
@@ -52,6 +53,7 @@ const Document = () => {
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const locale = localStorage.getItem('locale') || 'vi-VN';
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -68,6 +70,9 @@ const Document = () => {
         setDocuments(response.data);
       } catch (error) {
         console.error("Error fetching documents:", error);
+      }
+      finally {
+        setLoading(false); // Dừng loading sau khi fetch xong
       }
     };
     fetchDocuments();
@@ -154,7 +159,8 @@ const Document = () => {
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "60%", marginLeft: "5%" }} className="card">
+            <div style={{ width: "60%", marginLeft: "5%", position: 'relative' }} className="card">
+              {loading ? <Spin /> : null}
               {documents.map((document, index) => {
                 const titles = document.content.match(/^(I+)\. .+$/gm);
 

@@ -12,6 +12,7 @@ import NoAvtImg from '../../assets/noAvt.png'
 import {
   CrownFilled
 } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 const translations = {
   'en-US': {
@@ -56,6 +57,7 @@ const Leaderboard = () => {
   const [infoPlayer, setInfoPlayer] = useState([]);
   const [selectRank, setSelectRank] = useState(0);
   const locale = localStorage.getItem('locale') || 'vi-VN';
+  const [loading, setLoading] = useState(true);
   const lang = translations[locale] || translations['vi-VN'];
 
   const getRankName = (rank) => {
@@ -96,9 +98,13 @@ const Leaderboard = () => {
     } catch (error) {
       console.error(error);
     }
+    finally {
+      setLoading(false); // Dừng loading sau khi fetch xong
+    }
   };
 
   useEffect(() => {
+    setLoading(true);
     getDataByRank();
   }, [selectRank]);
   return (
@@ -129,37 +135,43 @@ const Leaderboard = () => {
           </div>
           <div className='wrapListRank'>
             <h1 className='title'>{lang.leaderboard}</h1>
-            <ul className='listRank'>
-              {rankPlayers.length !== 0 && rankPlayers.map((item, index) => {
-                return (
-                  <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index] }}>
-                    {index === 0 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1' />)}
-                    {index === 1 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2' />)}
-                    {index === 2 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3' />)}
-                    {index > 2 && (<span className='orderRank'>#{index + 1}</span>)}
+            <div>
+              {loading ? (<Spin style={{ height: '300px', top: '80px' }} />) : (<ul className='listRank'>
 
-                    <div className={index < 3 ? 'wrapInfo bigSize' : 'wrapInfo'}>
+                {rankPlayers.length !== 0 && rankPlayers.map((item, index) => {
+                  return (
+                    <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index] }}>
+                      {index === 0 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1' />)}
+                      {index === 1 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2' />)}
+                      {index === 2 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3' />)}
+                      {index > 2 && (<span className='orderRank'>#{index + 1}</span>)}
 
-                      <div className='wrapCircle'>
-                        {item.email === infoPlayer.email && (<CrownFilled className='me' />)}
+                      <div className={index < 3 ? 'wrapInfo bigSize' : 'wrapInfo'}>
 
-                        <div className='circle'>
-                          <img src={item.avatar !== null ? item.avatar : NoAvtImg} alt='avatar' />
+                        <div className='wrapCircle'>
+                          {item.email === infoPlayer.email && (<CrownFilled className='me' />)}
+
+                          <div className='circle'>
+                            <img src={item.avatar !== null ? item.avatar : NoAvtImg} alt='avatar' />
+                          </div>
+                        </div>
+                        <div className='infoPlayer'>
+                          <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{lang.rank} {getRankName(item.rank)}</h3>
+                          <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{item.fullname}
+                          </h3>
+                        </div>
+                        <div className={item.email === infoPlayer.email ? 'score active' : 'score'}>
+                          <h4>{item.totalScore !== null ? item.totalScore : 0} {lang.points}</h4>
                         </div>
                       </div>
-                      <div className='infoPlayer'>
-                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{lang.rank} {getRankName(item.rank)}</h3>
-                        <h3 className={item.email === infoPlayer.email ? 'fullname active' : 'fullname'}>{item.fullname}
-                        </h3>
-                      </div>
-                      <div className={item.email === infoPlayer.email ? 'score active' : 'score'}>
-                        <h4>{item.totalScore !== null ? item.totalScore : 0} {lang.points}</h4>
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
+                    </li>
+                  )
+                })}
+              </ul>)}
+
+
+
+            </div>
           </div>
         </div>
         <div className='col-2 mobile-none'>

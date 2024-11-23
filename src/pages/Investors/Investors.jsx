@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Menu from "../../components/Menu/Menu";
 import '../Help/Help.styles.css';
+import './Investors.css';
 const Investors = () => {
   window.scrollTo(0, 0);
   const theme = localStorage.getItem("theme") === "true";
@@ -16,8 +17,8 @@ const Investors = () => {
       home: "TRANG CHỦ"
     },
   };
-  const locale = localStorage.getItem('locale') || 'en-US';
-  const lang = translations[locale] || translations['en-US'];
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const lang = translations[locale] || translations['vi-VN'];
 
   useEffect(() => {
     const darkThemeLink = document.getElementById("dark-theme-style");
@@ -52,6 +53,80 @@ const Investors = () => {
 
         <RightOutlined />
         <span>{lang.title}</span>
+
+        <div style={{ display: 'flex', borderBottom: '2px solid rgb(225,225,225)', paddingBottom: '30px', width: '93%' }}>
+          <div className="wrapInves">
+            <h1>Histolingo <br />
+              Investor <br />
+              Relations
+            </h1>
+            <p>Our mission is to develop the best education in the world and make it universally available.</p>
+            <p>Histolingo launched in 2012 and has since become the leading mobile learning platform globally. Our flagship app has organically become the world’s most popular way to learn languages and the top-grossing app in the Education category on both Google Play and the Apple App Store.</p>
+            <p>Our global team works together to make learning fun, free, and effective for anyone who wants to learn, wherever they are.</p>
+          </div>
+          <div style={{ marginTop: '50px', marginLeft: '30px' }}>
+            <img src="https://investors.duolingo.com/sites/g/files/knoqqb85006/themes/site/nir_pid4190/dist/images/img-hero.svg" alt="pic" />
+          </div>
+        </div>
+
+        <div className="wrapResult">
+          <h1>
+            Press releases
+          </h1>
+
+          <ul>
+            <li>
+              <span className="titleDate">Nov 06, 2024</span>
+              <p className="titleParam">
+                Histolingo Achieves 54% DAU growth and 40% Revenue Growth in Third Quarter 2024
+              </p>
+            </li>
+            <li>
+              <span className="titleDate">Nov 06, 2024</span>
+              <p className="titleParam">
+                Histolingo Achieves 54% DAU growth and 40% Revenue Growth in Third Quarter 2024
+              </p>
+            </li>
+            <li>
+              <span className="titleDate">Nov 06, 2024</span>
+              <p className="titleParam">
+                Histolingo Achieves 54% DAU growth and 40% Revenue Growth in Third Quarter 2024
+              </p>
+            </li>
+          </ul>
+
+          <button>View on press releases</button>
+        </div>
+
+        <div className="wrapResult">
+          <h1>
+            Events & presentations
+          </h1>
+
+          <ul>
+            <li>
+              <span className="titleDate">Nov 06, 2024 • 5:30 PM EST</span>
+              <p className="titleParam">
+                Histolingo Third Quarter 2024 Earnings Call
+              </p>
+            </li>
+            <li>
+              <span className="titleDate">Aug 07, 2024 • 5:30 PM EDT</span>
+              <p className="titleParam">
+                Histolingo Second Quarter 2024 Earnings Call
+              </p>
+            </li>
+            <li>
+              <span className="titleDate">May 08, 2024 • 5:30 PM EDT</span>
+              <p className="titleParam">
+                Histolingo First Quarter 2024 Earnings Call
+              </p>
+            </li>
+          </ul>
+
+          <button>View All Events & Presentations</button>
+        </div>
+
       </div>
     </div>
   );

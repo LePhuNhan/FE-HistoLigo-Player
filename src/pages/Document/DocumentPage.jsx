@@ -13,6 +13,9 @@ import {
   MoonOutlined,
   SunOutlined
 } from '@ant-design/icons';
+import FlagVN from "../../assets/vietnam-flag.png";
+import FlagUS from "../../assets/us-flag.png";
+import { Spin } from 'antd';
 
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
@@ -38,6 +41,7 @@ const translations = {
 };
 
 const Document = () => {
+  const flag = localStorage.getItem("flag") === "true";
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
   const [documents, setDocuments] = useState([]);
@@ -48,7 +52,8 @@ const Document = () => {
   };
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
-  const locale = localStorage.getItem('locale') || 'en-US';
+  const locale = localStorage.getItem('locale') || 'vi-VN';
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -66,6 +71,9 @@ const Document = () => {
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
+      finally {
+        setLoading(false); // Dừng loading sau khi fetch xong
+      }
     };
     fetchDocuments();
   }, [selectedTopicId]);
@@ -73,6 +81,13 @@ const Document = () => {
   const handleStartClick = async (documentId) => {
     localStorage.setItem("selectedDocumentId", documentId);
     navigate(`/documentDetail/${documentId}`);
+  };
+
+  const handleChangeLanguage = () => {
+    const language = !flag;
+    localStorage.setItem("flag", language);
+    localStorage.setItem("locale", language ? "en-US" : "vi-VN");
+    window.location.reload();
   };
 
   return (
@@ -122,7 +137,21 @@ const Document = () => {
                 />
               </Link>
             </div>
-            <div className="fire-icon">🔥1</div>
+            <div className="fire-icon">
+              <div onClick={() => {
+                handleChangeLanguage()
+              }} className="wrapChangeFlag">
+
+                <img
+                  className="mainFlag"
+                  src={flag ? FlagUS : FlagVN}
+                  width="25px"
+                  height="25px"
+                  alt="vn"
+                ></img>
+              </div>
+
+            </div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">
               {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
@@ -130,7 +159,8 @@ const Document = () => {
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "60%", marginLeft: "5%" }} className="card">
+            <div style={{ width: "60%", marginLeft: "5%", position: 'relative' }} className="card">
+              {loading ? <Spin /> : null}
               {documents.map((document, index) => {
                 const titles = document.content.match(/^(I+)\. .+$/gm);
 

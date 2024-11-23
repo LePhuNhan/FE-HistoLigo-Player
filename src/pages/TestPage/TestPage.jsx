@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Layout, Card, Typography, Button } from "antd";
 import Menu from "../../components/Menu/Menu";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,9 @@ import {
   MoonOutlined,
   SunOutlined
 } from '@ant-design/icons';
+import FlagVN from "../../assets/vietnam-flag.png";
+import FlagUS from "../../assets/us-flag.png";
+import { Spin } from 'antd';
 
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
@@ -49,6 +52,8 @@ const translations = {
 };
 
 const Test = () => {
+  const [loading, setLoading] = useState(true);
+  const flag = localStorage.getItem("flag") === "true";
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
   const [tests, setTests] = useState([]);
@@ -60,8 +65,8 @@ const Test = () => {
   };
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
-  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
-  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
+  const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'vi-VN' nếu không có giá trị
+  const lang = translations[locale] || translations['vi-VN']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -69,15 +74,18 @@ const Test = () => {
 
       try {
         const response = await axios.get(
-          `${DomainApi}/test/topic/${selectedTopicId}`,{
-            headers: {
-              "Content-Language": `${locale}`,
-            },
-          }
+          `${DomainApi}/test/topic/${selectedTopicId}`, {
+          headers: {
+            "Content-Language": `${locale}`,
+          },
+        }
         );
         setTests(response.data);
       } catch (error) {
         console.error("Error fetching tests:", error);
+      }
+      finally {
+        setLoading(false); // Dừng loading sau khi fetch xong
       }
     };
     const fetchPlayerTests = async () => {
@@ -118,6 +126,13 @@ const Test = () => {
       console.error("Error starting test:", error);
     }
   };
+  const handleChangeLanguage = () => {
+    const language = !flag;
+    localStorage.setItem("flag", language);
+    localStorage.setItem("locale", language ? "en-US" : "vi-VN");
+    window.location.reload();
+  };
+
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -162,23 +177,38 @@ const Test = () => {
 
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
-              <img
-                    src={selectedClassImg}
-                    alt={selectedClass}
-                    style={{ width: 40, borderRadius: 1 }}
-                    className="flag"
-                  />
+                <img
+                  src={selectedClassImg}
+                  alt={selectedClass}
+                  style={{ width: 40, borderRadius: 1 }}
+                  className="flag"
+                />
               </Link>
             </div>
-            <div className="fire-icon">🔥1</div>
+            <div className="fire-icon">
+              <div onClick={() => {
+                handleChangeLanguage()
+              }} className="wrapChangeFlag">
+
+                <img
+                  className="mainFlag"
+                  src={flag ? FlagUS : FlagVN}
+                  width="25px"
+                  height="25px"
+                  alt="vn"
+                ></img>
+              </div>
+
+            </div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">
-              {theme ? <MoonOutlined />:  <SunOutlined />}
+              {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
           </div>
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "60%", marginLeft: "5%" }} className="card">
+            <div style={{ width: "60%", marginLeft: "5%", position: 'relative' }} className="card">
+              {loading ? <Spin /> : null}
               {tests.map((test, index) => {
                 const playerTest = playerTests.find(
                   (pt) => pt.testId === test._id
@@ -240,7 +270,7 @@ const Test = () => {
                             <img src={imgStartTest} alt="Start Test" />
                             <div>
                               <Button
-                            
+
                                 type="primary"
                                 onClick={() => handleStartClick(test._id)}
                               >

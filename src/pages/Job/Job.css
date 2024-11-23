@@ -1,0 +1,55 @@
+.titleJob{
+    margin-top: 5%;
+    width: 86%;
+    text-align: center;
+    border-bottom: 2px solid rgb(225, 225, 225);
+    padding-bottom: 50px;
+    cursor: default;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+
+.wrapJobContent{
+    text-align: left;
+    margin-top: 50px;
+}
+
+.wrapJobContent h3{
+    color: #afafaf;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.wrapJobContent p{
+    color: #4b4b4b;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.wrapJobContent ul li:hover p {
+    color: #58cc02;
+}
+
+.wrapJobContent img{
+    border-radius: 12px;
+}
+
+.wrapJobContent li{
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.wrapJobContent h4{
+    color: #1cb0f6;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.wrapJobContent li span{
+    cursor: default;
+    color: #afafaf;
+    font-weight: 500;
+}

@@ -12,7 +12,7 @@ const Sidebar = () => {
   const [rankPlayers, setRankPlayers] = useState([]);
   const [infoPlayer, setInfoPlayer] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
-  const locale = localStorage.getItem('locale') || 'en-US';
+  const locale = localStorage.getItem('locale') || 'vi-VN';
   const translations = {
     'en-US': {
       leaderboards: "Leaderboards!",
@@ -167,7 +167,7 @@ const Sidebar = () => {
             )}
           />
         ) : (
-          <Text>No references available to display.</Text>
+          <Text>{locale !== 'vi-VN' ? 'No references available to display.' : 'Không có tài liệu tham khảo nào có sẵn để hiển thị.'}</Text>
         )}
       </Card>
 

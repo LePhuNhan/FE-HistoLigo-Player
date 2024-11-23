@@ -51,8 +51,8 @@ const Result = () => {
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
-  const locale = localStorage.getItem('locale') || 'en-US'; // Mặc định là 'en-US' nếu không có giá trị
-  const lang = translations[locale] || translations['en-US']; // Lấy ngôn ngữ tương ứng hoặc mặc định
+  const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'en-US' nếu không có giá trị
+  const lang = translations[locale] || translations['vi-VN']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
   const debouncedHandleUpdateProfile = debounce(() => {
     handleUpdateRank();
@@ -60,7 +60,7 @@ const Result = () => {
 
   const handleUpdateRank = async () => {
     try {
-      
+
       const updateData = {
       };
       const response = await axios.put(
@@ -80,7 +80,7 @@ const Result = () => {
 
   const fetchTestData = async () => {
     if (!playerTestId) {
-      message.error("Test Id not found. Redirecting...",1);
+      message.error("Test Id not found. Redirecting...", 1);
       return;
     }
 
@@ -94,7 +94,7 @@ const Result = () => {
 
       await updatePlayerProcess(testId, score, time);
     } catch (error) {
-      message.error("Error fetching test data.",1);
+      message.error("Error fetching test data.", 1);
     }
   };
   const updatePlayerProcess = async (testId, score, time) => {
@@ -129,7 +129,7 @@ const Result = () => {
       console.log("Player process updated successfully!");
       debouncedHandleUpdateProfile();
     } catch (error) {
-      message.error("Error updating player process.",1);
+      message.error("Error updating player process.", 1);
     }
   };
   useEffect(() => {
@@ -140,7 +140,7 @@ const Result = () => {
     navigate(`/learn/test/${topicId}`);
   };
 
-  const handleSaveAndReturn = () =>{
+  const handleSaveAndReturn = () => {
     // debouncedHandleUpdateProfile();
     handleTopicClick();
   }
@@ -171,14 +171,14 @@ const Result = () => {
           }
         );
 
-        message.success("Feedback submitted!",1);
+        message.success("Feedback submitted!", 1);
         setFeedback("");
         setShowFeedback(false);
       } catch (error) {
-        message.error("Error submitting feedback.",1);
+        message.error("Error submitting feedback.", 1);
       }
     } else {
-      message.error("Please enter your feedback.",1);
+      message.error("Please enter your feedback.", 1);
     }
   };
 

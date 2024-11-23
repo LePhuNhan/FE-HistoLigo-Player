@@ -1,0 +1,62 @@
+.wrapInves{
+    cursor: default;
+    width: 45%;
+}
+
+.wrapInves h1{
+    color: #58cc02;
+    font-size: 46px;
+    font-weight: 600;
+    margin-top: 70px;
+}
+
+.wrapInves p{
+    color: #4b4b4b;
+    font-size: 18px !important;
+    font-weight: 500;
+    margin-top: 25px;
+    margin-bottom: 50px !important;
+   
+}
+
+.wrapResult{
+    margin-top: 60px;
+}
+
+.wrapResult h1{
+    font-size: 52px;
+    color: #58cc02;
+    font-weight: 600;
+}
+
+.titleDate {
+    color: #4b4b4b;
+    font-weight: 500;
+}
+
+.titleParam{
+    color: #4b4b4b;
+    font-size: 22px !important;
+    margin-top: 15px;
+}
+
+.wrapResult li{
+    border-bottom: 1px solid rgb(225, 225, 225);
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.wrapResult button{
+    background-color: #fff;
+    border: 1px solid #ececec;
+    display: block;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 12px 12px;
+    cursor: pointer;
+    transition: all linear 0.2s;
+}
+
+.wrapResult button:hover{
+    filter: brightness(0.9);
+}

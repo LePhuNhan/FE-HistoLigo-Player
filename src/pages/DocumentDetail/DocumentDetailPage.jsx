@@ -12,12 +12,15 @@ import {
   SunOutlined
 } from '@ant-design/icons';
 import { DarkModeContext } from "../../DarkModeContext";
+import FlagVN from "../../assets/vietnam-flag.png";
+import FlagUS from "../../assets/us-flag.png";
+
 
 
 const DomainApi = process.env.REACT_APP_DOMAIN_API;
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
-const locale = localStorage.getItem('locale') || 'en-US';
+const locale = localStorage.getItem('locale') || 'vi-VN';
 
 const translations = {
   'en-US': {
@@ -35,6 +38,8 @@ const translations = {
 };
 
 const DocumentDetail = () => {
+
+  const flag = localStorage.getItem("flag") === "true";
   const theme = localStorage.getItem('theme') === 'true';
   const context = useContext(DarkModeContext);
   const [documents, setDocuments] = useState([]);
@@ -61,9 +66,21 @@ const DocumentDetail = () => {
       } catch (error) {
         console.error("Error fetching documents:", error);
       }
+
     };
     fetchDocuments();
   }, [id]);
+
+  const handleChangeLanguage = () => {
+    const language = !flag;
+    localStorage.setItem("flag", language);
+    localStorage.setItem("locale", language ? "en-US" : "vi-VN");
+    window.location.reload();
+  };
+
+  // useEffect(() => {
+  //   window.location.reload();
+  // }, [])
 
   // const renderContent = (content) => {
   //   const titles = content.match(/^(I+)\. .+$/gm) || [];
@@ -123,7 +140,22 @@ const DocumentDetail = () => {
               </Link>
             </div>
 
-            <div className="fire-icon">🔥1</div>
+            <div className="fire-icon">
+              <div onClick={() => {
+                handleChangeLanguage()
+              }} className="wrapChangeFlag">
+
+                <img
+                  className="mainFlag"
+                  src={flag ? FlagUS : FlagVN}
+                  width="25px"
+                  height="25px"
+                  alt="vn"
+                ></img>
+              </div>
+
+            </div>
+
             <div onClick={context.toggleTheme} className="toggleDarkMode">
               {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>
@@ -132,7 +164,8 @@ const DocumentDetail = () => {
         </Header>
         <Content style={{ margin: "8% 2% 0% 14%" }} className="main">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div className="wrapDoccument" style={{ margin: "0 10% 0 10%" }}>
+            <div className="wrapDoccument" style={{ margin: "0 10% 0 10%", position: 'relative' }}>
+
               <div style={{ display: "grid", alignItems: "center" }}>
                 <Link to={`/learn/document/${selectedTopicId}`}>
                   <Button

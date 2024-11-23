@@ -44,9 +44,7 @@ const SignUpPage = () => {
   return (
     <div>
       <div className="signUp">
-        <div className="changeLogin">
-          <Link to='/login'>Login</Link>
-        </div>
+
         <Form
           name="normal_login"
           initialValues={{ remember: true }}
@@ -114,7 +112,11 @@ const SignUpPage = () => {
               className="register-form-button"
             >
               Sign Up
+              <div className="changeLogin">
+                <Link to='/login'>Back to Login</Link>
+              </div>
             </Button>
+
 
             <div style={{ width: '110%', marginLeft: '-10%' }} className="sepa">
               <p>OR</p>

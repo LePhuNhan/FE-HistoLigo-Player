@@ -2,6 +2,10 @@ import { useState, createContext } from "react";
 
 const DarkModeContext = createContext();
 function DarkModeProvider({ children }) {
+  const [flag, setFlag] = useState(() => {
+    // Check for theme in localStorage, default to 'false' if not found
+    return JSON.parse(localStorage.getItem("flag", false)) || false;
+  });
   const [theme, setTheme] = useState(() => {
     // Check for theme in localStorage, default to 'false' if not found
     return JSON.parse(localStorage.getItem("theme")) || false;

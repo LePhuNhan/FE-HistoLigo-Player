@@ -25,6 +25,7 @@
 .site-layout-background {
   background: #fff;
   border-radius: 8px;
+  margin-top: 20px;
 }
 
 .country-icons {
@@ -91,6 +92,19 @@
 .Select_country {
   font-size: 30px;
   font-weight: bold;
+}
+
+.ant-spin-spinning{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  height: 100%;
+  background-color: #fff;
 }
 
 /* Dark mode */

@@ -65,7 +65,7 @@ const Investors = () => {
             <p>Our global team works together to make learning fun, free, and effective for anyone who wants to learn, wherever they are.</p>
           </div>
           <div style={{ marginTop: '50px', marginLeft: '30px' }}>
-            <img src="https://investors.duolingo.com/sites/g/files/knoqqb85006/themes/site/nir_pid4190/dist/images/img-hero.svg" alt="pic" />
+            <img width='500px' src="https://www.enkel.ca/wp-content/uploads/2017/06/How-to-be-investor-ready.png" alt="pic" />
           </div>
         </div>
 

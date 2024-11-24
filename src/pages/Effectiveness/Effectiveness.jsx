@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import '../Help/Help.styles.css';
 import Menu from "../../components/Menu/Menu";
 import './Effectiveness.css';
+import Graph from '../../assets/graph.webp'
 const Effectiveness = () => {
   window.scrollTo(0, 0);
   const theme = localStorage.getItem("theme") === "true";
@@ -95,7 +96,7 @@ const Effectiveness = () => {
           <p>
             Các nghiên cứu cho thấy bạn có thể học được lượng kiến thức tương đương 5 kỳ học <br /> bậc đại học chỉ sau 5 phần học trong Histolingo. Tìm hiểu thêm về nghiên cứu này!
           </p>
-          <img src="https://d35aaqx5ub95lt.cloudfront.net/images/efficacyPage/graph/1af58e826565d4aa7c815051fb88d0fe.png" alt="pic" />
+          <img width='600px' height='300px' src={Graph} alt="pic" />
         </div>
 
         <div className="effecSide4">

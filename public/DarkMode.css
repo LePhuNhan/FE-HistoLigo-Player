@@ -376,3 +376,7 @@ button.ant-btn span{
 .wrapRule h2, .wrapRule span, .wrapRule p{
   color: #fff !important;
 }
+
+.ant-spin-spinning.darkSpin{
+  background-color: var(--dark-color) !important;
+}

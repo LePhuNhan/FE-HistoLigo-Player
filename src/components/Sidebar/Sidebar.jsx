@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card, List, Row, Col, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Sidebar.style.css";
 import { Skeleton } from "antd";
+import ChatBox from "../ChatBox/ChatBox";
 
 const Sidebar = () => {
   const [references, setReferences] = useState([]);
@@ -118,7 +119,11 @@ const Sidebar = () => {
     }, 500);
   }, []);
 
+  const location = useLocation();
 
+  const shouldShowChatBox = !["/leaderboard", "/documentDetail"].some(path =>
+    location.pathname.startsWith(path)
+  );
 
   return (
     <div style={{ width: "40%" }} className="responsive-hide">
@@ -154,6 +159,7 @@ const Sidebar = () => {
 
       </Card>
       <Card title={translations[locale].references} className="listRef">
+        {shouldShowChatBox && <ChatBox />}
         {references && references.length > 0 ? (
           <List
             size="small"

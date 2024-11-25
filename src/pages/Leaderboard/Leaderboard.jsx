@@ -48,8 +48,10 @@ const translations = {
 };
 
 const Leaderboard = () => {
-  const colors = ["#ADD8E6", '#FFB6C1', '#998675'];
-  const darkColors = ['#01a299', '#cf6679', '#3700b3'];
+  const colors = ["#ffe7f0", '#fff8db', '#e0f7ff'];
+  const borderColors = ['#e38a99', '#ffd966', '#b7e3f4']
+  const darkBorderColors = ['#3a5d4e', '#b35461', '#2c0091']
+  const darkColors = ['#456e5a', '#cf6679', '#3700b3'];
   const theme = localStorage.getItem('theme') === 'true';
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const [rankPlayers, setRankPlayers] = useState([]);
@@ -140,7 +142,7 @@ const Leaderboard = () => {
 
                 {rankPlayers.length !== 0 && rankPlayers.map((item, index) => {
                   return (
-                    <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index] }}>
+                    <li key={index} className={`${index < 3 ? 'itemRank' : 'itemRank border'} ${item.email === infoPlayer.email ? 'me' : ''}`} style={{ backgroundColor: theme ? darkColors[index] : colors[index], border: `1px solid ${theme ? darkBorderColors[index] : borderColors[index]}` }}>
                       {index === 0 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/9e4f18c0bc42c7508d5fa5b18346af11.svg' alt='top1' />)}
                       {index === 1 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/cc7b8f8582e9cfb88408ab851ec2e9bd.svg' alt='top2' />)}
                       {index === 2 && (<img className='imgRank' src='https://d35aaqx5ub95lt.cloudfront.net/images/leagues/eef523c872b71178ef5acb2442d453a2.svg' alt='top3' />)}

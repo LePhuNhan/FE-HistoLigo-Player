@@ -26,6 +26,7 @@ import Investors from "./pages/Investors/Investors";
 import Rules from "./pages/Rules/Rules";
 import Privacy from "./pages/Privacy/Privacy";
 import Setting from "./pages/Setting/Setting";
+import ChooseLanguage from "./pages/ChooseLanguage/ChooseLanguage";
 
 const App = () => (
   <DarkModeProvider>
@@ -50,6 +51,7 @@ const App = () => (
         <Route path="/updatePassword" element={<UpdatePassword />} />
         <Route path="/chooseCountry" element={<ChooseCountry />} />
         <Route path="/chooseClass" element={<ChooseClass />} />
+        <Route path="/chooseLanguage" element={<ChooseLanguage />} />
         <Route path="/learn" element={<Learn />} />
         <Route path="/learn/test/:selectedTopicId" element={<Test />} />
         <Route path="/learn/document/:selectedTopicId" element={<Document />} />

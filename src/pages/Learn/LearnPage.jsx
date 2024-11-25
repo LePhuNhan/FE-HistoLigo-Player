@@ -107,18 +107,19 @@ const Learn = () => {
             <div></div>
 
             <div className="fire-icon">
-              <div onClick={() => {
-                handleChangeLanguage()
-              }} className="wrapChangeFlag">
+              <Link to='/chooseLanguage'>
+                <div onClick={() => {
+                }} className="wrapChangeFlag">
 
-                <img
-                  className="mainFlag"
-                  src={flag ? FlagUS : FlagVN}
-                  width="25px"
-                  height="25px"
-                  alt="vn"
-                ></img>
-              </div>
+                  <img
+                    className="mainFlag"
+                    src={flag ? FlagUS : FlagVN}
+                    width="25px"
+                    height="25px"
+                    alt="vn"
+                  ></img>
+                </div>
+              </Link>
 
             </div>
             <div onClick={context.toggleTheme} className="toggleDarkMode">

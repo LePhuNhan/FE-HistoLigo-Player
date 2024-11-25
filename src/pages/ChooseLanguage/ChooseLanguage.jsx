@@ -92,7 +92,7 @@ const ChooseLanguage = () => {
                   <img
                     src={classroom.image}
                     alt={classroom.name}
-                    style={{ width: 120, borderRadius: 4 }}
+                    style={{ width: 120, height: 80, borderRadius: 4 }}
                   />
                   <div>
                     <span>{classroom.name}</span>

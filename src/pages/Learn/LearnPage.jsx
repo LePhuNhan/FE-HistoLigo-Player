@@ -11,6 +11,7 @@ import CoverBookImg from "../../assets/cover_book.webp";
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
 import { Spin } from 'antd';
+import ChatBox from "../../components/ChatBox/ChatBox";
 
 
 const { Header, Content } = Layout;
@@ -36,6 +37,24 @@ const Learn = () => {
     if (totalTest === 0) return 0;
     return Math.round((doneTest / totalTest) * 100);
   };
+
+  const [flagLanguage, setFlagLanguage] = useState([]);
+
+
+  const fetchFlag = async () => {
+    try {
+      const response = await axios.get(`${DomainApi}/language`)
+      setFlagLanguage(response.data);
+    } catch (error) {
+      console.error("Error fetching class data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlag();
+  }, []);
+
+  flagLanguage.length > 0 && console.log(flagLanguage[0].name);
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -113,11 +132,14 @@ const Learn = () => {
 
                   <img
                     className="mainFlag"
-                    src={flag ? FlagUS : FlagVN}
+                    src={
+                      (flag ? FlagUS : FlagVN)
+                    }
                     width="25px"
                     height="25px"
                     alt="vn"
-                  ></img>
+                  />
+
                 </div>
               </Link>
 
@@ -164,6 +186,7 @@ const Learn = () => {
               )}
 
             </div>
+
             <Sidebar />
           </div>
         </Content>

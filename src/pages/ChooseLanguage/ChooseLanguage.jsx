@@ -49,7 +49,6 @@ const ChooseLanguage = () => {
     fetchClasses();
   }, []);
 
-  console.log(classes);
 
   const {
     token: { colorBgContainer, borderRadiusLG },

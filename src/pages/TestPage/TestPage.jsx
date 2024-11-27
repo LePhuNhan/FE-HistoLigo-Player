@@ -65,6 +65,7 @@ const Test = () => {
   };
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
   const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'vi-VN' nếu không có giá trị
   const lang = translations[locale] || translations['vi-VN']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
@@ -124,6 +125,31 @@ const Test = () => {
       navigate(`/test/${testId}`);
     } catch (error) {
       console.error("Error starting test:", error);
+      if (error.response && error.response.status === 401) {
+        // Token hết hạn
+        try {
+          const refreshResponse = await axios.post(
+            `${DomainApi}/user/refresh-token`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            }
+          );
+          const newAccessToken = refreshResponse.data.data.accessToken;
+
+          // Lưu token mới vào localStorage
+          localStorage.setItem("accessToken", newAccessToken);
+          window.alert("Phiên của bạn đã hết hạn. Vui lòng tải lại trang để tiếp tục.");
+          // Reload trang để token mới hoạt động
+          window.location.reload();
+        } catch (refreshError) {
+          console.error("Làm mới token thất bại:", refreshError);
+        }
+      } else {
+        console.error("Error fetching player process data:", error);
+      }
     }
   };
   const handleChangeLanguage = () => {

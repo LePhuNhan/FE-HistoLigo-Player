@@ -9,7 +9,7 @@ import BtnGoogleLogin from "../../components/BtnGoogleLogin/GoogleLogin.jsx";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const DomainApi=process.env.REACT_APP_DOMAIN_API;
+  const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const debouncedOnFinish = debounce((values) => {
     onFinish(values);
   }, 500);
@@ -20,14 +20,17 @@ const LoginPage = () => {
         password: values.password,
       });
       const { accessToken } = response.data.data;
+      const { refreshToken } = response.data.data;
+
       if (localStorage.getItem('accessToken')) {
         localStorage.removeItem('accessToken');
       }
       localStorage.setItem('accessToken', accessToken);
-      message.success("Login success!",1);
+      localStorage.setItem('refreshToken', refreshToken);
+      message.success("Login success!", 1);
       navigate(`/chooseClass`);
     } catch (error) {
-      message.error("Login failed!",1);
+      message.error("Login failed!", 1);
       console.error("Login failed:", error);
     }
   };
@@ -75,7 +78,7 @@ const LoginPage = () => {
           >
             Login
           </Button>
-          
+
           <Link to="/signUp">
             <Button
               type="primary"
@@ -86,7 +89,7 @@ const LoginPage = () => {
             </Button>
           </Link>
           <div className="sepa">
-           <p>OR</p>
+            <p>OR</p>
           </div>
           {/* <button   
               className="btnGoogle-login"

@@ -30,6 +30,7 @@ const Learn = () => {
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const locale = localStorage.getItem("locale") || "vi-VN"; // Mặc định là 'en-US' nếu không có giá trị
   const flag = localStorage.getItem("flag") === "true";
@@ -54,7 +55,6 @@ const Learn = () => {
     fetchFlag();
   }, []);
 
-  flagLanguage.length > 0 && console.log(flagLanguage[0].name);
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -74,6 +74,31 @@ const Learn = () => {
         setTopics(response.data);
       } catch (error) {
         console.error("Error fetching topics:", error);
+        if (error.response && error.response.status === 401) {
+          // Token hết hạn
+          try {
+            const refreshResponse = await axios.post(
+              `${DomainApi}/user/refresh-token`,
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${refreshToken}`,
+                },
+              }
+            );
+            const newAccessToken = refreshResponse.data.data.accessToken;
+
+            // Lưu token mới vào localStorage
+            localStorage.setItem("accessToken", newAccessToken);
+            window.alert("Phiên của bạn đã hết hạn. Vui lòng tải lại trang để tiếp tục.");
+            // Reload trang để token mới hoạt động
+            window.location.reload();
+          } catch (refreshError) {
+            console.error("Làm mới token thất bại:", refreshError);
+          }
+        } else {
+          console.error("Error fetching player process data:", error);
+        }
       }
       finally {
         setLoading(false); // Dừng loading sau khi fetch xong

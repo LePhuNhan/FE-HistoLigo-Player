@@ -33,6 +33,7 @@ const ProfilePage = () => {
   }, 500);
 
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const localeToLabel = {
@@ -176,6 +177,31 @@ const ProfilePage = () => {
           setAvatarURL(data.avatar);
         } catch (error) {
           console.error("Failed to fetch player data:", error);
+          if (error.response && error.response.status === 401) {
+            // Token hết hạn
+            try {
+              const refreshResponse = await axios.post(
+                `${DomainApi}/user/refresh-token`,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${refreshToken}`,
+                  },
+                }
+              );
+              const newAccessToken = refreshResponse.data.data.accessToken;
+
+              // Lưu token mới vào localStorage
+              localStorage.setItem("accessToken", newAccessToken);
+              window.alert("Phiên của bạn đã hết hạn. Vui lòng tải lại trang để tiếp tục.");
+              // Reload trang để token mới hoạt động
+              window.location.reload();
+            } catch (refreshError) {
+              console.error("Làm mới token thất bại:", refreshError);
+            }
+          } else {
+            console.error("Error fetching player process data:", error);
+          }
         }
         finally {
           setLoading(false); // Dừng loading sau khi fetch xong

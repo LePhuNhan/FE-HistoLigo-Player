@@ -4,7 +4,7 @@ import Menu from "../../components/Menu/Menu";
 import { Layout, theme, Card } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Spin } from 'antd';
+import { Spin, Alert } from 'antd';
 
 const { Content, Footer } = Layout;
 
@@ -29,6 +29,7 @@ const ChooseClass = () => {
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
   const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'vi-VN' nếu không có giá trị
   const lang = translations[locale] || translations['vi-VN']; // Lấy ngôn ngữ tương ứng hoặc mặc định
 
@@ -56,6 +57,7 @@ const ChooseClass = () => {
     localStorage.setItem("selectedClassId", classroom._id);
     localStorage.setItem("selectedClass", classroom.name);
     localStorage.setItem("selectedClassImg", classroom.image);
+
     const fetchPlayerProcess = async () => {
       try {
         const response = await axios.post(
@@ -69,9 +71,35 @@ const ChooseClass = () => {
         );
         navigate("/learn");
       } catch (error) {
-        console.error("Error fetching player process data:", error);
+
+        if (error.response && error.response.status === 401) {
+          // Token hết hạn
+          try {
+            const refreshResponse = await axios.post(
+              `${DomainApi}/user/refresh-token`,
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${refreshToken}`,
+                },
+              }
+            );
+            const newAccessToken = refreshResponse.data.data.accessToken;
+
+            // Lưu token mới vào localStorage
+            localStorage.setItem("accessToken", newAccessToken);
+            window.alert("Phiên của bạn đã hết hạn. Vui lòng tải lại trang để tiếp tục.");
+            // Reload trang để token mới hoạt động
+            window.location.reload();
+          } catch (refreshError) {
+            console.error("Làm mới token thất bại:", refreshError);
+          }
+        } else {
+          console.error("Error fetching player process data:", error);
+        }
       }
     };
+
     fetchPlayerProcess();
   };
 
@@ -83,7 +111,17 @@ const ChooseClass = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout>
+
         <Content style={{ margin: "0px 14px 0px 14%", position: 'relative' }}>
+          {/* <div style={{
+            display: 'flex', justifyContent: 'center', position: 'relative', top: '20px', marginBottom: '40px'
+          }} className="wrapAlert">
+            < Alert
+              style={{ width: '30%', boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.5)' }}
+              message="Warning Text Warning Text Warning TextW arning Text Warning Text Warning TextWarning Text"
+              type="warning"
+            />
+          </div> */}
           {loading ? (<Spin />) : null}
           <div
             className="site-layout-background"
@@ -119,7 +157,7 @@ const ChooseClass = () => {
           Histoligo ©{new Date().getFullYear()}
         </Footer>
       </Layout>
-    </Layout>
+    </Layout >
   );
 };
 

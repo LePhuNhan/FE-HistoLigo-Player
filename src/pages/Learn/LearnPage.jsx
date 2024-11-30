@@ -11,7 +11,6 @@ import CoverBookImg from "../../assets/cover_book.webp";
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
 import { Spin } from 'antd';
-import ChatBox from "../../components/ChatBox/ChatBox";
 
 
 const { Header, Content } = Layout;
@@ -39,21 +38,21 @@ const Learn = () => {
     return Math.round((doneTest / totalTest) * 100);
   };
 
-  const [flagLanguage, setFlagLanguage] = useState([]);
+  // const [flagLanguage, setFlagLanguage] = useState([]);
 
 
-  const fetchFlag = async () => {
-    try {
-      const response = await axios.get(`${DomainApi}/language`)
-      setFlagLanguage(response.data);
-    } catch (error) {
-      console.error("Error fetching class data:", error);
-    }
-  };
+  // const fetchFlag = async () => {
+  //   try {
+  //     const response = await axios.get(`${DomainApi}/language`)
+  //     setFlagLanguage(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching class data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchFlag();
-  }, []);
+  // useEffect(() => {
+  //   fetchFlag();
+  // }, []);
 
 
   useEffect(() => {
@@ -108,12 +107,12 @@ const Learn = () => {
     fetchTopics();
   }, [selectedClass.name]);
 
-  const handleChangeLanguage = () => {
-    const language = !flag;
-    localStorage.setItem("flag", language);
-    localStorage.setItem("locale", language ? "en-US" : "vi-VN");
-    window.location.reload();
-  };
+  // const handleChangeLanguage = () => {
+  //   const language = !flag;
+  //   localStorage.setItem("flag", language);
+  //   localStorage.setItem("locale", language ? "en-US" : "vi-VN");
+  //   window.location.reload();
+  // };
 
   const handleTopicClick = (topicId) => {
     localStorage.setItem("selectedTopicId", topicId);

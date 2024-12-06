@@ -6,7 +6,7 @@ import axios from "axios";
 import "./LearnPage.styles.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { MoonOutlined, SunOutlined, BarsOutlined } from "@ant-design/icons";
 import CoverBookImg from "../../assets/cover_book.webp";
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
@@ -25,6 +25,7 @@ const Learn = () => {
   const selectedClass = localStorage.getItem("selectedClass") || {
     name: "America",
   };
+  const [openMenu, setOpenMenu] = useState(false);
   const [loading, setLoading] = useState(true);
   const selectedClassId = localStorage.getItem("selectedClassId");
   const selectedClassImg = localStorage.getItem("selectedClassImg");
@@ -122,6 +123,15 @@ const Learn = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
+      {openMenu ? <div onClick={() => {
+        setOpenMenu(!openMenu);
+      }} className="modalMenuBar d-block"></div> : null}
+      {openMenu ? <div className="menuBar open">
+        <Menu />
+      </div> : <div className="menuBar">
+        <Menu />
+      </div>}
+
       <Layout>
         <Header
           style={{
@@ -133,7 +143,16 @@ const Learn = () => {
           }}
           className="header"
         >
+
+
           <div className="header-content">
+
+            <div onClick={() => {
+              setOpenMenu(!openMenu);
+            }} className="wrapMenuBarIcon">
+              <BarsOutlined style={{ color: theme ? '#fff' : '#333' }} />
+            </div>
+
             <div className="flag-container" role="img" aria-label="flag">
               <Link to="/chooseClass">
                 <img
@@ -147,7 +166,6 @@ const Learn = () => {
               </Link>
             </div>
 
-            <div></div>
 
             <div className="fire-icon">
               <Link to='/chooseLanguage'>
@@ -168,6 +186,7 @@ const Learn = () => {
               </Link>
 
             </div>
+
             <div onClick={context.toggleTheme} className="toggleDarkMode">
               {theme ? <MoonOutlined /> : <SunOutlined />}
             </div>

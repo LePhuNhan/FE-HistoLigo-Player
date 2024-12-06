@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './ChatBox.css';
 import { CloseOutlined, ExportOutlined } from '@ant-design/icons';
 import axios from 'axios'; // Thêm axios để gọi API
+import Robot from '../../assets/robot.png'
 
 const ChatBox = () => {
     const [Open, IsOpen] = useState(false);
@@ -10,6 +11,7 @@ const ChatBox = () => {
     const DomainApi = process.env.REACT_APP_DOMAIN_API;
     const [message, setMessage] = useState(""); // State để lưu tin nhắn người dùng nhập
     const [messages, setMessages] = useState([]); // Lưu lịch sử tin nhắn
+    const locale = localStorage.getItem("locale") || "vi-VN";
 
     // Lấy topicId từ localStorage
     const selectedTopicId = localStorage.getItem("selectedTopicId");
@@ -77,7 +79,7 @@ const ChatBox = () => {
     };
 
     return (
-        <div className="wrapper">
+        <div className="wrapperChatBot">
             <div className="title">Histobot
                 <span onClick={() => IsOpen(!Open)} className="close">
                     {Open ? <CloseOutlined /> : <ExportOutlined />}
@@ -94,7 +96,7 @@ const ChatBox = () => {
                             >
                                 {msg.sender === "bot" && (
                                     <div className="icon">
-                                        <i className="fa fa-user"></i>
+                                        <img src={Robot} alt='robot' />
                                     </div>
                                 )}
                                 <div className="msg">
@@ -108,13 +110,13 @@ const ChatBox = () => {
                         <div className="input-field">
                             <input
                                 type="text"
-                                placeholder="Type your message"
+                                placeholder={locale === 'vi-VN' ? 'Nhập tin nhắn của bạn' : 'Type your message'}
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 onKeyDown={handleKeyDown} // Thêm sự kiện lắng nghe Enter
                                 required
                             />
-                            <button onClick={handleSend}>Send</button>
+                            <button onClick={handleSend}>{locale === 'vi-VN' ? 'Gửi' : 'Send'}</button>
                         </div>
                     </div>
                 </>

@@ -47,3 +47,45 @@
     align-items: center;
     justify-content: space-between;
 }
+
+@media (max-width: 480px) {
+    .d-none{
+        display: none;
+    }
+    .wrapListItem{
+        flex-wrap: wrap;
+    }
+    .boxContents .wrapContent{
+        margin-left: 0 !important;
+    }
+    .boxContents 
+    {
+        width: 100%;
+    }
+    .breadCrumb{
+        margin-left: 0;
+        padding: 0 6%;
+    }
+}
+
+@media (max-width: 1023px) and (min-width: 768px)
+{
+    .breadCrumb {
+        margin-left: 30%;
+    }
+    .boxContents{
+        width: 90%;
+    }
+    .effeSide2{
+        display: none;
+    }
+    .effecSide3 img{
+        width: 100%;
+    }
+    .imgInves{
+        display: none;
+    }
+    .wrapInves{
+        width: 100% !important;
+    }
+}

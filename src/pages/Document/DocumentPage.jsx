@@ -104,7 +104,7 @@ const Document = () => {
           }}
           className="header"
         >
-          <div className="header-content-document">
+          <div className="header-content-document notDetail">
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button

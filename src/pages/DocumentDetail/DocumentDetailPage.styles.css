@@ -68,11 +68,31 @@ p{
     .btnBack {
         margin: 5% 8px 0 0;
       }
+      .wrapDoccument{
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 6% !important;
+      }
+      .imgDoc {
+        width: 100%;
+      }
+
   }
   @media (max-width: 768px){
     .btnBack {
         margin: 8% 8px 0 0;
       }
+  }
+
+  @media (max-width: 480px) {
+    .wrapDoccument{
+      padding: 20% 6%;
+      margin: 0 !important;
+      width: 100%;
+    }
+    .wrapImg img{
+      width: 100%;
+    }
   }
 
   /* Dark mode */

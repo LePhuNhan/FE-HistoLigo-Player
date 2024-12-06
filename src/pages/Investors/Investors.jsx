@@ -64,7 +64,7 @@ const Investors = () => {
             <p>Histolingo launched in 2012 and has since become the leading mobile learning platform globally. Our flagship app has organically become the world’s most popular way to learn languages and the top-grossing app in the Education category on both Google Play and the Apple App Store.</p>
             <p>Our global team works together to make learning fun, free, and effective for anyone who wants to learn, wherever they are.</p>
           </div>
-          <div style={{ marginTop: '50px', marginLeft: '30px' }}>
+          <div className="imgInves" style={{ marginTop: '50px', marginLeft: '30px' }}>
             <img width='500px' src="https://www.enkel.ca/wp-content/uploads/2017/06/How-to-be-investor-ready.png" alt="pic" />
           </div>
         </div>

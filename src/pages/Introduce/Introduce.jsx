@@ -58,7 +58,7 @@ const Introduce = () => {
         </ul>
 
         <div className="boxContents">
-          <img src="https://d35aaqx5ub95lt.cloudfront.net/images/about/35f08319ad14fe2659618def38749488.svg" alt="pic" />
+
           <div className="wrapContent">
             <h2>Cá nhân hoá giáo dục</h2>
             <p>Mỗi người đều có phương pháp học riêng. Lần đầu tiên trong lịch sử giáo dục, chúng tôi có thể phân tích từ cách thức học tập của hàng triệu người để tạo ra một hệ thống giáo dục hiệu quả, thích hợp nhất dành riêng cho từng học viên
@@ -91,7 +91,7 @@ const Introduce = () => {
           </div>
           <div className="wrapPicture">
             <img src="https://d35aaqx5ub95lt.cloudfront.net/images/about/46487434e6fc56229058978af5b13992.svg" alt="pic" />
-            <img src="https://d35aaqx5ub95lt.cloudfront.net/images/about/fa27866cfc75a55f3a545e14770c8585.svg" alt="pic" />
+
           </div>
         </div>
       </div>

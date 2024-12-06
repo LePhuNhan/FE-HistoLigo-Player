@@ -1,4 +1,4 @@
-.wrapper {
+.wrapperChatBot {
     width: 326px;
     position: fixed;
     bottom: 0;
@@ -9,7 +9,7 @@
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for aesthetics */
 }
 
-.wrapper .title {
+.wrapperChatBot .title {
     background: #007bff;
     color: white;
     line-height: 2.5;
@@ -20,7 +20,7 @@
     position: relative;
 }
 
-.wrapper .title .close{
+.wrapperChatBot .title .close{
     position: absolute;
     right: 0;
     cursor: pointer;
@@ -28,7 +28,7 @@
     padding-left: 300px;
 }
 
-.wrapper .box {
+.wrapperChatBot .box {
     border: 1px solid #efefef;
     padding: 10px 15px;
     /* min-height: 400px;
@@ -36,44 +36,48 @@
     overflow: auto;
 }
 
-.wrapper .box .item {
+.wrapperChatBot .box .item {
     display: flex;
     float: left;
     margin: 10px 0;
 }
 
-.wrapper .box .item .icon {
+.wrapperChatBot .box .item .icon {
     background: #007bff;
     color: white;
     width: 40px;
-    height: 40px;
+    height: 35px;
     text-align: center;
     line-height: 40px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
 }
 
-.wrapper .box .item .msg {
+.wrapperChatBot .box .item .msg {
     background: #007bff;
     color: white;
     border-radius: 10px;
-    width: 150px;
+    width: fit-content;
     margin-left: 10px;
+
 }
 
-.wrapper .box .item .msg p {
+.wrapperChatBot .box .item .msg p {
     padding: 10px;
+   
 }
 
-.wrapper .box .item.right {
+.wrapperChatBot .box .item.right {
     float: right;
 }
 
-.wrapper .box .item.right .msg {
+.wrapperChatBot .box .item.right .msg {
     background: #efefef;
     color: #333;
 }
 
-.wrapper .typing-area {
+.wrapperChatBot .typing-area {
     width: 100%;
     background: #efefef;
     height: 50px;
@@ -83,12 +87,12 @@
     padding: 10px;
 }
 
-.wrapper .typing-area .input-field {
+.wrapperChatBot .typing-area .input-field {
     width: 100%;
     position: relative;
 }
 
-.wrapper .typing-area .input-field input {
+.wrapperChatBot .typing-area .input-field input {
     width: 100%;
     padding: 10px;
     border: 1px solid transparent;
@@ -100,11 +104,11 @@
     color: #333;
 }
 
-.wrapper .typing-area .input-field input:focus {
+.wrapperChatBot .typing-area .input-field input:focus {
     border-color: #007bff;
 }
 
-.wrapper .typing-area .input-field button {
+.wrapperChatBot .typing-area .input-field button {
     position: absolute;
     top: 50%;
     right: 10px;
@@ -121,12 +125,12 @@
     transition: 0.3s all ease;
 }
 
-.wrapper .typing-area .input-field button:hover {
+.wrapperChatBot .typing-area .input-field button:hover {
     background: #007bff;
     color: white;
 }
 
-.wrapper .typing-area .input-field input:valid ~ button {
+.wrapperChatBot .typing-area .input-field input:valid ~ button {
     opacity: 1;
     pointer-events: auto;
 }

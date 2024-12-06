@@ -87,3 +87,26 @@
     text-align: left;
     margin-left: 40px;
 }
+
+@media (max-width: 480px) {
+    .wrapEffe p{
+        width: 100%;
+    }
+    .effeSide2{
+        display: none;
+    }
+    .wrapEffe{
+        display: block;
+        width: 100%;
+    }
+    .effecSide3 img{
+        width: 100%;
+    }
+    .videoItem{
+        flex-wrap: wrap;
+    }
+    .videoItem span{
+        display: block;
+        margin-top: 20px;
+    }
+}

@@ -150,6 +150,13 @@
     font-weight: 600;
     border: 2px solid;
   }
+  .header-content-document.notDetail .flag-container, .header-content-document.notDetail .fire-icon, .header-content-document.notDetail .toggleDarkMode{
+    display: none;
+  }
+  .header-content-document{
+    justify-content: center !important;
+  }
+
 }
 
 /* Dark mode */

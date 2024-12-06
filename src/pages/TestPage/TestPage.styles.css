@@ -85,6 +85,9 @@
   .btn-document {
     margin-right: 15%;
   }
+  .ask h2{
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) and (min-width: 480px) {
@@ -129,6 +132,10 @@
     font-weight: 600;
     border: 2px solid;
   }
+  .ask h2{
+    text-align: center;
+  }
+  
 }
 @media (max-width: 480px) {
   .main{
@@ -156,24 +163,14 @@
     font-weight: 600;
     border: 2px solid;
   }
+  .header-content-test .flag-container, .header-content-test .fire-icon, .header-content-test .toggleDarkMode{
+    display: none;
+  }
+  .header-content-test{
+    justify-content: center !important;
+  }
+  .ask h2{
+    text-align: center;
+  }
 }
 
-/* Dark mode */
-
-/* .header-content-test{
-  background-color: var(--dark-color);
-}
-.cardTest-img button{
-  color: #3c4dff;
-}
-.button-test,
-.button-document {
-  background-color: #131f24 !important;
-  color: rgb(41, 182, 247) !important;
-  border-color: var(--border-color) !important;
-}
-.button-test:hover,
-.button-document:hover,
-.ant-btn-primary:hover{
-  border-color: rgba(132, 216, 255, 1) !important;
-} */

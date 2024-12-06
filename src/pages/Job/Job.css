@@ -53,3 +53,13 @@ ul{
     color: #afafaf;
     font-weight: 500;
 }
+
+@media (max-width: 480px) {
+    .titleJob{
+        width: 100%;
+        margin-top: 15%;
+    }
+    .wrapEffe p{
+        width: 100%;
+    }
+}

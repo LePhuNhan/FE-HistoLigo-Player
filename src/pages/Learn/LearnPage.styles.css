@@ -55,17 +55,29 @@
   }
 
   .fire-icon {
-    margin-right: 18%;
+    margin-right: 5%;
     font-size: 16px;
+  }
+  .toggleDarkMode {
+    margin-right: 2% !important;
+  }
+  .ant-layout-content{
+    margin: 6% 2% 0% 24% !important;
+  }
+  .btn-document {
+    margin-right: 6% !important;
   }
 }
 
 @media (max-width: 768px) {
+  .card{
+    margin-top: 15% !important;
+  }
   .header-content {
     width: 115%;
   }
   .flag-container {
-    margin-right: 5%;
+    margin-right: 10%;
   }
 
   .fire-icon {
@@ -78,11 +90,11 @@
     width: 100%;
   }
   .flag-container {
-    margin-right: 3%;
+    margin-right: 10%;
   }
 
   .fire-icon {
-    margin-right: 1%;
+    margin-right: 10%;
     font-size: 16px;
   }
 }
@@ -221,4 +233,89 @@ span.anticon.anticon-moon {
 
 .ant-spin-spinning.darkSpin{
   background-color: #f5f5f5 !important;
+}
+
+.wrapMenuBarIcon{
+  display: none;
+}
+.menuBar{
+  position: fixed;
+  background-color: transparent;
+  top: 0;
+  left: -100%;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  width: 80%;
+  transition: all ease 0.7s;
+}
+.menuBar.cc{
+  left: 0;
+}
+
+.menuBar .listMenuBar{
+  text-decoration: none;
+  margin: 0 ;
+}
+
+.menuBar .listMenuBar li{
+  color: #333;
+}
+
+.modalMenuBar{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #7e7e7e;
+  z-index: 999;
+  display: none;
+}
+
+@media (max-width: 480px){
+  .toggleDarkMode{
+    margin-right: 0 !important;
+  }
+
+  .wrapMenuBarIcon{
+    display: block !important;
+  }
+  
+  .menuBar .menu{
+    display: block;
+    width: 80% !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    transition: all ease 0.7s;
+    position: absolute;
+    left: -100%;
+  }
+  .menuBar.open .menu.cc{
+    left: 0;
+  }
+  .menuBar .menu .ant-layout-sider-trigger{
+    display: none !important;
+  }
+
+  .title{
+    margin-left: 0 !important;
+  }
+ 
+  .header-content{
+    justify-content: space-evenly !important;
+  }
+  .anticon-bars{
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.d-none{
+  display: none !important
+}
+
+.d-block{
+  display: block !important;
 }

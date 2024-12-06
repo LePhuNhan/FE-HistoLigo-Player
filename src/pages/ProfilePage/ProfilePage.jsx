@@ -335,6 +335,7 @@ const ProfilePage = () => {
             </Upload>
             <Form.Item label={translations[locale].editAvatar}>
               <Input
+                id="profileUpdate_avt"
                 value={avatarURL}
                 onChange={handleURLChange}
                 placeholder={translations[locale].enterImageURL}

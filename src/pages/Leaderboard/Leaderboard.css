@@ -187,6 +187,10 @@
     }
     .listRank .itemRank .wrapInfo{
         padding: 0;
+        margin-top: 7px ;
+    }
+    .listRank {
+        padding-left: 70px;
     }
     .listRank .itemRank .wrapInfo.bigSize{
         font-size: 13px !important;
@@ -220,6 +224,14 @@
     .itemRank.border .wrapInfo{
         margin-top: -5px;
     }
+    .listRank .itemRank .wrapInfo .score {
+        right: 0 !important;
+        top: 115%;
+        left: 0;
+    }
+    .ant-spin-spinning {
+        left: 20% !important;
+    }
 }
 
 @media (min-width: 480px) and (max-width: 1023px) {
@@ -235,10 +247,18 @@
     .wrapListRank .title{
         margin-left: 50px;
     }
+    .ant-spin-spinning 
+    {
+        left: 15% !important;
+    }
 }
 
 @media (min-width: 770px) and (max-width: 820px) 
 {
+    .ant-spin-spinning 
+    {
+        left: 40% !important;
+    }
 .listRank{
         padding-left: 290px;
     }

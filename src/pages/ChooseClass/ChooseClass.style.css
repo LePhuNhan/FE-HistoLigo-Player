@@ -107,17 +107,21 @@
   background-color: #fff;
 }
 
-/* Dark mode */
-
-/* .site-layout-background{
-  background-color: var(--dark-color) !important;
-  color: var(--text-color) !important;
+@media  (min-width: 768px) and (max-width: 1023px) {
+  .Select_country{
+    text-align: center;
+  }
+   /* .site-layout-background{
+    padding: 24px 0 0 100px !important;
+  }  */
+  
 }
 
-.ant-layout.css-dev-only-do-not-override-p8b6i{
-  background-color: var(--dark-color) !important;
+@media (max-width: 768px) {
+
+  .ant-layout-content{
+    margin: 0 !important;
+  }
 }
 
-.footer{
-  background-color: var(--dark-color) !important;
-} */
+

@@ -83,6 +83,27 @@
   .fire-icon {
     margin-right: 10%;
     font-size: 16px;
+    margin-top: -10px;
+  }
+  .wrapMenuBarIcon{
+    display: block !important;
+  }
+  
+  .menuBar .menu{
+    display: block;
+    width: 80% !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    transition: all ease 0.7s;
+    position: absolute;
+    left: -100%;
+  }
+  .menuBar.open .menu.cc{
+    left: 0;
+  }
+
+  .header-content{
+    justify-content: space-around !important;
   }
 }
 @media (max-width: 480px) {
@@ -322,4 +343,8 @@ span.anticon.anticon-moon {
 
 .d-block{
   display: block !important;
+}
+
+.anticon-bars{
+  font-size: 20px;
 }

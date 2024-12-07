@@ -74,3 +74,12 @@
     margin-left: 13% !important;
   }
 }
+
+@media  (max-width: 768px){
+  .backLearn{
+      display: block !important;;
+  }
+  .ant-layout.container{
+    margin: 0 !important;
+  }
+}

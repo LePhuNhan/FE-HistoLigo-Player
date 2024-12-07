@@ -82,6 +82,15 @@ p{
     .btnBack {
         margin: 8% 8px 0 0;
       }
+     
+      .header-content-document .flag-container{
+        display: block;
+      }
+    
+      .header-content-document{
+        justify-content:flex-end;
+      }
+      
   }
 
   @media (max-width: 480px) {

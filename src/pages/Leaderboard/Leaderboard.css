@@ -237,6 +237,12 @@
     }
 }
 
+@media  (max-width: 768px){
+    .backLearn{
+        display: block !important;;
+    }
+}
+
 @media (min-width: 480px) and (max-width: 1023px) {
     .col-5{
         width: 100%;

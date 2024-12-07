@@ -176,3 +176,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .flag-container{
+    display: none;
+  }
+  .header-content-test{
+    justify-content: space-around;
+  }
+  .header-content-test .fire-icon{
+   
+    margin-top: -10px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import "antd/dist/reset.css";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -30,36 +30,34 @@ import ChooseLanguage from "./pages/ChooseLanguage/ChooseLanguage";
 
 const App = () => (
   <DarkModeProvider>
-    <Router>
-      <Routes>
-        <Route path="*" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/introduce" element={<Introduce />} />
-        <Route path="/effectiveness" element={<Effectiveness />} />
-        <Route path="/job" element={<Job />} />
-        <Route path="/settings" element={<Setting />} />
-        <Route path="/investors" element={<Investors />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/profile/:accessToken" element={<ProfilePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/404" element={<NotFound404 />} />
-        <Route path="/signUp" element={<SignUpPage />} />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/updatePassword" element={<UpdatePassword />} />
-        <Route path="/chooseCountry" element={<ChooseCountry />} />
-        <Route path="/chooseClass" element={<ChooseClass />} />
-        <Route path="/chooseLanguage" element={<ChooseLanguage />} />
-        <Route path="/learn" element={<Learn />} />
-        <Route path="/learn/test/:selectedTopicId" element={<Test />} />
-        <Route path="/learn/document/:selectedTopicId" element={<Document />} />
-        <Route path="/documentDetail/:id" element={<DocumentDetail />} />
-        <Route path="/test/:testId" element={<QuestionPage />} />
-        <Route path="/test/result" element={<Result />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="*" element={<LoginPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/help" element={<Help />} />
+      <Route path="/introduce" element={<Introduce />} />
+      <Route path="/effectiveness" element={<Effectiveness />} />
+      <Route path="/job" element={<Job />} />
+      <Route path="/settings" element={<Setting />} />
+      <Route path="/investors" element={<Investors />} />
+      <Route path="/rules" element={<Rules />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/profile/:accessToken" element={<ProfilePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/404" element={<NotFound404 />} />
+      <Route path="/signUp" element={<SignUpPage />} />
+      <Route path="/forgotPassword" element={<ForgotPassword />} />
+      <Route path="/updatePassword" element={<UpdatePassword />} />
+      <Route path="/chooseCountry" element={<ChooseCountry />} />
+      <Route path="/chooseClass" element={<ChooseClass />} />
+      <Route path="/chooseLanguage" element={<ChooseLanguage />} />
+      <Route path="/learn" element={<Learn />} />
+      <Route path="/learn/test/:selectedTopicId" element={<Test />} />
+      <Route path="/learn/document/:selectedTopicId" element={<Document />} />
+      <Route path="/documentDetail/:id" element={<DocumentDetail />} />
+      <Route path="/test/:testId" element={<QuestionPage />} />
+      <Route path="/test/result" element={<Result />} />
+    </Routes>
   </DarkModeProvider>
 );
 

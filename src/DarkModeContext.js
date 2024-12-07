@@ -3,18 +3,17 @@ import { useState, createContext } from "react";
 const DarkModeContext = createContext();
 function DarkModeProvider({ children }) {
   const [flag, setFlag] = useState(() => {
-    // Check for theme in localStorage, default to 'false' if not found
-    return JSON.parse(localStorage.getItem("flag", false)) || false;
+    const savedFlag = localStorage.getItem("flag");
+    return savedFlag ? JSON.parse(savedFlag) : false;
   });
   const [theme, setTheme] = useState(() => {
-    // Check for theme in localStorage, default to 'false' if not found
-    return JSON.parse(localStorage.getItem("theme")) || false;
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
   const toggleTheme = () => {
     const newTheme = !theme;
     setTheme(newTheme);
-    // Lưu theme vào localStorage
     localStorage.setItem("theme", JSON.stringify(newTheme));
   };
 

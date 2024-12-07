@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -20,18 +20,29 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          cache: 'npm'
 
-      - name: npm install, build, and test
+      - name: Create env file
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-      
+          echo "REACT_APP_DOMAIN_API=${{ secrets.REACT_APP_DOMAIN_API }}" > .env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}" >> .env
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+      - name: Run tests
+        run: npm test -- --watchAll=false --ci --coverage
+
+      - name: Build
+        run: npm run build
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: build
 
   deploy:
     runs-on: ubuntu-latest
@@ -39,8 +50,6 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -55,7 +64,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1D340CA68E084C4FAAF1DFE536667D68 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_63AF75D7FB2B4D36BEB4DF718A9E2C92 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:

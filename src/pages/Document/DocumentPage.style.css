@@ -161,10 +161,16 @@
 
 }
 
-/* Dark mode */
-/* .header-content-document{
-  background-color: var(--dark-color);
+@media (max-width: 768px) {
+  
+  .header-content-document.notDetail .fire-icon{
+    display: block;
+    margin-top: -10px;
+  }
+  .header-content-document.notDetail .flag-container{
+    display: none;
+  }
+  .header-content-document.notDetail{
+    justify-content: space-around;
+  }
 }
-.cardDocument-img button{
-  color: #3c4dff !important;
-} */

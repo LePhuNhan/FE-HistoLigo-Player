@@ -8,7 +8,7 @@ import imgTest from "../../assets/imageBtn-test.png";
 import imgCup from "../../assets/imageCup.png";
 import imgDocument from "../../assets/imageBtn-document.png";
 import imgStartTest from "../../assets/ImgTest.png";
-import { ThunderboltOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { ThunderboltOutlined, ClockCircleOutlined, BarsOutlined } from "@ant-design/icons";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DarkModeContext } from "../../DarkModeContext";
 import {
@@ -68,6 +68,7 @@ const Test = () => {
   const refreshToken = localStorage.getItem("refreshToken");
   const locale = localStorage.getItem('locale') || 'vi-VN'; // Mặc định là 'vi-VN' nếu không có giá trị
   const lang = translations[locale] || translations['vi-VN']; // Lấy ngôn ngữ tương ứng hoặc mặc định
+  const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -159,10 +160,33 @@ const Test = () => {
     window.location.reload();
   };
 
+  const [width, setWidth] = useState(window.innerWidth); // Lấy chiều rộng ban đầu
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth); // Cập nhật khi kích thước thay đổi
+    };
+
+    window.addEventListener("resize", handleResize); // Lắng nghe sự kiện resize
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Hủy lắng nghe khi component bị unmount
+    };
+  }, []);
+
+
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
+      {openMenu ? <div onClick={() => {
+        setOpenMenu(!openMenu);
+      }} className="modalMenuBar d-block"></div> : null}
+      {openMenu ? <div className="menuBar open">
+        <Menu />
+      </div> : <div className="menuBar">
+        <Menu />
+      </div>}
       <Layout>
         <Header
           style={{
@@ -174,8 +198,17 @@ const Test = () => {
           }}
           className="header"
         >
+
+
           <div className="header-content-test">
-            <div className="btn-test">
+
+            <div onClick={() => {
+              setOpenMenu(!openMenu);
+            }} className="wrapMenuBarIcon">
+              <BarsOutlined style={{ color: theme ? '#fff' : '#333' }} />
+            </div>
+
+            <div style={{ display: width <= 480 ? 'none' : 'block' }} className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button className="button-test">
                   <img className="test" src={imgTest} alt="imgTest" />

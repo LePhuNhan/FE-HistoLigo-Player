@@ -95,6 +95,7 @@ p {
   color: var(--text-color) !important;
 }
 
+
 .ant-card-head {
   color: #fff !important;
   border-bottom: 1px solid var(--border-color) !important;
@@ -414,4 +415,12 @@ input#profileUpdate_phoneNumber::placeholder{
 
 input#profileUpdate_avt::placeholder{
   color: #52656D !important;
+}
+
+.result-card.part1{
+  background-color: #003366 !important;
+}
+
+.result-card.part2{
+  background-color: #2E7D32 !important;
 }

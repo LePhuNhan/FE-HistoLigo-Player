@@ -191,7 +191,7 @@ const Result = () => {
       </Header>
       <Content className="content">
         <div className="result-cards">
-          <Card className="result-card" style={{ backgroundColor: "#003366" }}>
+          <Card className="result-card part1" style={{ backgroundColor: "#003366 " }}>
             <Title
               level={5}
               style={{
@@ -209,7 +209,7 @@ const Result = () => {
               {score.toFixed(2)}
             </Text>
           </Card>
-          <Card className="result-card" style={{ backgroundColor: "#2E7D32" }}>
+          <Card className="result-card part2" style={{ backgroundColor: "#2E7D32" }}>
             <Title
               level={5}
               style={{

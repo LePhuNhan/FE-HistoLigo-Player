@@ -146,9 +146,11 @@
   }
   .btn-test {
     margin-right: 5%;
+   
   }
   .btn-document {
     margin-right: 5%;
+  
   }
   .cardTest-img img {
     width: 70%;
@@ -163,11 +165,11 @@
     font-weight: 600;
     border: 2px solid;
   }
-  .header-content-test .flag-container, .header-content-test .fire-icon, .header-content-test .toggleDarkMode{
+  .header-content-test .flag-container, .header-content-test .fire-icon{
     display: none;
   }
   .header-content-test{
-    justify-content: center !important;
+    justify-content: space-around !important;
   }
   .ask h2{
     text-align: center;

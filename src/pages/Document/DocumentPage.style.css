@@ -133,9 +133,11 @@
 @media (max-width: 480px) {
   .btn-test {
     margin-right: 5%;
+   
   }
   .btn-document {
     margin-right: 5%;
+   
   }
   .cardDocument-img img {
     width: 70%;
@@ -150,11 +152,11 @@
     font-weight: 600;
     border: 2px solid;
   }
-  .header-content-document.notDetail .flag-container, .header-content-document.notDetail .fire-icon, .header-content-document.notDetail .toggleDarkMode{
+  .header-content-document.notDetail .flag-container, .header-content-document.notDetail .fire-icon{
     display: none;
   }
   .header-content-document{
-    justify-content: center !important;
+    justify-content: space-around !important;
   }
 
 }

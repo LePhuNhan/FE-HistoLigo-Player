@@ -3,6 +3,8 @@ import axios from "axios";
 import Menu from "../../components/Menu/Menu";
 import "./Setting.styles.css";
 import { DarkModeContext } from "../../DarkModeContext";
+import { RollbackOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 // Định nghĩa đối tượng translations
 const translations = {
@@ -73,6 +75,7 @@ const Setting = () => {
 
   return (
     <div className="wrapSettings">
+      <div style={{ borderColor: theme ? '' : 'rgb(229,229,229)' }} className='backLearn'><Link to='/learn'><RollbackOutlined /></Link></div>
       <Menu />
       <div className="boxSettings">
         <h2 className="settingTitle">{lang.setting}</h2>

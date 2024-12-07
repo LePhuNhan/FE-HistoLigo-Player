@@ -10,9 +10,11 @@ import Badge_Exp from '../../assets/Badge_Sapphire.webp'
 import Badge_Mas from '../../assets/Badge_Ruby.webp'
 import NoAvtImg from '../../assets/noAvt.png'
 import {
-  CrownFilled
+  CrownFilled,
+  RollbackOutlined
 } from '@ant-design/icons';
 import { Spin } from 'antd';
+import { Link } from 'react-router-dom';
 
 const translations = {
   'en-US': {
@@ -137,6 +139,9 @@ const Leaderboard = () => {
   }, [selectRank]);
   return (
     <div className='wrapLeaderboard'>
+
+      <div style={{ borderColor: theme ? '' : 'rgb(229,229,229)' }} className='backLearn'><Link to='/learn'><RollbackOutlined /></Link></div>
+
       <div className='row'>
         <div className='col-2 mobile-none'>
           <Menu />

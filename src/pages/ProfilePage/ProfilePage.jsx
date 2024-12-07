@@ -13,17 +13,19 @@ import {
   message,
 } from "antd";
 import Menu from "../../components/Menu/Menu";
-import { UserOutlined } from "@ant-design/icons";
+import { RollbackOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dayjs from "dayjs";
 import styles from "./ProfilePage.styles.css";
 import imageCompression from 'browser-image-compression';
 import debounce from "lodash.debounce";
 import { Spin } from 'antd';
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 
 const ProfilePage = () => {
+  const theme = localStorage.getItem('theme') === 'true';
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [avatarURL, setAvatarURL] = useState("");
@@ -300,6 +302,7 @@ const ProfilePage = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
       <Layout className={"container"}>
+        <div style={{ borderColor: theme ? '' : 'rgb(229,229,229)' }} className='backLearn'><Link to='/learn'><RollbackOutlined /></Link></div>
         <h1
           style={{
             textAlign: "center",

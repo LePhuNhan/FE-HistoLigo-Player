@@ -11,7 +11,8 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { DarkModeContext } from "../../DarkModeContext";
 import {
   MoonOutlined,
-  SunOutlined
+  SunOutlined,
+  BarsOutlined
 } from '@ant-design/icons';
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
@@ -54,6 +55,7 @@ const Document = () => {
   const selectedClassImg = localStorage.getItem("selectedClassImg");
   const locale = localStorage.getItem('locale') || 'vi-VN';
   const [loading, setLoading] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -90,9 +92,31 @@ const Document = () => {
     window.location.reload();
   };
 
+  const [width, setWidth] = useState(window.innerWidth); // Lấy chiều rộng ban đầu
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth); // Cập nhật khi kích thước thay đổi
+    };
+
+    window.addEventListener("resize", handleResize); // Lắng nghe sự kiện resize
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Hủy lắng nghe khi component bị unmount
+    };
+  }, []);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Menu />
+      {openMenu ? <div onClick={() => {
+        setOpenMenu(!openMenu);
+      }} className="modalMenuBar d-block"></div> : null}
+      {openMenu ? <div className="menuBar open">
+        <Menu />
+      </div> : <div className="menuBar">
+        <Menu />
+      </div>}
       <Layout>
         <Header
           style={{
@@ -105,6 +129,13 @@ const Document = () => {
           className="header"
         >
           <div className="header-content-document notDetail">
+
+            <div onClick={() => {
+              setOpenMenu(!openMenu);
+            }} className="wrapMenuBarIcon">
+              <BarsOutlined style={{ color: theme ? '#fff' : '#333' }} />
+            </div>
+
             <div className="btn-test">
               <Link to={`/learn/test/${selectedTopicId}`}>
                 <Button
@@ -118,7 +149,7 @@ const Document = () => {
                 </Button>
               </Link>
             </div>
-            <div className="btn-document">
+            <div style={{ display: width <= 480 ? 'none' : 'block' }} className="btn-document">
               <Link to={`/learn/document/${selectedTopicId}`}>
                 <Button className="button-document">
                   <img className="document" src={imgDocument} />

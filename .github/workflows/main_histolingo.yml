@@ -61,6 +61,8 @@ jobs:
         run: npm test -- --watchAll=false --ci --coverage
 
       - name: Build
+        env:
+          CI: false
         run: npm run build
 
       - name: Upload artifact for deployment job

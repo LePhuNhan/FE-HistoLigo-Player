@@ -1,6 +1,23 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { ConfigProvider } from 'antd';
+import { StyleProvider } from '@ant-design/cssinjs';
+
+// Mock @ant-design/cssinjs
+jest.mock('@ant-design/cssinjs', () => {
+  const actual = jest.requireActual('@ant-design/cssinjs');
+  return {
+    ...actual,
+    useStyleRegister: () => ({
+      hashId: '',
+      cssVarKey: '',
+      styleId: '',
+    }),
+    extractStyle: () => '',
+    StyleProvider: ({ children }) => children,
+  };
+});
 
 // Mock axios
 jest.mock('axios', () => ({
@@ -20,8 +37,10 @@ afterEach(() => {
 
 test('renders without crashing', () => {
   render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
+    <ConfigProvider theme={{ hashed: false }}>
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    </ConfigProvider>
   );
 });

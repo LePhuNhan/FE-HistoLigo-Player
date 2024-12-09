@@ -98,7 +98,7 @@ jobs:
             const status = '${{ job.status }}';
             const message = status === 'success' 
               ? '🚀 Deployment successful!' 
-              : '❌ Deployment failed';
+              : '❌ Deployment failed!';
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,

@@ -65,7 +65,7 @@ jobs:
           <configuration>
             <system.webServer>
               <handlers>
-                <add name="StaticFile" path="*" verb="*" modules="StaticFileModule" resourceType="File" requireAccess="Read" />
+                <add name="iisnode" path="server.js" verb="*" modules="iisnode" />
               </handlers>
               <rewrite>
                 <rules>
@@ -75,14 +75,11 @@ jobs:
                       <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
                       <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
                     </conditions>
-                    <action type="Rewrite" url="/" />
+                    <action type="Rewrite" url="/index.html" />
                   </rule>
                 </rules>
               </rewrite>
               <staticContent>
-                <remove fileExtension=".json" />
-                <remove fileExtension=".woff" />
-                <remove fileExtension=".woff2" />
                 <mimeMap fileExtension=".json" mimeType="application/json" />
                 <mimeMap fileExtension=".woff" mimeType="application/font-woff" />
                 <mimeMap fileExtension=".woff2" mimeType="application/font-woff2" />
@@ -92,16 +89,39 @@ jobs:
           </configuration>
           '@ | Out-File -FilePath "build/web.config" -Encoding UTF8
 
-      - name: Create startup script
+      - name: Create server script
+        shell: pwsh
+        run: |
+          @'
+          const express = require('express');
+          const path = require('path');
+          const app = express();
+
+          app.use(express.static(path.join(__dirname)));
+          
+          app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, 'index.html'));
+          });
+
+          const port = process.env.PORT || 8080;
+          app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+          });
+          '@ | Out-File -FilePath "build/server.js" -Encoding UTF8
+
+      - name: Create package.json for production
         shell: pwsh
         run: |
           @'
           {
+            "name": "histolingo-player",
+            "version": "1.0.0",
+            "private": true,
             "scripts": {
-              "start": "serve -s"
+              "start": "node server.js"
             },
             "dependencies": {
-              "serve": "^14.0.0"
+              "express": "^4.18.2"
             }
           }
           '@ | Out-File -FilePath "build/package.json" -Encoding UTF8
@@ -142,7 +162,6 @@ jobs:
           app-name: 'Histolingo-Player'
           package: release
           slot-name: production
-          startup-command: 'npm start'
 
       - name: Notify deployment status
         if: always()

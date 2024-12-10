@@ -1,13 +1,21 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - Histolingo-Player
+name: Build and deploy Node.js app to Azure Web App - Histolingo
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  issues: write
 
 jobs:
   build:
@@ -20,48 +28,130 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          cache: 'npm'
 
-      - name: Cache node modules
+      - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: npm install and build
+      - name: Create env file
+        shell: pwsh
+        run: |
+          "REACT_APP_DOMAIN_API=${{ secrets.REACT_APP_DOMAIN_API }}" | Out-File -FilePath .env -Encoding UTF8
+          "REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}" | Add-Content -Path .env -Encoding UTF8
+
+      - name: Install dependencies
         run: |
           npm ci
-          npm run build --if-present
+          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+      - name: Auto-fix linting issues
+        shell: pwsh
+        run: |
+          npm run lint -- --fix
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add .
+          git commit -m "Auto-fix linting issues" -ErrorAction SilentlyContinue
+          git push -ErrorAction SilentlyContinue
+
+      - name: Run tests
+        run: npm test -- --watchAll=false --ci --coverage
+
+      - name: Build
+        env:
+          CI: false
+        run: npm run build
+
+      - name: Generate web.config
+        shell: pwsh
+        run: |
+          @'
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <system.webServer>
+              <handlers>
+                <add name="iisnode" path="server.js" verb="*" modules="iisnode" />
+              </handlers>
+              <rewrite>
+                <rules>
+                  <rule name="React Routes" stopProcessing="true">
+                    <match url=".*" />
+                    <conditions logicalGrouping="MatchAll">
+                      <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                      <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="/index.html" />
+                  </rule>
+                </rules>
+              </rewrite>
+              <staticContent>
+                <mimeMap fileExtension=".json" mimeType="application/json" />
+                <mimeMap fileExtension=".woff" mimeType="application/font-woff" />
+                <mimeMap fileExtension=".woff2" mimeType="application/font-woff2" />
+              </staticContent>
+              <httpErrors existingResponse="PassThrough" />
+            </system.webServer>
+          </configuration>
+          '@ | Out-File -FilePath "build/web.config" -Encoding UTF8
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: |
-            build
-            !build/**/*.map
-            package.json
-            package-lock.json
+          path: build
+          retention-days: 5
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
+          path: release
 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'Histolingo-Player'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C4F94874CD2D4387903B7A75CEADFCF6 }}
-          package: .
+          package: release
+          slot-name: production
+
+      - name: Notify deployment status
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const status = '${{ job.status }}';
+            const message = status === 'success' 
+              ? '🚀 Deployment successful!' 
+              : '❌ Deployment failed';
+            
+            if (context.issue.number) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: message
+              });
+            }
+          

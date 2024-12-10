@@ -63,5 +63,6 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     }
-  }
+  },
+  "homepage": "/"
 }

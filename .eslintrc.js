@@ -28,6 +28,10 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'no-unused-vars': 'warn',
-    'no-console': 'warn'
+    'no-console': 'warn',
+    'react/jsx-no-target-blank': 'warn',
+    'react/no-unknown-property': 'warn',
+    'react/no-unescaped-entities': 'off',
+    'no-unreachable': 'warn'
   }
 } 

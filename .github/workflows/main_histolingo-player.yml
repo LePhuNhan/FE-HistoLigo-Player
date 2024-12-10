@@ -93,14 +93,6 @@ jobs:
           path: build
           retention-days: 5
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'Histolingo-Player'
-          package: build
-          slot-name: production
-
   deploy:
     runs-on: windows-latest
     needs: build
@@ -122,6 +114,14 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
+        with:
+          app-name: 'Histolingo-Player'
+          package: release
+          slot-name: production
 
       - name: Notify deployment status
         if: always()

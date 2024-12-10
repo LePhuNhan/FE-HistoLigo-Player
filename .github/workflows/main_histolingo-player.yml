@@ -57,6 +57,33 @@ jobs:
           CI: false
         run: npm run build
 
+      - name: Optimize build
+        shell: pwsh
+        run: |
+          # Xóa source maps
+          Get-ChildItem -Path "build" -Recurse -Filter "*.map" | Remove-Item -Force
+          
+          # Xóa các file không cần thiết
+          Remove-Item -Path "build/static/media/*.mp4" -Force -ErrorAction SilentlyContinue
+          Remove-Item -Path "build/static/media/*.mov" -Force -ErrorAction SilentlyContinue
+          Remove-Item -Path "build/static/media/*.webm" -Force -ErrorAction SilentlyContinue
+          
+          # Nén các file JS và CSS
+          $jsFiles = Get-ChildItem -Path "build" -Recurse -Filter "*.js"
+          $cssFiles = Get-ChildItem -Path "build" -Recurse -Filter "*.css"
+          
+          foreach ($file in $jsFiles) {
+              $content = Get-Content $file.FullName -Raw
+              $content = $content -replace '\/\*.*?\*\/', '' -replace '\s+', ' '
+              Set-Content -Path $file.FullName -Value $content
+          }
+          
+          foreach ($file in $cssFiles) {
+              $content = Get-Content $file.FullName -Raw
+              $content = $content -replace '\/\*.*?\*\/', '' -replace '\s+', ' '
+              Set-Content -Path $file.FullName -Value $content
+          }
+
       - name: Generate web.config
         shell: pwsh
         run: |
@@ -85,52 +112,26 @@ jobs:
                 <mimeMap fileExtension=".woff2" mimeType="application/font-woff2" />
               </staticContent>
               <httpErrors existingResponse="PassThrough" />
+              <security>
+                <requestFiltering>
+                  <!-- Tăng giới hạn kích thước file lên 50MB -->
+                  <requestLimits maxAllowedContentLength="52428800" />
+                </requestFiltering>
+              </security>
             </system.webServer>
           </configuration>
           '@ | Out-File -FilePath "build/web.config" -Encoding UTF8
-
-      - name: Create server script
-        shell: pwsh
-        run: |
-          @'
-          const express = require('express');
-          const path = require('path');
-          const app = express();
-
-          app.use(express.static(path.join(__dirname)));
-          
-          app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, 'index.html'));
-          });
-
-          const port = process.env.PORT || 8080;
-          app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-          });
-          '@ | Out-File -FilePath "build/server.js" -Encoding UTF8
-
-      - name: Create package.json for production
-        shell: pwsh
-        run: |
-          @'
-          {
-            "name": "histolingo-player",
-            "version": "1.0.0",
-            "private": true,
-            "scripts": {
-              "start": "node server.js"
-            },
-            "dependencies": {
-              "express": "^4.18.2"
-            }
-          }
-          '@ | Out-File -FilePath "build/package.json" -Encoding UTF8
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: build
+          path: |
+            build/**
+            !build/**/*.map
+            !build/static/media/*.mp4
+            !build/static/media/*.mov
+            !build/static/media/*.webm
           retention-days: 5
 
   deploy:

@@ -98,7 +98,8 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'Histolingo-Player'
-          package: .
+          package: ./build
+          slot-name: production
 
       - name: Notify deployment status
         if: always()

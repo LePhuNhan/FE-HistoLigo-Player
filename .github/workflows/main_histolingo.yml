@@ -97,8 +97,7 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Histolingo'
-          slot-name: 'Production'
+          app-name: 'Histolingo-Player'
           package: .
 
       - name: Notify deployment status

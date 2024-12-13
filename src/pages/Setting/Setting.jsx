@@ -93,7 +93,6 @@ const Setting = () => {
     window.location.reload(); // Làm mới trang để áp dụng ngôn ngữ mới
   };
 
-  const [error, setError] = useState("");
   const handleSaveNewPassword = async (oldPassword, newPassword, confirmPassword) => {
     try {
 

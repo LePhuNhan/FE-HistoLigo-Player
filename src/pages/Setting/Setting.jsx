@@ -56,8 +56,14 @@ const Setting = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const accessToken = localStorage.getItem("accessToken");
-  const isSaveEnabled =
-    oldPassword || newPassword || confirmPassword;
+
+  // Thêm validation function
+  const isValidPasswordChange = () => {
+    return oldPassword?.trim() && 
+           newPassword?.trim() && 
+           confirmPassword?.trim() && 
+           newPassword === confirmPassword;
+  };
 
   useEffect(() => {
     seThemeRender(theme);
@@ -95,19 +101,38 @@ const Setting = () => {
 
   const handleSaveNewPassword = async (oldPassword, newPassword, confirmPassword) => {
     try {
+      // Thêm validation trước khi gửi request
+      if (!oldPassword?.trim()) {
+        alert(locale === "en-US" ? "Current password is required!" : "Vui lòng nhập mật khẩu hiện tại!");
+        return;
+      }
 
+      if (!newPassword?.trim()) {
+        alert(locale === "en-US" ? "New password is required!" : "Vui lòng nhập mật khẩu mới!");
+        return;
+      }
+
+      if (!confirmPassword?.trim()) {
+        alert(locale === "en-US" ? "Please confirm new password!" : "Vui lòng xác nhận mật khẩu mới!");
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        alert(locale === "en-US" ? "New password and confirm password do not match!" : "Mật khẩu mới và xác nhận mật khẩu không khớp!");
+        return;
+      }
 
       // Gửi yêu cầu API
       const response = await axios.put(
-        `${DomainApi}/change-password`, // Thay bằng URL của bạn
+        `${DomainApi}/change-password`,
         {
           oldPassword,
           newPassword,
-          confirmNewPassword: confirmPassword, // Trường body
+          confirmNewPassword: confirmPassword,
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`, // Thêm token vào header
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -180,9 +205,13 @@ const Setting = () => {
           )}
 
 
-          <button onClick={() => {
-            handleSaveNewPassword(oldPassword, newPassword, confirmPassword)
-          }} disabled={!isSaveEnabled} className={isSaveEnabled ? "btnChangePassword active" : "btnChangePassword"}>{lang.saveNewPassword}</button>
+          <button 
+            onClick={() => handleSaveNewPassword(oldPassword, newPassword, confirmPassword)} 
+            disabled={!isValidPasswordChange()}
+            className={isValidPasswordChange() ? "btnChangePassword active" : "btnChangePassword"}
+          >
+            {lang.saveNewPassword}
+          </button>
         </div>
 
       </div>

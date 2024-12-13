@@ -4,6 +4,10 @@
     width: 590px;
 }
 
+.wrapSettings{
+    height: 2000px;
+}
+
 .settingTitle{
     color: #4b4b4b;
     font-weight: 600;
@@ -41,6 +45,33 @@
 
 .wrapFun{
     margin-bottom: 70px;
+    position: relative;
+}
+
+.changePassword{
+    padding: 8px 10px;
+}
+
+.btnChangePassword{
+    outline: none;
+    border: none;
+    padding: 15px 8px;
+    border-radius: 12px;
+    color: #afafaf;
+    font-weight: 600;
+    background-color: #e5e5e5;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    top: 110%;
+}
+
+.btnChangePassword.active{
+    background-color: #1cb0f6 !important;
+    color: #fff !important;
+    font-weight: 600;
+    border-bottom: 4px solid #1899d6 !important;
+    cursor: pointer;
 }
 
 @media (max-width: 480px) {

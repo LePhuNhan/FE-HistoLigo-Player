@@ -118,7 +118,7 @@ const SignUpPage = () => {
             </Button>
 
 
-            <div style={{ width: '110%', marginLeft: '-10%' }} className="sepa">
+            <div style={{ width: '110%', marginLeft: '-10%' }} className="sepa signUp">
               <p>OR</p>
             </div>
 

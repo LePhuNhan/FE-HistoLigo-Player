@@ -174,7 +174,7 @@ const Setting = () => {
           <h4 className="smTitle">{lang.repeatNewPassword}</h4>
           <Input.Password onChange={(e) => setConfirmPassword(e.target.value)} className="changePassword" />
           {newPassword && confirmPassword && newPassword !== confirmPassword && (
-            <p style={{ color: "red", marginTop: "15px", textTransform: "capitalize" }}>
+            <p className="importantWarning" style={{ color: "red !important", marginTop: "15px", textTransform: "capitalize" }}>
               {lang.notMatchNewPassword}
             </p>
           )}

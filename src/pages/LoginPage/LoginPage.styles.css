@@ -77,12 +77,13 @@
   float: right;
 }
 
-.sepa{
+.sepa.login{
   width: 100%;
   height: 1px !important;
   background-color: #dbdbdb;
-  margin-top: 70px;
+  margin-top: 30px;
   position: relative;
+  margin-bottom: 10px;
 }
 
 .sepa p {
@@ -102,4 +103,11 @@
 .login-signUp {
   display: block;
   margin-top: 10px;
+}
+
+
+@media (max-width: 480px){
+  .sepa.login{
+    margin-bottom: 30px;
+  }
 }

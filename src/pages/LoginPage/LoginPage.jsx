@@ -88,7 +88,7 @@ const LoginPage = () => {
               Sign Up
             </Button>
           </Link>
-          <div className="sepa">
+          <div className="sepa login">
             <p>OR</p>
           </div>
           {/* <button   

@@ -115,7 +115,7 @@ const Document = () => {
       {openMenu ? <div className="menuBar open">
         <Menu />
       </div> : <div className="menuBar">
-        <Menu />
+        {width <= 480 || width <= 768 ? <Menu /> : null}
       </div>}
       <Layout>
         <Header

@@ -3,8 +3,10 @@ import axios from "axios";
 import Menu from "../../components/Menu/Menu";
 import "./Setting.styles.css";
 import { DarkModeContext } from "../../DarkModeContext";
-import { RollbackOutlined } from "@ant-design/icons";
+import { LockOutlined, RollbackOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { Input } from "antd";
+import { FaAppleAlt } from "react-icons/fa";
 
 // Định nghĩa đối tượng translations
 const translations = {
@@ -16,6 +18,12 @@ const translations = {
     darkMode: "Dark Mode",
     enable: "Enable",
     disable: "Disable",
+    changePassword: "Change Password",
+    passwordCurrent: "Password Current",
+    newPassword: "New Password",
+    repeatNewPassword: "Repeat New Password",
+    saveNewPassword: "Save New Password",
+    notMatchNewPassword: "Confirmation password does not match!",
   },
   'vi-VN': {
     setting: "Cài Đặt",
@@ -25,6 +33,12 @@ const translations = {
     darkMode: "Chế Độ Tối",
     enable: "Bật",
     disable: "Tắt",
+    changePassword: "Đổi Mật Khẩu",
+    passwordCurrent: "Mật Khẩu Hiện Tại",
+    newPassword: "Mật Khẩu Mới",
+    repeatNewPassword: "Lặp Lại Mật Khẩu Mới",
+    saveNewPassword: "Lưu Mật Khẩu Mới",
+    notMatchNewPassword: "Mật khẩu xác nhận không khớp!",
   },
   // ... các ngôn ngữ khác nếu cần
 };
@@ -37,6 +51,13 @@ const Setting = () => {
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const locale = localStorage.getItem('locale') || 'vi-VN';
   const lang = translations[locale] || translations['vi-VN'];
+
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const accessToken = localStorage.getItem("accessToken");
+  const isSaveEnabled =
+    oldPassword || newPassword || confirmPassword;
 
   useEffect(() => {
     seThemeRender(theme);
@@ -72,6 +93,49 @@ const Setting = () => {
     window.location.reload(); // Làm mới trang để áp dụng ngôn ngữ mới
   };
 
+  const handleSaveNewPassword = async (oldPassword, newPassword, confirmPassword) => {
+    try {
+
+
+      // Gửi yêu cầu API
+      const response = await axios.put(
+        `${DomainApi}/change-password`, // Thay bằng URL của bạn
+        {
+          oldPassword,
+          newPassword,
+          confirmNewPassword: confirmPassword, // Trường body
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Thêm token vào header
+          },
+        }
+      );
+
+      // Xử lý phản hồi
+      if (response.status === 200) {
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        alert(locale === "en-US" ? "Password has been changed successfully" : "Mật khẩu đã được thay đổi thành công");
+        window.location.reload();
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 400) {
+          if (error.response.data.message === "Mật khẩu cũ không đúng!") {
+            alert(locale === "en-US" ? "Old password incorrect!" : "Mật khẩu cũ không đúng!")
+            window.location.reload();
+          }
+          else if (error.response.data.message === "Mật khẩu mới và xác nhận mật khẩu không khớp!") {
+            alert(locale === "en-US" ? "New password and confirm password do not match!" : "Mật khẩu mới và xác nhận mật khẩu không khớp!")
+            window.location.reload();
+          }
+        }
+      }
+    }
+  }
+
 
   return (
     <div className="wrapSettings">
@@ -96,8 +160,31 @@ const Setting = () => {
             <option >{themeRender ? lang.enable : lang.disable}</option>
             <option >{themeRender ? lang.disable : lang.enable}</option>
           </select>
-
         </div>
+
+        <div className="wrapFun changePassword">
+          <h3 className="titleFun">{lang.changePassword}</h3>
+          <h4 className="smTitle">{lang.passwordCurrent}</h4>
+
+          <Input.Password onChange={(e) => setOldPassword(e.target.value)} className="changePassword" />
+
+          <h4 className="smTitle">{lang.newPassword}</h4>
+          <Input.Password onChange={(e) => setNewPassword(e.target.value)} className="changePassword" />
+
+          <h4 className="smTitle">{lang.repeatNewPassword}</h4>
+          <Input.Password onChange={(e) => setConfirmPassword(e.target.value)} className="changePassword" />
+          {newPassword && confirmPassword && newPassword !== confirmPassword && (
+            <p style={{ color: "red", marginTop: "15px", textTransform: "capitalize" }}>
+              {lang.notMatchNewPassword}
+            </p>
+          )}
+
+
+          <button onClick={() => {
+            handleSaveNewPassword(oldPassword, newPassword, confirmPassword)
+          }} disabled={!isSaveEnabled} className={isSaveEnabled ? "btnChangePassword active" : "btnChangePassword"}>{lang.saveNewPassword}</button>
+        </div>
+
       </div>
     </div>
   );

@@ -135,6 +135,10 @@
     margin-right: 5%;
    
   }
+
+  .header-content-document.notDetail .fire-icon{
+    display: none !important;
+  }
   .btn-document {
     margin-right: 5%;
    

@@ -108,12 +108,22 @@ const Learn = () => {
     fetchTopics();
   }, [selectedClass.name]);
 
-  // const handleChangeLanguage = () => {
-  //   const language = !flag;
-  //   localStorage.setItem("flag", language);
-  //   localStorage.setItem("locale", language ? "en-US" : "vi-VN");
-  //   window.location.reload();
-  // };
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // Hàm cập nhật width
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Lắng nghe sự kiện resize
+    window.addEventListener('resize', handleResize);
+
+    // Dọn dẹp khi component bị unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleTopicClick = (topicId) => {
     localStorage.setItem("selectedTopicId", topicId);
@@ -129,7 +139,7 @@ const Learn = () => {
       {openMenu ? <div className="menuBar open">
         <Menu />
       </div> : <div className="menuBar">
-        <Menu />
+        {windowWidth <= 480 || windowWidth <= 768 ? <Menu /> : null}
       </div>}
 
       <Layout>

@@ -6,7 +6,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import NotFound404 from "./pages/NotFound/NotFound404";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import UpdatePassword from "./pages/ForgotPassword/UpdatePassword";
 import ChooseCountry from "./pages/ChooseCountry/ChooseCountry";
 import Learn from "./pages/Learn/LearnPage";
 import Test from "./pages/TestPage/TestPage";
@@ -27,6 +26,7 @@ import Rules from "./pages/Rules/Rules";
 import Privacy from "./pages/Privacy/Privacy";
 import Setting from "./pages/Setting/Setting";
 import ChooseLanguage from "./pages/ChooseLanguage/ChooseLanguage";
+import SendPassword from "./pages/ForgotPassword/SendPasswword";
 
 const App = () => (
   <DarkModeProvider>
@@ -47,7 +47,7 @@ const App = () => (
       <Route path="/404" element={<NotFound404 />} />
       <Route path="/signUp" element={<SignUpPage />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/updatePassword" element={<UpdatePassword />} />
+      <Route path="/sendPasswordComplete" element={<SendPassword />} />
       <Route path="/chooseCountry" element={<ChooseCountry />} />
       <Route path="/chooseClass" element={<ChooseClass />} />
       <Route path="/chooseLanguage" element={<ChooseLanguage />} />

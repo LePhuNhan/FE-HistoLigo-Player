@@ -1,0 +1,35 @@
+.login.forgotPassword .ant-row{
+    margin-left: 0 !important;
+}
+
+.inputEmail{
+    margin-bottom: 10px;
+}
+
+.pWarning{
+    font-size: 14px !important;
+    color: red;
+    padding-bottom: 10px;
+}
+.sendEmailImg{
+    width: 160px;
+}
+
+.wrapTitleSendEmail{
+    text-align: center;
+}
+
+.wrapTitleSendEmail .tks{
+    font-size: 24px !important;
+    color: #4b4b4b;
+    font-weight: 600;
+}
+
+.wrapTitleSendEmail .please{
+    color: #3c3c3c;
+    font-weight: 500;
+}
+
+.backToLogin{
+    font-weight: 600;
+}

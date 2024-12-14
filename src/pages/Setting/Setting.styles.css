@@ -74,6 +74,10 @@
     cursor: pointer;
 }
 
+.importantWarning{
+    color: red !important;
+}
+
 @media (max-width: 480px) {
     .boxSettings{
        margin: 0;

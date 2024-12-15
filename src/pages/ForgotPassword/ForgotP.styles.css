@@ -8,7 +8,7 @@
 
 .pWarning{
     font-size: 14px !important;
-    color: red;
+    color: red !important;
     padding-bottom: 10px;
 }
 .sendEmailImg{
@@ -21,12 +21,12 @@
 
 .wrapTitleSendEmail .tks{
     font-size: 24px !important;
-    color: #4b4b4b;
+    color: #4b4b4b !important;
     font-weight: 600;
 }
 
 .wrapTitleSendEmail .please{
-    color: #3c3c3c;
+    color: #3c3c3c !important;
     font-weight: 500;
 }
 

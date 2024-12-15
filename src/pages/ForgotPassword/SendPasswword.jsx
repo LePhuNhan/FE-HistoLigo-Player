@@ -2,7 +2,7 @@ import { Form } from "antd";
 import SendEmailPng from '../../assets/sendEmailPng.png'
 import "./ForgotP.styles.css";
 import { Link } from "react-router-dom";
-import { SwapLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 const SendPassword = () => {
 
 
@@ -15,7 +15,8 @@ const SendPassword = () => {
             >
 
                 <Link className="backToLogin" to="/login">
-                    <SwapLeftOutlined style={{ fontSize: '20px', marginRight: '5px' }} />
+                    <ArrowLeftOutlined style={{ fontSize: '15px', marginRight: '5px' }} />
+
                     Back to Login</Link>
                 <div style={{ textAlign: 'center' }}><img className="sendEmailImg" src={SendEmailPng} alt="img" /></div>
                 <div className="wrapTitleSendEmail">

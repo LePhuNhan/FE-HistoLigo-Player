@@ -69,7 +69,7 @@ const LoginPage = () => {
             htmlType="submit"
             className="login-form-button"
           >
-            Update Password
+            Send Email
           </Button>
         </Form.Item>
       </Form>

@@ -128,14 +128,14 @@ jobs:
               Set-Content -Path $file.FullName -Value $content
           }
 
-      - name: Copy assets to build folder
+      - name: Copy assets to media folder
         shell: pwsh
         run: |
-          if (-Not (Test-Path -Path "build/assets")) {
-              mkdir build/assets
+          if (-Not (Test-Path -Path "build/static/media")) {
+              mkdir build/static/media
           }
           if (Test-Path -Path "assets") {
-              cp -r assets/* build/assets/
+              cp -r assets/* build/static/media/
           } else {
               Write-Host "Warning: 'assets' directory does not exist."
           }

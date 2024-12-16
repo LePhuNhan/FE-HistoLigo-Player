@@ -147,19 +147,19 @@ const Leaderboard = () => {
             <ul className='listBadge'>
               <li onClick={() => {
                 setSelectRank(0);
-              }}> <img className='iconBadge' src={`https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/assets/Badge_Bronze.webp`} alt='ranking' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/DhqM5YP.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(1);
-              }}> <img className='iconBadge' src={`https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/assets/Badge_Silver.webp`} alt='ranking' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/hw3LtRR.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(2);
-              }}> <img className='iconBadge' src={`https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/assets/Badge_Gold.webp`} alt='ranking' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/Y3wgMd3.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(3);
-              }}> <img className='iconBadge' src={`https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/assets/Badge_Sapphire.webp`} alt='ranking' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/vmo27yr.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(4);
-              }}> <img className='iconBadge' src={`https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/assets/Badge_Ruby.webp`} alt='ranking' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/1urweUv.png" alt='ranking' /></li>
             </ul>
           </div>
           <div className='wrapListRank'>

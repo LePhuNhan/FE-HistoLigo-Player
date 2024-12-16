@@ -129,8 +129,11 @@ jobs:
           }
 
       - name: Copy assets to build folder
+        shell: pwsh
         run: |
-          mkdir -p build/assets
+          if (-Not (Test-Path -Path "build/assets")) {
+              mkdir build/assets
+          }
           cp -r assets/* build/assets/
 
   deploy:

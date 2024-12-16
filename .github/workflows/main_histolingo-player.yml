@@ -134,7 +134,11 @@ jobs:
           if (-Not (Test-Path -Path "build/assets")) {
               mkdir build/assets
           }
-          cp -r assets/* build/assets/
+          if (Test-Path -Path "assets") {
+              cp -r assets/* build/assets/
+          } else {
+              Write-Host "Warning: 'assets' directory does not exist."
+          }
 
   deploy:
     runs-on: windows-latest

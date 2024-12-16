@@ -128,6 +128,11 @@ jobs:
               Set-Content -Path $file.FullName -Value $content
           }
 
+      - name: Copy assets to build folder
+        run: |
+          mkdir -p build/assets
+          cp -r assets/* build/assets/
+
   deploy:
     runs-on: windows-latest
     needs: build

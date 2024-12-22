@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.47ff5f7d.css",
-    "main.js": "/static/js/main.3028eaad.js",
+    "main.css": "/static/css/main.0134ff7b.css",
+    "main.js": "/static/js/main.d863f48a.js",
     "static/media/cover_book.webp": "/static/media/cover_book.f693ad2ad95c1498f36b.webp",
     "static/media/graph.webp": "/static/media/graph.999a0d1a3f13a0bfad22.webp",
+    "static/media/sendEmailPng.png": "/static/media/sendEmailPng.a3bfdbec8233eaaeed57.png",
     "static/media/reset.png": "/static/media/reset.3ff97262e58968498805.png",
     "static/media/noAvt.png": "/static/media/noAvt.f685659d27ab81eff47b.png",
-    "static/media/Badge_Sapphire.webp": "/static/media/Badge_Sapphire.684fd4f41e67840714bb.webp",
-    "static/media/Badge_Gold.webp": "/static/media/Badge_Gold.dedf8c3a44c5e3063e65.webp",
-    "static/media/Badge_Ruby.webp": "/static/media/Badge_Ruby.e5cf324a7a2a3d0281b3.webp",
-    "static/media/Badge_Bronze.webp": "/static/media/Badge_Bronze.ec65679c4f6ae4f371f1.webp",
-    "static/media/Badge_Silver.webp": "/static/media/Badge_Silver.d06e13b34a1a9584cc73.webp",
+    "static/media/badge_silver.webp": "/static/media/badge_silver.webp",
+    "static/media/badge_gold.webp": "/static/media/badge_gold.webp",
+    "static/media/badge_bronze.webp": "/static/media/badge_bronze.webp",
+    "static/media/badge_platinum.webp": "/static/media/badge_platinum.webp",
     "index.html": "/index.html",
-    "main.47ff5f7d.css.map": "/static/css/main.47ff5f7d.css.map",
-    "main.3028eaad.js.map": "/static/js/main.3028eaad.js.map"
+    "main.0134ff7b.css.map": "/static/css/main.0134ff7b.css.map",
+    "main.d863f48a.js.map": "/static/js/main.d863f48a.js.map"
   },
   "entrypoints": [
-    "static/css/main.47ff5f7d.css",
-    "static/js/main.3028eaad.js"
+    "static/css/main.0134ff7b.css",
+    "static/js/main.d863f48a.js"
   ]
 }

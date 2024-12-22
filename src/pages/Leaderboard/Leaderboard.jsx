@@ -3,11 +3,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import './Leaderboard.css'
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Badge_Beg from '../../assets/Badge_Bronze.webp'
-import Badge_Int from '../../assets/Badge_Silver.webp'
-import Badge_Adv from '../../assets/Badge_Gold.webp'
-import Badge_Exp from '../../assets/Badge_Sapphire.webp'
-import Badge_Mas from '../../assets/Badge_Ruby.webp'
+
 import NoAvtImg from '../../assets/noAvt.png'
 import {
   CrownFilled,
@@ -151,19 +147,19 @@ const Leaderboard = () => {
             <ul className='listBadge'>
               <li onClick={() => {
                 setSelectRank(0);
-              }}> <img className='iconBadge' src={Badge_Beg} alt='rankimg' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/DhqM5YP.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(1);
-              }}> <img className='iconBadge' src={Badge_Int} alt='rankimg' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/hw3LtRR.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(2);
-              }}> <img className='iconBadge' src={Badge_Adv} alt='rankimg' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/Y3wgMd3.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(3);
-              }}> <img className='iconBadge' src={Badge_Exp} alt='rankimg' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/vmo27yr.png" alt='ranking' /></li>
               <li onClick={() => {
                 setSelectRank(4);
-              }}> <img className='iconBadge' src={Badge_Mas} alt='rankimg' /></li>
+              }}> <img className='iconBadge' src="https://i.imgur.com/1urweUv.png" alt='ranking' /></li>
             </ul>
           </div>
           <div className='wrapListRank'>

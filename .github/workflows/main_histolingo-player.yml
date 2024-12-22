@@ -128,6 +128,18 @@ jobs:
               Set-Content -Path $file.FullName -Value $content
           }
 
+      - name: Copy assets to media folder
+        shell: pwsh
+        run: |
+          if (-Not (Test-Path -Path "build/static/media")) {
+              mkdir build/static/media
+          }
+          if (Test-Path -Path "assets") {
+              cp -r assets/* build/static/media/
+          } else {
+              Write-Host "Warning: 'assets' directory does not exist."
+          }
+
   deploy:
     runs-on: windows-latest
     needs: build

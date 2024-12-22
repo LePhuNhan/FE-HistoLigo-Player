@@ -424,3 +424,25 @@ input#profileUpdate_avt::placeholder{
 .result-card.part2{
   background-color: #2E7D32 !important;
 }
+
+.wrapFun.changePassword .ant-input-affix-wrapper{
+  background-color: #202f36;
+}
+
+.btnChangePassword.active{
+  color: #333 !important;
+  font-weight: 600;
+}
+
+.btnChangePassword{
+  background-color: #37464f;
+  color: #52656d;
+}
+
+.wrapFun.changePassword .ant-input-affix-wrapper input{
+  color: #fff !important;
+}
+
+.wrapFun.changePassword .ant-input-affix-wrapper .ant-input-suffix span{
+  color: #fff !important;
+}

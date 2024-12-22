@@ -47,7 +47,7 @@ const Result = () => {
   const [feedback, setFeedback] = useState("");
   const topicId = localStorage.getItem("selectedTopicId");
   const playerTestId = localStorage.getItem("playerTestId");
-  const selectedTestId = localStorage.getItem("selectedTestId");
+  const selectedTestId = localStorage.getItem("playerTestId");
   const navigate = useNavigate();
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const accessToken = localStorage.getItem("accessToken");

@@ -15,15 +15,15 @@ Tải node_modules thư viện cần thiết
 Chạy web trên localhost:3000
 
 ## Link deploy:
-https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/
+https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/ .\
 Mối khi code nhánh main thay đổi sẽ tự động deploy lại code mới.
 
 ## Các cú pháp tùy chọn
 
 ### `npm test`
 
-Test code xem có lỗi nào không?
-Sau khi chạy cú pháp chọn a để test tất cả file
+Test code xem có lỗi nào không? .\
+Sau khi chạy cú pháp chọn a để test tất cả file .\
 Kết khi test ổn:
 ![image](https://github.com/user-attachments/assets/269271f9-c5b0-4092-8160-e74a98922120)
 
@@ -50,8 +50,8 @@ Bạn không bao giờ phải sử dụng `eject`. Bộ tính năng được qu�
 
 ### `npm run build-electron`
 
-Trong Command Prompt chạy Run as administrator.
-CD đến đường dẫn GitHub\FE-HistoLigo-Player trên máy bạn.
-Cú pháp sẽ tạo thư mục dist và đóng gói sản phẩm.
-Sau khi chạy xong, trong thư mục dist sẽ có file HistoLingo Setup 1.0.0, chạy file HistoLingo Setup 1.0.0 thì tại màn hình chính sẽ hiện app Histolingo.
+Trong Command Prompt chạy Run as administrator .\
+CD đến đường dẫn GitHub\FE-HistoLigo-Player trên máy bạn .\
+Cú pháp sẽ tạo thư mục dist và đóng gói sản phẩm .\
+Sau khi chạy xong, trong thư mục dist sẽ có file HistoLingo Setup 1.0.0, chạy file HistoLingo Setup 1.0.0 thì tại màn hình chính sẽ hiện app Histolingo .\
 Sử dụng tương tự như Web.

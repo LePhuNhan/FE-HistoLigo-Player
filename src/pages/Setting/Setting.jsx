@@ -5,7 +5,7 @@ import "./Setting.styles.css";
 import { DarkModeContext } from "../../DarkModeContext";
 import { LockOutlined, RollbackOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import { FaAppleAlt } from "react-icons/fa";
 
 // Định nghĩa đối tượng translations
@@ -117,8 +117,9 @@ const Setting = () => {
         setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");
-        alert(locale === "en-US" ? "Password has been changed successfully" : "Mật khẩu đã được thay đổi thành công");
-        window.location.reload();
+        message.success(locale === "en-US" ? "Password has been changed successfully" : "Mật khẩu đã được thay đổi thành công", 1);
+        //alert(locale === "en-US" ? "Password has been changed successfully" : "Mật khẩu đã được thay đổi thành công");
+        // window.location.reload();
       }
     } catch (error) {
       if (error.response) {
@@ -166,13 +167,13 @@ const Setting = () => {
           <h3 className="titleFun">{lang.changePassword}</h3>
           <h4 className="smTitle">{lang.passwordCurrent}</h4>
 
-          <Input.Password onChange={(e) => setOldPassword(e.target.value)} className="changePassword" />
+          <Input.Password value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} className="changePassword" />
 
           <h4 className="smTitle">{lang.newPassword}</h4>
-          <Input.Password onChange={(e) => setNewPassword(e.target.value)} className="changePassword" />
+          <Input.Password value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="changePassword" />
 
           <h4 className="smTitle">{lang.repeatNewPassword}</h4>
-          <Input.Password onChange={(e) => setConfirmPassword(e.target.value)} className="changePassword" />
+          <Input.Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="changePassword" />
           {newPassword && confirmPassword && newPassword !== confirmPassword && (
             <p className="importantWarning" style={{ color: "red !important", marginTop: "15px", textTransform: "capitalize" }}>
               {lang.notMatchNewPassword}

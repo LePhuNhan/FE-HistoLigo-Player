@@ -1,9 +1,9 @@
 import React from "react";
 import "./ForgotP.styles.css";
-import { MailOutlined, UserOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, MailOutlined, RollbackOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const DomainApi = process.env.REACT_APP_DOMAIN_API;
   const navigate = useNavigate();
@@ -35,6 +35,10 @@ const LoginPage = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
+        <Link style={{ paddingBottom: "25px", display: "block" }} to="/login">
+          <ArrowLeftOutlined />
+          <span style={{ marginLeft: "5px" }}>Back to Login</span>
+        </Link>
         <h1 className="login_heading">Forgot Password</h1>
         <Form.Item
           name="username"

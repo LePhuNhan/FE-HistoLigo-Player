@@ -109,16 +109,19 @@ const Effectiveness = () => {
 
           <div className="wrapVideo">
             <div className="videoItem">
-              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/142vPnDQ6mM" title="BÍ KÍP HỌC GIỎI LỊCH SỬ CỦA THÍ SINH OLYMPIA | ĐƯỜNG LÊN ĐỈNH OLYMPIA - VTV3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/142vPnDQ6mM" title="BÍ KÍP HỌC GIỎI LỊCH SỬ CỦA THÍ SINH OLYMPIA | ĐƯỜNG LÊN ĐỈNH OLYMPIA - VTV3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
               <span>BÍ KÍP HỌC GIỎI LỊCH SỬ CỦA THÍ SINH OLYMPIA</span>
             </div>
             <div className="videoItem">
-              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/41MgBDC0HOk" title="Cách học để đạt điểm tuyệt đối môn Lịch Sử//học ít nhớ nhiều và lâu//giveaway" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/41MgBDC0HOk" title="Cách học để đạt điểm tuyệt đối môn Lịch Sử//học ít nhớ nhiều và lâu//giveaway" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
               <span style={{ textTransform: 'uppercase' }}>Cách học để đạt điểm tuyệt đối môn Lịch Sử</span>
             </div>
 
             <div className="videoItem">
-              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/IzApT9t87iU" title="KIẾN THỨC CHỐNG LIỆT MÔN LỊCH SỬ 12 (Phần lịch sử Việt Nam)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="500" height="280" style={{ display: 'block', borderRadius: '12px' }} src="https://www.youtube.com/embed/IzApT9t87iU" title="KIẾN THỨC CHỐNG LIỆT MÔN LỊCH SỬ 12 (Phần lịch sử Việt Nam)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
               <span style={{ textTransform: 'uppercase' }}>KIẾN THỨC CHỐNG LIỆT MÔN LỊCH SỬ 12 </span>
             </div>
           </div>

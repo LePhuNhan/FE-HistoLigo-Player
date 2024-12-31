@@ -1,6 +1,6 @@
 {
   "name": "fe_histoligo_player",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
@@ -28,7 +28,9 @@
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "start-electron": "electron .",
+    "build-electron": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +57,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "babel-jest": "^29.7.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
     "eslint": "^8.57.1",
     "identity-obj-proxy": "^3.0.0",
     "jest-environment-jsdom": "^29.7.0"
@@ -67,5 +71,24 @@
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     }
   },
-  "homepage": "/"
+  "homepage": "/",
+  "main": "build/electron.js",
+  "build": {
+    "appId": "com.histolingo.app",
+    "productName": "HistoLingo",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "build/**/*",
+      "build/electron.js",
+      "node_modules/**/*"
+    ]
+  },
+  "description": "HistoLingo Desktop Application",
+  "author": "Lê Phú Nhân"
 }

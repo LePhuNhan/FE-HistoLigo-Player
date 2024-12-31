@@ -14,6 +14,10 @@ Tải node_modules thư viện cần thiết
 
 Chạy web trên localhost:3000
 
+## Link deploy:
+https://histolingo-player-fndpfeekbzf6fdbc.eastasia-01.azurewebsites.net/
+Mối khi code nhánh main thay đổi sẽ tự động deploy lại code mới
+
 ## Các cú pháp tùy chọn
 
 ### `npm test`

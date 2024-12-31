@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Histolingo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Web dạy học lịch sử
 
-## Available Scripts
+## Các bước chạy Project
 
-In the project directory, you can run:
+Làm theo thứ tự sau:
+
+### `npm i`
+
+Tải node_modules thư viện cần thiết
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Chạy web trên localhost:3000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Các cú pháp tùy chọn
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Test code xem có lỗi nào không?
+Sau khi chạy cú pháp chọn a để test tất cả file
+Kết khi test ổn:
+![image](https://github.com/user-attachments/assets/269271f9-c5b0-4092-8160-e74a98922120)
+
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Xây dựng ứng dụng để sản xuất vào thư mục `build`.\
+Nó đóng gói React đúng cách ở chế độ sản xuất và tối ưu hóa bản dựng để có hiệu suất tốt nhất.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Bản dựng được thu nhỏ và tên tệp bao gồm các hàm băm.\
+Ứng dụng đã sẵn sàng để triển khai!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Xem phần về [triển khai](https://facebook.github.io/create-react-app/docs/deployment) để biết thêm thông tin.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Lưu ý: đây là thao tác một chiều. Sau khi bạn `eject`, bạn không thể quay lại!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Nếu bạn không hài lòng với công cụ xây dựng và các lựa chọn cấu hình, bạn có thể `eject` bất kỳ lúc nào. Lệnh này sẽ xóa phụ thuộc xây dựng đơn lẻ khỏi dự án của bạn.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Thay vào đó, nó sẽ sao chép tất cả các tệp cấu hình và các phụ thuộc chuyển tiếp (webpack, Babel, ESLint, v.v.) ngay vào dự án của bạn để bạn có toàn quyền kiểm soát chúng. Tất cả các lệnh ngoại trừ `eject` vẫn sẽ hoạt động, nhưng chúng sẽ trỏ đến các tập lệnh đã sao chép để bạn có thể điều chỉnh chúng. Lúc này, bạn phải tự mình thực hiện.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Bạn không bao giờ phải sử dụng `eject`. Bộ tính năng được quản lý phù hợp với các triển khai nhỏ và vừa, và bạn không nên cảm thấy bắt buộc phải sử dụng tính năng này. Tuy nhiên, chúng tôi hiểu rằng công cụ này sẽ không hữu ích nếu bạn không thể tùy chỉnh khi bạn đã sẵn sàng.
 
-## Learn More
+### `npm run build-electron`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Trong Command Prompt chạy Run as administrator
+CD đến đường dẫn GitHub\FE-HistoLigo-Player trên máy bạn
+Cú pháp sẽ tạo thư mục dist và đóng gói sản phẩm
+Sau khi chạy xong, trong thư mục dist sẽ có file HistoLingo Setup 1.0.0, chạy file HistoLingo Setup 1.0.0 thì tại màn hình chính sẽ hiện app Histolingo
+Sử dụng tương tự như Web

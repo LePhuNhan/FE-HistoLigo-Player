@@ -76,6 +76,7 @@
   "build": {
     "appId": "com.histolingo.app",
     "productName": "HistoLingo",
+    "icon":"/public/iconMeta.png",
     "directories": {
       "buildResources": "build",
       "output": "dist"

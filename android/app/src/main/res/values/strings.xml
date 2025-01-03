@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Histolingo</string>
+    <string name="title_activity_main">Histolingo</string>
+    <string name="package_name">com.histolingo.app</string>
+    <string name="custom_url_scheme">com.histolingo.app</string>
+</resources>

@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
     "@react-oauth/google": "^0.12.1",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.19.2",
@@ -24,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node copy-assets.js",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "lint": "eslint .",
@@ -60,6 +63,7 @@
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
     "eslint": "^8.57.1",
+    "fs-extra": "^11.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-environment-jsdom": "^29.7.0"
   },
@@ -76,7 +80,7 @@
   "build": {
     "appId": "com.histolingo.app",
     "productName": "HistoLingo",
-    "icon":"/public/iconMeta.png",
+    "icon": "/public/iconMeta.png",
     "directories": {
       "buildResources": "build",
       "output": "dist"

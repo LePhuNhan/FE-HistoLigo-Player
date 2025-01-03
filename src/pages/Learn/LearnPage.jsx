@@ -7,7 +7,6 @@ import "./LearnPage.styles.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MoonOutlined, SunOutlined, BarsOutlined } from "@ant-design/icons";
-import CoverBookImg from "../../assets/cover_book.webp";
 import FlagVN from "../../assets/vietnam-flag.png";
 import FlagUS from "../../assets/us-flag.png";
 import { Spin } from 'antd';
@@ -167,7 +166,7 @@ const Learn = () => {
               <Link to="/chooseClass">
                 <img
                   src={
-                    selectedClassImg !== null ? selectedClassImg : CoverBookImg
+                    selectedClassImg !== null ? selectedClassImg : "https://i.imgur.com/pWhNaRn.jpeg"
                   }
                   alt={selectedClass}
                   style={{ width: 40, borderRadius: 1 }}

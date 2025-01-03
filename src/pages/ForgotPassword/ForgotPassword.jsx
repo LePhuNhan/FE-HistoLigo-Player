@@ -1,7 +1,7 @@
 import React from "react";
 import "./ForgotP.styles.css";
 import { ArrowLeftOutlined, MailOutlined, RollbackOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const LoginPage = () => {
@@ -21,6 +21,7 @@ const LoginPage = () => {
 
     } catch (error) {
       console.error("Error posting data:", error);
+      message.error("No account found with this username!", 1);
 
     }
 

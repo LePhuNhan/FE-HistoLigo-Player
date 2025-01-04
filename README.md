@@ -60,7 +60,7 @@ Sử dụng tương tự như Web.
 
 ## Đóng gói App Mobile APK
 
-Chạy lần lượt các bước sau .\
+Chạy lần lượt các bước sau
 
 ### `npm run build`
 

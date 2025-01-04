@@ -48,10 +48,30 @@ Thay vào đó, nó sẽ sao chép tất cả các tệp cấu hình và các ph
 
 Bạn không bao giờ phải sử dụng `eject`. Bộ tính năng được quản lý phù hợp với các triển khai nhỏ và vừa, và bạn không nên cảm thấy bắt buộc phải sử dụng tính năng này. Tuy nhiên, chúng tôi hiểu rằng công cụ này sẽ không hữu ích nếu bạn không thể tùy chỉnh khi bạn đã sẵn sàng.
 
+## Đóng gói App Window
+
 ### `npm run build-electron`
 
 Trong Command Prompt chạy Run as administrator .\
 CD đến đường dẫn GitHub\FE-HistoLigo-Player trên máy bạn .\
 Cú pháp sẽ tạo thư mục dist và đóng gói sản phẩm .\
 Sau khi chạy xong, trong thư mục dist sẽ có file HistoLingo Setup 1.0.0, chạy file HistoLingo Setup 1.0.0 thì tại màn hình chính sẽ hiện app Histolingo .\
+Sử dụng tương tự như Web.
+
+## Đóng gói App Mobile APK
+
+Chạy lần lượt các bước sau .\
+
+### `npm run build`
+
+### `npx cap copy android`
+
+### `npx cap sync android`
+
+### `npx cap open android`
+
+Sau khi vào Android Studio, đợi build xong có thể start để test app .\
+Nếu muốn đóng gói sản phẩm thành apk chọn Build > Build Bundle(s)/APK(s) > Build APK(s) .\
+Sau khi chạy xong, nó sẽ hiện thông báo đến đường dẫn apk đã tạo trong máy .\
+Chạy bằng phần mềm giả lập hoặc tải qua điện thoại và cài đặt .\
 Sử dụng tương tự như Web.
